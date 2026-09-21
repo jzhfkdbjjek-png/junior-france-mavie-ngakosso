@@ -85,7 +85,7 @@
     "badge": "Section Écrivain",
     "title": "MES",
     "titleAccent": "Livres",
-    "subtitle": "Découvrez les œuvres littéraires officielles de Junior France Mavie NGAKOSSO, romans indépendants édités et disponibles sur Amazon.",
+    "subtitle": "Découvrez les œuvres littéraires officielles de Junior France Mavie NGAKOSSO, romans officiels édités et disponibles sur Amazon.",
     "buyAmazon": "Acheter sur Amazon",
     "readSynopsis": "Lire la fiche & résumé",
     "closeModal": "Fermer",
@@ -94,6 +94,7 @@
     "universeLabel": "Genre / Univers",
     "typeLabel": "Type",
     "availableLabel": "Disponible",
+    "extractLabel": "Extrait choisi",
     "items": {
       "cercueil": {
         "title": "LE CERCUEIL AUX MUSCLES",
@@ -105,31 +106,20 @@
         "subBadge": "Disponible sur Amazon",
         "description": "Le livre raconte le parcours d'un jeune homme confronté au décès de son père et qui transforme progressivement son corps en une sorte d'armure pour tenter de cacher sa souffrance.",
         "summary": "Le livre raconte le parcours d'un jeune homme confronté au décès de son père et qui transforme progressivement son corps en une sorte d'armure pour tenter de cacher sa souffrance. L'œuvre explore le deuil, la masculinité, la douleur, la famille, le rapport au corps et la reconstruction personnelle.",
+        "extract": "« J'ai forgé du muscle là où mon cœur saignait, persuadé qu'une armure de chair et de fonte empêcherait mes larmes de couler au grand jour. »",
         "note": "● Découvrir le Scénario Film"
-      },
-      "foret": {
-        "title": "LA FORÊT INTERDITE",
-        "type": "Livre",
-        "author": "Junior France Mavie NGAKOSSO",
-        "available": "Amazon",
-        "category": "Fantastique • Mystique • Surnaturel • Drame",
-        "badge": "Roman Phare",
-        "subBadge": "Disponible sur Amazon",
-        "description": "L'œuvre plonge le lecteur dans l'univers de Ngoma, de sa forêt sacrée, de ses traditions et de ses forces surnaturelles.",
-        "summary": "L'œuvre plonge le lecteur dans l'univers de Ngoma, de sa forêt sacrée, de ses traditions et de ses forces surnaturelles. Une immersion au cœur des mystères équatoriaux, de la protection ancestrale et des forces invisibles qui défendent le sanctuaire.",
-        "note": "Découvrir la Série TV →"
       },
       "pacte": {
-        "title": "LE PACTE DU DÉMON",
+        "title": "PACTE DU DÉMON",
         "type": "Livre",
         "author": "Junior France Mavie NGAKOSSO",
         "available": "Amazon",
-        "category": "Thriller mystique • Drame social • Fantastique",
-        "badge": "Livre Indépendant",
+        "category": "Thriller mystique / Fiction surnaturelle",
+        "badge": "Livre Officiel",
         "subBadge": "Disponible sur Amazon",
-        "description": "Trois jeunes hommes concluent un pacte occulte pour obtenir la fortune et le respect dont ils rêvent, découvrant que le prix détruit leur humanité.",
-        "summary": "Trois jeunes hommes en quête de réussite rapide concluent un pacte occulte redoutable. Mais lorsque les clauses invisibles du contrat commencent à exiger un tribut destructeur et à déchirer leurs liens fraternels, ils découvrent que seule la vérité pourra leur permettre de briser le serment.",
-        "note": "● Découvrir le Scénario Film"
+        "description": "Une plongée littéraire captivante dans les méandres de l'ambition et de l'interdit, où un accord mystique scellé dans l'ombre réclame un prix impitoyable à ceux qui ont osé défier les lois de l'invisible.",
+        "summary": "À travers une narration littéraire immersive et sous haute tension, « Pacte du Démon » explore la vulnérabilité humaine face aux tentations absolues. Voulant fuir la précarité et l'impuissance, les protagonistes concluent un pacte obscur leur promettant fortune et rayonnement. Mais à mesure que l'emprise surnaturelle se referme, la réussite se mue en calvaire psychologique et familial, les contraignant à une lutte désespérée pour racheter leur liberté et leur âme.",
+        "extract": "« L'ombre n'accorde jamais de grâce sans réclamer l'usure de votre âme. Lorsque vous scellez le contrat de votre plein gré, ce que vous croyiez être une conquête devient votre plus cruelle prison. »"
       }
     }
   },
@@ -162,8 +152,8 @@
     "specStatusVal": "Projet finalisé",
     "specRole": "Créateur / Scénariste",
     "specRoleVal": "Junior France Mavie NGAKOSSO",
-    "readAmazon": "Découvrir le Livre (Amazon)",
-    "discoverSeries": "Découvrir la Série (Contact Production)",
+    "viewDedicatedPage": "Consulter la Page Dédiée de la Série",
+    "discoverSeries": "Dossier & Contact Production",
     "overlayPrestige": "Format Série Prestige",
     "overlayEpisodes": "8 Épisodes × 52 Minutes",
     "overlayBadge": "PROJET FINALISÉ"
@@ -174,7 +164,7 @@
     "titleAccent": "Séries",
     "filters": {
       "all": "Tout le Catalogue",
-      "books": "Livres (3)",
+      "books": "Livres (2)",
       "films": "Films / Longs-Métrages (7)",
       "series": "Séries TV (6)"
     },

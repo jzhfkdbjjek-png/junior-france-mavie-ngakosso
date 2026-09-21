@@ -6,11 +6,12 @@ import { CinematicButton } from './CinematicButton';
 
 interface SpotlightSectionProps {
   onContactClick?: () => void;
-  onNavigateLivres?: () => void;
+  onOpenDedicatedPage?: () => void;
 }
 
 export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
   onContactClick,
+  onOpenDedicatedPage,
 }) => {
   const { t, language } = useI18n();
   const [activeTab, setActiveTab] = useState<'synopsis' | 'personnages' | 'univers' | 'intention'>('synopsis');
@@ -206,20 +207,24 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
               </div>
             </div>
 
-            {/* 2 BOUTONS D'ACTION : LIEN LITTÉRAIRE & LIEN AUDIOVISUEL */}
+            {/* 2 BOUTONS D'ACTION : PAGE DÉDIÉE DE LA SÉRIE & CONTACT PRODUCTION */}
             <div data-reveal="fade-up" className="delay-300 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-3 max-w-full">
-              {/* Lien Littéraire (Découvrir le livre) */}
+              {/* Bouton Page Dédiée de la Série */}
               <CinematicButton
-                variant="amazon"
+                variant="primary"
                 size="md"
-                href="https://a.co/d/08g7FiVA"
-                target="_blank"
-                rel="noopener noreferrer"
-                icon={<BookOpen className="w-4 h-4 shrink-0" />}
-                iconPosition="left"
-                className="w-full sm:w-auto text-center"
+                onClick={() => {
+                  if (onOpenDedicatedPage) {
+                    onOpenDedicatedPage();
+                  } else {
+                    window.location.hash = '#foret-interdite-page';
+                  }
+                }}
+                icon={<ArrowUpRight className="w-4 h-4 shrink-0" />}
+                iconPosition="right"
+                className="w-full sm:w-auto text-center bg-red-600 hover:bg-red-700 text-white border-red-500/50 shadow-lg shadow-red-950/50"
               >
-                {t('spotlight.readAmazon')}
+                {t('spotlight.viewDedicatedPage')}
               </CinematicButton>
 
               {/* Lien Audiovisuel (Découvrir la série / Coproduction) */}

@@ -29,54 +29,38 @@ export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
       lang === 'en'
         ? "The book chronicles the path of a young man coping with the loss of his father, transforming his physique into emotional armor. The work explores grief, masculinity, vulnerability, family ties, body relationship, and personal reconstruction."
         : "Le livre raconte le parcours d'un jeune homme confronté au décès de son père et qui transforme progressivement son corps en une sorte d'armure pour tenter de cacher sa souffrance. L'œuvre explore le deuil, la masculinité, la douleur, la famille, le rapport au corps et la reconstruction personnelle.",
+    extract:
+      lang === 'en'
+        ? "“I built muscles where my heart was bleeding, convinced that an armor of flesh and iron would keep tears from spilling into the light.”"
+        : "« J'ai forgé du muscle là où mon cœur saignait, persuadé qu'une armure de chair et de fonte empêcherait mes larmes de couler au grand jour. »",
     amazonUrl: 'https://a.co/d/01ZNkXtg',
     adaptationNote: lang === 'en' ? '● Screen Link: Discover Feature Film' : '● Passerelle : Découvrir l’adaptation Film',
     adaptationType: 'film',
     adaptationTargetId: 'film-cercueil',
   },
   {
-    id: 'foret-interdite',
-    title: lang === 'en' ? 'LA FORÊT INTERDITE (THE FORBIDDEN FOREST)' : 'LA FORÊT INTERDITE',
-    type: lang === 'en' ? 'Flagship Novel' : 'Livre',
-    author: 'Junior France Mavie NGAKOSSO',
-    category: lang === 'en' ? 'Fantasy • Mystical • Supernatural • Congo' : 'Fantastique • Mystique • Surnaturel • Congo',
-    badge: lang === 'en' ? 'Flagship Novel' : 'Roman Phare',
-    subBadge: lang === 'en' ? 'Available on Amazon' : 'Disponible sur Amazon',
-    image: OFFICIAL_IMAGES.bookForet,
-    universe: lang === 'en' ? 'Fantasy • Mystical • Supernatural • Congo' : 'Fantastique • Mystique • Surnaturel • Congo',
-    description:
-      lang === 'en'
-        ? "The work immerses the reader into the world of Ngoma, its sacred forest, its ancestral traditions, and its supernatural forces."
-        : "L'œuvre plonge le lecteur dans l'univers de Ngoma, de sa forêt sacrée, de ses traditions et de ses forces surnaturelles.",
-    summary:
-      lang === 'en'
-        ? "The work plunges the reader into the heart of Ngoma, where an equatorial sacred forest guards ancient spiritual barriers. When tabs are breached, occult forces awake, threatening the living world."
-        : "L'œuvre plonge le lecteur dans l'univers de Ngoma, de sa forêt sacrée, de ses traditions et de ses forces surnaturelles. Une immersion dense entre légendes équatoriales, tabous séculaires et puissances invisibles qui menacent l'équilibre des vivants.",
-    amazonUrl: 'https://a.co/d/08g7FiVA',
-    adaptationNote: lang === 'en' ? 'Screen Link: Discover TV Series →' : 'Passerelle : Découvrir la Série TV →',
-    adaptationType: 'series',
-    adaptationTargetId: 'foret-interdite',
-    isSpotlight: true,
-  },
-  {
     id: 'pacte-du-demon',
-    title: 'LE PACTE DU DÉMON',
-    type: lang === 'en' ? 'Book' : 'Livre',
+    title: 'PACTE DU DÉMON',
+    type: lang === 'en' ? 'Book / Literary Work' : 'Livre / œuvre littéraire',
     author: 'Junior France Mavie NGAKOSSO',
-    category: lang === 'en' ? 'Mystical Thriller • Social Drama • Fantasy' : 'Thriller mystique • Drame social • Fantastique',
-    badge: lang === 'en' ? 'Independent Book' : 'Livre Indépendant',
+    category: lang === 'en' ? 'Mystical Thriller / Supernatural Fiction' : 'Thriller mystique / Fiction surnaturelle',
+    badge: lang === 'en' ? 'Official Novel' : 'Roman Officiel',
     subBadge: lang === 'en' ? 'Available on Amazon' : 'Disponible sur Amazon',
     image: OFFICIAL_IMAGES.bookPacte,
-    universe: lang === 'en' ? 'Mystical thriller • Social drama • Fantasy' : 'Thriller mystique • Drame social • Fantastique',
+    universe: lang === 'en' ? 'Supernatural Thriller / Mystical Fiction' : 'Thriller surnaturel / Fiction mystique',
     description:
       lang === 'en'
-        ? "Three impoverished young men enter an occult pact to gain the wealth and respect they crave, only to discover the terrifying human price."
-        : "Trois jeunes hommes concluent un pacte occulte pour obtenir la fortune et le respect dont ils rêvent, découvrant que le prix détruit leur humanité.",
+        ? "A chilling literary plunge into the forbidden corners of ambition, where a desperate secret agreement unleashes supernatural forces with a devastating price."
+        : "Une plongée littéraire captivante dans les méandres de l'ambition et de l'interdit, où un accord mystique scellé dans l'ombre réclame un prix impitoyable à ceux qui ont osé défier les lois de l'invisible.",
     summary:
       lang === 'en'
-        ? "Three young men seeking rapid success and influence enter into a dangerous occult pact. But when the hidden clauses of the contract demand a devastating tribute and tear their brotherhood apart, they discover that only the truth can break the deadly oath."
-        : "Trois jeunes hommes en quête de réussite et d'influence concluent un pacte occulte redoutable. Mais lorsque les clauses invisibles du contrat commencent à exiger un tribut destructeur et à déchirer leurs liens fraternels, ils découvrent que seule la vérité pourra leur permettre de briser le serment.",
-    amazonUrl: 'https://a.co/d/08g7FiVA',
+        ? "Through a tense, gripping literary narrative, “Pacte du Démon” explores human vulnerability confronted with extreme temptation. Seeking an escape from hardship and despair, the protagonists enter a dark pact promising unmeasured fortune. But as the supernatural contract tightens its grip, paranoia and moral collapse take hold, forcing an existential struggle to reclaim one's stolen soul."
+        : "À travers une narration littéraire immersive et sous haute tension, « Pacte du Démon » explore la vulnérabilité humaine face aux tentations absolues. Voulant fuir la précarité et l'impuissance, les protagonistes concluent un pacte obscur leur promettant fortune et rayonnement. Mais à mesure que l'emprise surnaturelle se referme, la réussite se mue en calvaire psychologique et familial, les contraignant à une lutte désespérée pour racheter leur liberté et leur âme.",
+    extract:
+      lang === 'en'
+        ? "“The shadows never grant favors without demanding the full measure of your soul. When you sign with your own will, what you thought was power becomes your inescapable cage.”"
+        : "« L'ombre n'accorde jamais de grâce sans réclamer l'usure de votre âme. Lorsque vous scellez le contrat de votre plein gré, ce que vous croyiez être une conquête devient votre plus cruelle prison. »",
+    amazonUrl: 'https://a.co/d/01ZNkXtg',
   },
 ];
 
@@ -239,8 +223,6 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
         ? "In 2026 Ngoma (Republic of the Congo), the sacred forest shielding the village is leveled for commercial greed, shattering the Bisengo veil between the physical and spirit worlds. Kito, gifted with the Meso Miviri vision, must rally ancestral allies before the full moon."
         : "À Ngoma, en République du Congo, en 2026, la forêt sacrée qui protège le village depuis des générations est détruite au nom du développement et des intérêts économiques. Cet acte brise le Bisengo, une force ancestrale maintenant séparés le monde des vivants et des esprits. Kito Ngoma, 17 ans, introverti et passionné de dessin, découvre qu'il possède le Meso Miviri lié aux anciens Tisseurs. Devenu la cible des habitants, il est épaulé par son ami Samba, sa grand-mère Mama Kito, le gardien Maléko et l'esprit Nala pour affronter les Ba-Mvumbi et les Nganga avant la pleine lune.",
     isPrestige: true,
-    relatedBookId: 'foret-interdite',
-    relatedBookTitle: lang === 'en' ? 'LA FORÊT INTERDITE (Book)' : 'LA FORÊT INTERDITE (Livre)',
   },
   {
     id: 'serie-heritage-ombres',
@@ -355,15 +337,15 @@ export const getAudioTracks = (lang: Language = 'fr'): AudioTrack[] => [
     subtitle: lang === 'en' ? 'Equatorial Ambience & Mystical Score' : 'Ambiance Équatoriale & Thème Mystique',
     duration: '03:45',
     durationSeconds: 225,
-    bookReference: 'La Forêt Interdite',
+    bookReference: lang === 'en' ? 'The Forbidden Forest (Series)' : 'La Forêt Interdite (Série)',
   },
   {
     id: 'track-pacte',
-    title: lang === 'en' ? 'Le Pacte du Démon — The Negotiation of Shadows' : 'Le Pacte du Démon — La Négociation des Ombres',
+    title: lang === 'en' ? 'Pacte du Démon — The Negotiation of Shadows' : 'Pacte du Démon — La Négociation des Ombres',
     subtitle: lang === 'en' ? 'Dramatic Reading & Dark Cello Arrangement' : 'Lecture Dramatique & Cordes Obscures',
     duration: '05:12',
     durationSeconds: 312,
-    bookReference: 'Le Pacte du Démon',
+    bookReference: lang === 'en' ? 'Pacte du Démon (Book)' : 'Pacte du Démon (Livre)',
   },
 ];
 

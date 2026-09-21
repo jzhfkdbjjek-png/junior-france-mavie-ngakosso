@@ -10,6 +10,7 @@ export interface BookItem {
   universe: string;
   description: string;
   summary: string;
+  extract?: string;
   amazonUrl: string;
   adaptationNote?: string;
   adaptationType?: 'film' | 'series';

@@ -85,7 +85,7 @@
     "badge": "Writer Section",
     "title": "MY",
     "titleAccent": "Books",
-    "subtitle": "Discover the official literary works of Junior France Mavie NGAKOSSO, independent novels published and available on Amazon.",
+    "subtitle": "Discover the official literary works of Junior France Mavie NGAKOSSO, official novels published and available on Amazon.",
     "buyAmazon": "Buy on Amazon",
     "readSynopsis": "Read overview & summary",
     "closeModal": "Close",
@@ -94,6 +94,7 @@
     "universeLabel": "Genre / Universe",
     "typeLabel": "Type",
     "availableLabel": "Available",
+    "extractLabel": "Selected Excerpt",
     "items": {
       "cercueil": {
         "title": "LE CERCUEIL AUX MUSCLES",
@@ -105,31 +106,20 @@
         "subBadge": "Available on Amazon",
         "description": "The book tells the journey of a young man facing the death of his father, gradually transforming his body into an armor to hide his suffering.",
         "summary": "The book tells the journey of a young man facing the death of his father and who gradually transforms his body into a form of armor in an attempt to hide his suffering. The work explores grief, masculinity, pain, family bonds, body relationship, and personal reconstruction.",
+        "extract": "“I built muscles where my heart was bleeding, convinced that an armor of flesh and iron would keep tears from spilling into the light.”",
         "note": "● Discover Feature Film Script"
-      },
-      "foret": {
-        "title": "LA FORÊT INTERDITE",
-        "type": "Book",
-        "author": "Junior France Mavie NGAKOSSO",
-        "available": "Amazon",
-        "category": "Fantasy • Mystical • Supernatural • Drama",
-        "badge": "Flagship Book",
-        "subBadge": "Available on Amazon",
-        "description": "The work immerses readers in the universe of Ngoma, its sacred forest, its traditions, and its supernatural forces.",
-        "summary": "The work immerses the reader in the universe of Ngoma, its sacred forest, its traditions, and its supernatural forces. A dense journey between equatorial legends, ancestral protection, and unseen spirits defending the sanctuary.",
-        "note": "Discover TV Series →"
       },
       "pacte": {
-        "title": "LE PACTE DU DÉMON",
+        "title": "PACTE DU DÉMON",
         "type": "Book",
         "author": "Junior France Mavie NGAKOSSO",
         "available": "Amazon",
-        "category": "Mystical Thriller • Social Drama • Fantasy",
-        "badge": "Independent Book",
+        "category": "Mystical Thriller / Supernatural Fiction",
+        "badge": "Official Book",
         "subBadge": "Available on Amazon",
-        "description": "Three impoverished young men enter an occult pact for money and respect, discovering that the price destroys their humanity.",
-        "summary": "Three young men seeking quick fortune enter a dangerous occult pact. But when the unwritten clauses demand a devastating tribute and tear their brotherhood apart, they realize only the truth can break the contract.",
-        "note": "● Discover Feature Film Script"
+        "description": "A chilling literary plunge into the forbidden corners of ambition, where a desperate secret agreement unleashes supernatural forces with a devastating price.",
+        "summary": "Through a tense, gripping literary narrative, “Pacte du Démon” explores human vulnerability confronted with extreme temptation. Seeking an escape from hardship and despair, the protagonists enter a dark pact promising unmeasured fortune. But as the supernatural contract tightens its grip, paranoia and moral collapse take hold, forcing an existential struggle to reclaim one's stolen soul.",
+        "extract": "“The shadows never grant favors without demanding the full measure of your soul. When you sign with your own will, what you thought was power becomes your inescapable cage.”"
       }
     }
   },
@@ -162,8 +152,8 @@
     "specStatusVal": "Finalized Project",
     "specRole": "Creator / Screenwriter",
     "specRoleVal": "Junior France Mavie NGAKOSSO",
-    "readAmazon": "Discover the Book (Amazon)",
-    "discoverSeries": "Discover the Series (Production Contact)",
+    "viewDedicatedPage": "View Dedicated Series Page",
+    "discoverSeries": "Show Bible & Production Contact",
     "overlayPrestige": "Prestige Series Format",
     "overlayEpisodes": "8 Episodes × 52 Minutes",
     "overlayBadge": "FINALIZED PROJECT"
@@ -174,7 +164,7 @@
     "titleAccent": "Series",
     "filters": {
       "all": "All Works",
-      "books": "Books (3)",
+      "books": "Books (2)",
       "films": "Films / Features (7)",
       "series": "TV Series (6)"
     },
