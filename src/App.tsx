@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { BooksSection } from './components/BooksSection';
@@ -6,29 +6,98 @@ import { SpotlightSection } from './components/SpotlightSection';
 import { CatalogueSection } from './components/CatalogueSection';
 import { AudioSection } from './components/AudioSection';
 import { UniversSection } from './components/UniversSection';
+import { PressKitSection } from './components/PressKitSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CinematicBookLoader } from './components/CinematicBookLoader';
+import { NotFoundPage } from './components/NotFoundPage';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<string>('accueil');
+  const [currentView, setCurrentView] = useState<string>(() => {
+    // Check if the current pathname or hash indicates a 404
+    const path = window.location.pathname;
+    if (path !== '/' && path !== '' && path !== '/index.html') {
+      return '404';
+    }
+    return 'accueil';
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // Handle browser back/forward and 404 routing
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path !== '/' && path !== '' && path !== '/index.html') {
+        setCurrentView('404');
+      } else {
+        setCurrentView('accueil');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Initialize scroll observer whenever loading state changes
-  useScrollReveal(!isLoading);
+  useScrollReveal(!isLoading && currentView !== '404');
 
   const handleNavigateSection = (sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (currentView !== 'accueil') {
+      setCurrentView('accueil');
+      window.history.pushState({}, '', '/');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
-  const handleReplayIntro = () => {
-    setIsLoading(true);
+  const handleReturnHome = () => {
+    setCurrentView('accueil');
+    window.history.pushState({}, '', '/');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const handleExploreWorks = () => {
+    setCurrentView('accueil');
+    window.history.pushState({}, '', '/');
+    setTimeout(() => {
+      const el = document.getElementById('catalogue') || document.getElementById('livres');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  const handleContactFrom404 = () => {
+    setCurrentView('accueil');
+    window.history.pushState({}, '', '/');
+    setTimeout(() => {
+      const el = document.getElementById('contact');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  if (currentView === '404') {
+    return (
+      <NotFoundPage
+        onReturnHome={handleReturnHome}
+        onExploreWorks={handleExploreWorks}
+        onContactClick={handleContactFrom404}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0b0d0c] text-[#f2ede4] font-sans selection:bg-[#c59b63] selection:text-black">
@@ -41,7 +110,6 @@ export default function App() {
       <Header
         currentView={currentView}
         setCurrentView={setCurrentView}
-        onReplayIntro={handleReplayIntro}
       />
 
       {/* Main Container */}
@@ -66,7 +134,7 @@ export default function App() {
           onContactClick={() => handleNavigateSection('contact')}
         />
 
-        {/* Section 4 — Scénarios (Films) & Créations (Séries) */}
+        {/* Section 4 — Scénarios (Films) & Créations (Séries) avec Recherche & Filtres Avancés */}
         <CatalogueSection
           onNavigateForet={() => handleNavigateSection('foret-interdite')}
           onNavigateLivres={() => handleNavigateSection('livres')}
@@ -79,14 +147,16 @@ export default function App() {
         {/* Section 6 — Mon Univers */}
         <UniversSection />
 
-        {/* Section 7 — Contact & Collaboration */}
+        {/* Section 7 — Presse & Médias : Press Kit Professionnel A4 */}
+        <PressKitSection />
+
+        {/* Section 8 — Contact & Collaboration */}
         <ContactSection />
       </main>
 
       {/* Footer */}
       <Footer
         onNavigateSection={handleNavigateSection}
-        onReplayIntro={handleReplayIntro}
       />
     </div>
   );

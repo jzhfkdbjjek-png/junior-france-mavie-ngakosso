@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useI18n } from '../i18n/I18nContext';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { CinematicButton } from './CinematicButton';
 
 interface HeaderProps {
   currentView: string;
   setCurrentView: (view: string) => void;
-  onReplayIntro?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) => {
@@ -42,6 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) =
     { id: 'series', label: t('nav.series'), href: '#series' },
     { id: 'audio', label: t('nav.audio'), href: '#audio' },
     { id: 'univers', label: t('nav.universe'), href: '#univers' },
+    { id: 'presse', label: t('nav.press'), href: '#presse' },
     { id: 'contact', label: t('nav.contact'), href: '#contact' },
   ];
 
@@ -85,9 +86,14 @@ export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) =
             className="flex flex-col group cursor-pointer text-left min-w-0 overflow-hidden pr-2 sm:pr-3"
             aria-label="Junior France Mavie Ngakosso — Accueil"
           >
-            <span className="font-cinzel tracking-[0.04em] sm:tracking-[0.08em] xl:tracking-[0.14em] text-[clamp(13px,3.8vw,17px)] xl:text-[14.5px] font-black text-white group-hover:text-brand-amber transition-colors leading-[1.22] break-words xl:whitespace-nowrap">
-              JUNIOR FRANCE MAVIE NGAKOSSO
-            </span>
+            <div className="flex items-baseline gap-1 sm:gap-1.5 flex-wrap min-w-0 leading-tight">
+              <span className="font-cinzel tracking-[0.04em] sm:tracking-[0.06em] text-[clamp(11px,3vw,13px)] xl:text-[13px] font-semibold text-stone-300 group-hover:text-white transition-colors uppercase">
+                JUNIOR FRANCE MAVIE
+              </span>
+              <span className="author-brand-ngakosso text-[clamp(13px,3.8vw,16.5px)] xl:text-[16px] group-hover:text-brand-amber transition-colors">
+                NGAKOSSO
+              </span>
+            </div>
             <span className="text-[7.5px] sm:text-[8.5px] xl:text-[9px] tracking-[0.12em] sm:tracking-[0.16em] xl:tracking-[0.20em] text-brand-amber uppercase font-semibold leading-tight mt-0.5 break-words xl:whitespace-nowrap">
               {t('hero.roleSubtitle')}
             </span>
@@ -120,18 +126,20 @@ export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) =
             <LanguageSwitcher variant="header" />
 
             {/* Bouton CONTACT */}
-            <a
+            <CinematicButton
               id="header-contact-cta"
+              variant="contact"
+              size="sm"
               href="#contact"
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick('#contact');
               }}
-              className="inline-flex items-center justify-center gap-1.5 min-h-[42px] h-[42px] px-5 text-xs uppercase tracking-widest font-bold text-black bg-gradient-to-r from-brand-amber to-brand-gold rounded-xl hover:brightness-110 active:scale-[0.98] transition-all shadow-md cursor-pointer whitespace-nowrap shrink-0"
+              icon={<ArrowUpRight className="w-3.5 h-3.5" />}
+              iconPosition="right"
             >
-              <span>{t('nav.contact')}</span>
-              <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
-            </a>
+              {t('nav.contact')}
+            </CinematicButton>
           </div>
 
           {/* DROITE MOBILE / TABLETTE: Bouton HAMBURGER (Colonne dédiée 44x44px, shrink-0, sans collision) */}

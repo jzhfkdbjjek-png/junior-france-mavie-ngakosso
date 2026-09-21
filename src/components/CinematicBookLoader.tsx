@@ -399,21 +399,12 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
               <div className="absolute inset-2.5 sm:inset-3 rounded-xl border border-brand-gold/40 pointer-events-none"></div>
               <div className="absolute inset-3.5 sm:inset-4 rounded-lg border border-brand-amber/25 pointer-events-none"></div>
 
-              {/* Corner Ornaments */}
-              <div className="absolute top-4 left-4 text-brand-gold/70 text-xs sm:text-sm select-none">✦</div>
-              <div className="absolute top-4 right-4 text-brand-gold/70 text-xs sm:text-sm select-none">✦</div>
-              <div className="absolute bottom-4 left-4 text-brand-gold/70 text-xs sm:text-sm select-none">✦</div>
-              <div className="absolute bottom-4 right-4 text-brand-gold/70 text-xs sm:text-sm select-none">✦</div>
-
               {/* Spine edge shadow on the left */}
               <div className="absolute left-0 top-0 bottom-0 w-5 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none"></div>
 
-              {/* Top Embossed Emblem */}
+              {/* Top Header */}
               <div className="relative z-10 text-center pt-2 sm:pt-4">
-                <div className="w-9 sm:w-11 h-9 sm:h-11 mx-auto rounded-full border border-brand-gold/50 flex items-center justify-center bg-black/40 shadow-inner">
-                  <span className="font-cinzel text-xs sm:text-sm text-brand-gold font-bold">JN</span>
-                </div>
-                <span className="block text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-brand-gold/80 font-cinzel mt-2 font-semibold">
+                <span className="block text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-brand-gold/80 font-cinzel font-semibold">
                   {language === 'en' ? 'OFFICIAL WORKS' : 'OEUVRES OFFICIELLES'}
                 </span>
               </div>
@@ -429,14 +420,18 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
                 </div>
 
                 <h1
-                  className="font-cinzel text-lg xs:text-xl sm:text-2xl md:text-[26px] font-bold tracking-[0.12em] text-white leading-tight uppercase"
+                  className="leading-tight uppercase text-center"
                   style={{
                     textShadow:
-                      '0 2px 4px rgba(0,0,0,0.9), 0 0 20px rgba(229,169,88,0.5), 0 0 40px rgba(197,155,99,0.3)',
+                      '0 2px 4px rgba(0,0,0,0.9), 0 0 20px rgba(229,169,88,0.3)',
                   }}
                 >
-                  <span className="block text-white">JUNIOR FRANCE</span>
-                  <span className="block text-brand-gold mt-1">MAVIE NGAKOSSO</span>
+                  <span className="block font-cinzel text-xs xs:text-sm sm:text-base tracking-[0.14em] text-stone-300 font-semibold">
+                    JUNIOR FRANCE MAVIE
+                  </span>
+                  <span className="author-brand-ngakosso text-2xl xs:text-3xl sm:text-[32px] mt-1 block">
+                    NGAKOSSO
+                  </span>
                 </h1>
 
                 {/* SUBTITLE */}
@@ -474,9 +469,6 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
               </div>
 
               <div className="relative z-10 text-center space-y-2 py-4">
-                <div className="w-12 h-12 mx-auto rounded-full border border-brand-gold/30 bg-black/40 flex items-center justify-center">
-                  <span className="font-cinzel text-sm text-brand-gold">✦</span>
-                </div>
                 <p className="font-cinzel text-xs sm:text-sm text-stone-300 uppercase tracking-widest font-bold">
                   {language === 'en' ? 'ARTISTIC UNIVERSE' : 'UNIVERS ARTISTIQUE'}
                 </p>
@@ -516,18 +508,6 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
             className="h-full bg-gradient-to-r from-brand-amber to-brand-gold transition-all duration-100 ease-linear rounded-full"
             style={{ width: `${Math.min(100, (time / 6.8) * 100)}%` }}
           ></div>
-        </div>
-
-        {/* Skip action button */}
-        <div className="pt-2">
-          <CinematicButton
-            variant="ghost"
-            size="sm"
-            onClick={onComplete}
-            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-stone-400 hover:text-white"
-          >
-            {language === 'en' ? 'Skip introduction →' : "Passer l'introduction →"}
-          </CinematicButton>
         </div>
       </div>
     </div>

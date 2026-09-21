@@ -53,58 +53,53 @@ export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
         ? "The work plunges the reader into the heart of Ngoma, where an equatorial sacred forest guards ancient spiritual barriers. When tabs are breached, occult forces awake, threatening the living world."
         : "L'œuvre plonge le lecteur dans l'univers de Ngoma, de sa forêt sacrée, de ses traditions et de ses forces surnaturelles. Une immersion dense entre légendes équatoriales, tabous séculaires et puissances invisibles qui menacent l'équilibre des vivants.",
     amazonUrl: 'https://a.co/d/08g7FiVA',
-    adaptationNote: lang === 'en' ? '✦ Screen Link: Discover TV Series' : '✦ Passerelle : Découvrir la Série TV',
+    adaptationNote: lang === 'en' ? 'Screen Link: Discover TV Series →' : 'Passerelle : Découvrir la Série TV →',
     adaptationType: 'series',
     adaptationTargetId: 'foret-interdite',
     isSpotlight: true,
   },
   {
-    id: 'pacte-avec-le-diable',
-    title: lang === 'en' ? 'PACTE AVEC LE DIABLE (PACT WITH THE DEVIL)' : 'PACTE AVEC LE DIABLE',
-    type: lang === 'en' ? 'Novel & Adaptation' : 'Livre & Œuvre Littéraire',
+    id: 'pacte-du-demon',
+    title: 'LE PACTE DU DÉMON',
+    type: lang === 'en' ? 'Book' : 'Livre',
     author: 'Junior France Mavie NGAKOSSO',
-    category: lang === 'en' ? 'Mystical Thriller & Social Drama' : 'Thriller Mystique & Drame Social',
-    badge: lang === 'en' ? 'Novel & Adaptation' : 'Roman & Adaptation',
+    category: lang === 'en' ? 'Mystical Thriller • Social Drama • Fantasy' : 'Thriller mystique • Drame social • Fantastique',
+    badge: lang === 'en' ? 'Independent Book' : 'Livre Indépendant',
     subBadge: lang === 'en' ? 'Available on Amazon' : 'Disponible sur Amazon',
     image: OFFICIAL_IMAGES.bookPacte,
-    universe: lang === 'en' ? 'Mystical thriller • Social drama • Brazzaville' : 'Thriller mystique • Drame social • Brazzaville',
+    universe: lang === 'en' ? 'Mystical thriller • Social drama • Fantasy' : 'Thriller mystique • Drame social • Fantastique',
     description:
       lang === 'en'
-        ? "Three impoverished young men enter into an occult pact to gain the wealth and respect they crave, only to discover the terrifying human price."
-        : "Trois jeunes hommes pauvres concluent un pacte occulte pour obtenir l'argent et le respect dont ils rêvent, découvrant que le prix détruit leur humanité.",
+        ? "Three impoverished young men enter an occult pact to gain the wealth and respect they crave, only to discover the terrifying human price."
+        : "Trois jeunes hommes concluent un pacte occulte pour obtenir la fortune et le respect dont ils rêvent, découvrant que le prix détruit leur humanité.",
     summary:
       lang === 'en'
-        ? "Three impoverished young men from Brazzaville enter an occult ritual to secure fast fortune and political respect. But when the mystical debt demands their souls, they discover truth is the only remedy."
-        : "Trois jeunes hommes pauvres de Brazzaville concluent un pacte occulte pour obtenir l'argent et le respect dont ils rêvent. Mais lorsque le prix du contrat commence à détruire leur humanité et leurs liens, ils découvrent que seule la vérité peut leur permettre de briser le pacte.",
+        ? "Three young men seeking rapid success and influence enter into a dangerous occult pact. But when the hidden clauses of the contract demand a devastating tribute and tear their brotherhood apart, they discover that only the truth can break the deadly oath."
+        : "Trois jeunes hommes en quête de réussite et d'influence concluent un pacte occulte redoutable. Mais lorsque les clauses invisibles du contrat commencent à exiger un tribut destructeur et à déchirer leurs liens fraternels, ils découvrent que seule la vérité pourra leur permettre de briser le serment.",
     amazonUrl: 'https://a.co/d/08g7FiVA',
-    adaptationNote: lang === 'en' ? '● Screen Link: Discover Feature Film Script' : '● Passerelle : Découvrir le Scénario Film',
-    adaptationType: 'film',
-    adaptationTargetId: 'film-pacte',
   },
 ];
 
 export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
   {
-    id: 'film-pacte',
+    id: 'film-pacte-avec-le-diable',
     title: 'PACTE AVEC LE DIABLE',
     type: lang === 'en' ? 'Feature Film' : 'Long métrage',
     duration: '90 minutes',
     genre: lang === 'en' ? 'Mystical Thriller • Social Drama' : 'Thriller mystique • Drame social',
-    location: 'Brazzaville, République du Congo',
+    location: 'Brazzaville',
     languages: 'Français • Lingala • Kituba',
     status: lang === 'en' ? 'Screenplay in development' : 'Scénario en développement',
     statusType: 'script',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     logline:
       lang === 'en'
-        ? "Three impoverished young men enter an occult pact to obtain the wealth and respect they dream of, but when the price begins destroying their humanity and bonds, they realize only the truth can break the contract."
+        ? "Three impoverished young men enter an occult pact to obtain wealth and respect, but when the price begins destroying their humanity and bonds, they realize only the truth can break the contract."
         : "Trois jeunes hommes pauvres concluent un pacte occulte pour obtenir l'argent et le respect dont ils rêvent, mais lorsque le prix du contrat commence à détruire leur humanité et leurs liens, ils découvrent que seule la vérité peut leur permettre de briser le pacte.",
     synopsis:
       lang === 'en'
         ? "In the bustling neighborhoods of Brazzaville, desperate ambition pushes three friends into a forbidden ritual promising instant riches. Material success quickly gives way to paranoia and grief, forcing them to confront their deepest demons to buy back their freedom."
-        : "Dans les quartiers populaires de Brazzaville, l'ambition dévorante pousse trois amis précaires à s'engager dans un rituel mystique promettant fortune immédiate et influence politique. Très vite, les gains matériels se paient au prix fort : paranoïa, perte d'êtres chers et désintégration morale. Pris dans un étau surnaturel et social, ils devront affronter leurs propres démons pour racheter leur liberté.",
-    relatedBookId: 'pacte-avec-le-diable',
-    relatedBookTitle: lang === 'en' ? 'PACTE AVEC LE DIABLE (Book)' : 'PACTE AVEC LE DIABLE (Livre)',
+        : "Dans les quartiers populaires de Brazzaville, l'ambition dévorante pousse trois amis à s'engager dans un rituel mystique promettant fortune immédiate et influence. Très vite, les gains matériels se paient au prix fort : paranoïa, perte d'êtres chers et désintégration morale. Pris dans un étau surnaturel et social, ils devront affronter leurs propres démons pour racheter leur liberté.",
   },
   {
     id: 'film-curse-mouth',
@@ -323,7 +318,7 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
   },
   {
     id: 'serie-chez-le-psy',
-    title: "CHEZ LE PSY / LE CABINET",
+    title: "CHEZ LE PSY / LE CABINET / DOCTEUR, J'AI UN PROBLÈME",
     type: lang === 'en' ? 'Series' : 'Série',
     format: '15 × 26 minutes',
     genre: lang === 'en' ? 'Dramedy • Psychology • Social' : 'Comédie dramatique • Psychologie • Social',
@@ -364,11 +359,11 @@ export const getAudioTracks = (lang: Language = 'fr'): AudioTrack[] => [
   },
   {
     id: 'track-pacte',
-    title: lang === 'en' ? 'Pacte avec le Diable — The Negotiation of Shadows' : 'Pacte avec le Diable — La Négociation des Ombres',
+    title: lang === 'en' ? 'Le Pacte du Démon — The Negotiation of Shadows' : 'Le Pacte du Démon — La Négociation des Ombres',
     subtitle: lang === 'en' ? 'Dramatic Reading & Dark Cello Arrangement' : 'Lecture Dramatique & Cordes Obscures',
     duration: '05:12',
     durationSeconds: 312,
-    bookReference: 'Pacte avec le Diable',
+    bookReference: 'Le Pacte du Démon',
   },
 ];
 

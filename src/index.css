@@ -37,6 +37,41 @@ html.light body {
   font-family: 'Cinzel', serif;
 }
 
+.font-brand-editorial {
+  font-family: 'Bodoni Moda', 'Playfair Display', 'Didot', 'Bodoni MT', Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+/* ==========================================================================
+   IDENTITÉ TYPOGRAPHIQUE PREMIUM : NGAKOSSO
+   - Lettres capitales
+   - Serif élégante et sophistiquée (Didone / Bodoni Moda Display)
+   - Esthétique cinéma d'auteur / grand magazine littéraire / maison d'édition
+   - Blanc légèrement ivoire (#faf7f2)
+   - Contraste élevé (déliés ciselés et pleins majestueux)
+   - Caractères légèrement rapprochés (letter-spacing: -0.022em)
+   - Finition sobre, intemporelle et lisibilité absolue
+   ========================================================================== */
+.author-brand-ngakosso {
+  font-family: 'Bodoni Moda', 'Playfair Display', 'Didot', 'Bodoni MT', Georgia, serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.022em;
+  color: #faf7f2;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  line-height: 0.96;
+}
+
+html.light .author-brand-ngakosso {
+  color: #171412;
+}
+
 .font-serif {
   font-family: 'Playfair Display', serif;
 }
@@ -407,6 +442,412 @@ html.light .glass-tool-btn:hover {
   background: rgba(0, 0, 0, 0.08);
   border-color: rgba(140, 103, 56, 0.45);
 }
+
+/* ==========================================================
+   CINEMATIC GLOBAL BUTTON DESIGN SYSTEM
+   ========================================================== */
+.cinematic-btn-wrapper {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.cinematic-btn {
+  --border-radius: 22px;
+  --padding: 3px;
+  --transition: 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --button-color: #121413;
+  --highlight-color-hue: 38deg;
+
+  position: relative;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: var(--button-color);
+  color: #f5f2eb;
+
+  box-shadow:
+    /* Multi-layered Bevel Inset */
+    inset 0px 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0px 2px 2px rgba(255, 255, 255, 0.14),
+    inset 0px 4px 4px rgba(255, 255, 255, 0.08),
+    inset 0px 8px 8px rgba(255, 255, 255, 0.04),
+    inset 0px 16px 16px rgba(255, 255, 255, 0.03),
+    /* Soft Elevation Drop Shadows */
+    0px 2px 4px rgba(0, 0, 0, 0.25),
+    0px 6px 16px rgba(0, 0, 0, 0.35);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--border-radius);
+  outline: none;
+
+  transition:
+    box-shadow var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
+    transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color var(--transition);
+}
+
+/* Outer frame halo / depth bevel */
+.cinematic-btn::before {
+  content: "";
+  position: absolute;
+  top: calc(0px - var(--padding));
+  left: calc(0px - var(--padding));
+  width: calc(100% + var(--padding) * 2);
+  height: calc(100% + var(--padding) * 2);
+  border-radius: calc(var(--border-radius) + var(--padding));
+  pointer-events: none;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.6));
+  z-index: -1;
+  transition:
+    box-shadow var(--transition),
+    filter var(--transition),
+    opacity var(--transition);
+  box-shadow:
+    0 -8px 8px -6px rgba(0, 0, 0, 0) inset,
+    0 -16px 16px -8px rgba(0, 0, 0, 0) inset,
+    1px 1px 1px rgba(255, 255, 255, 0.12),
+    2px 2px 2px rgba(255, 255, 255, 0.06),
+    -1px -1px 1px rgba(0, 0, 0, 0.3),
+    -2px -2px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Glowing linear sweep / top gloss highlight */
+.cinematic-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.65),
+    hsl(var(--highlight-color-hue), 95%, 72%),
+    hsla(var(--highlight-color-hue), 95%, 65%, 0.4),
+    12%,
+    transparent
+  );
+  background-position: 0 0;
+  opacity: 0;
+  transition:
+    opacity var(--transition),
+    filter var(--transition);
+}
+
+/* Inner contents container */
+.cinematic-btn-inner {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.25s ease;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.cinematic-btn-text {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  text-align: center;
+  display: inline-block;
+}
+
+.cinematic-btn-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* Hover States */
+.cinematic-btn:hover {
+  border-color: hsla(var(--highlight-color-hue), 90%, 75%, 0.65);
+  box-shadow:
+    inset 0px 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0px 2px 2px rgba(255, 255, 255, 0.2),
+    inset 0px 4px 6px rgba(255, 255, 255, 0.1),
+    0px 0px 22px hsla(var(--highlight-color-hue), 90%, 65%, 0.35),
+    0px 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.cinematic-btn:hover::before {
+  box-shadow:
+    0 -8px 10px -6px rgba(255, 255, 255, 0.2) inset,
+    0 -16px 18px -8px hsla(var(--highlight-color-hue), 90%, 65%, 0.3) inset,
+    1px 1px 2px rgba(255, 255, 255, 0.2),
+    2px 2px 4px rgba(255, 255, 255, 0.08),
+    -1px -1px 1px rgba(0, 0, 0, 0.4),
+    -2px -2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.cinematic-btn:hover::after {
+  opacity: 0.9;
+  mask-image: linear-gradient(180deg, #fff, transparent);
+}
+
+.cinematic-btn:hover .cinematic-btn-icon-wrapper {
+  filter: drop-shadow(0 0 4px hsl(var(--highlight-color-hue), 95%, 70%));
+}
+
+/* Active / Pressed States */
+.cinematic-btn:active {
+  transform: scale(0.975);
+  border-color: hsla(var(--highlight-color-hue), 100%, 80%, 0.9);
+  background-color: hsla(var(--highlight-color-hue), 40%, 16%, 0.7);
+  box-shadow:
+    inset 0px 2px 4px rgba(0, 0, 0, 0.5),
+    0px 0px 18px hsla(var(--highlight-color-hue), 95%, 65%, 0.5),
+    0px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.cinematic-btn:active::before {
+  box-shadow:
+    0 -8px 12px -6px rgba(255, 255, 255, 0.4) inset,
+    0 -16px 16px -8px hsla(var(--highlight-color-hue), 95%, 70%, 0.6) inset,
+    1px 1px 1px rgba(255, 255, 255, 0.25),
+    -1px -1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.cinematic-btn:active::after {
+  opacity: 1;
+  filter: brightness(180%);
+}
+
+/* Focus States (Accessible & Refined) */
+.cinematic-btn:focus-visible {
+  outline: none;
+  border-color: hsla(var(--highlight-color-hue), 100%, 80%, 0.9);
+  box-shadow:
+    0 0 0 3px hsla(var(--highlight-color-hue), 85%, 60%, 0.4),
+    0 0 20px hsla(var(--highlight-color-hue), 95%, 65%, 0.4);
+}
+
+.cinematic-btn:focus-visible::before {
+  box-shadow:
+    0 -8px 12px -6px rgba(255, 255, 255, 0.25) inset,
+    0 -16px 16px -8px hsla(var(--highlight-color-hue), 95%, 70%, 0.3) inset,
+    1px 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================
+   VARIANTS
+   ========================================================== */
+
+/* 1. PRIMARY (Hero / Main Gold CTA) */
+.cinematic-btn-primary {
+  --button-color: #17140e;
+  --highlight-color-hue: 38deg;
+  border-color: rgba(229, 169, 88, 0.5);
+  color: #fff;
+  background-image: linear-gradient(180deg, #221c13, #15120d);
+}
+
+.cinematic-btn-primary:hover {
+  color: #ffecc4;
+  text-shadow: 0 0 8px rgba(229, 169, 88, 0.5);
+}
+
+/* 2. SECONDARY (Platinum / Warm Graphite Action) */
+.cinematic-btn-secondary {
+  --button-color: #141716;
+  --highlight-color-hue: 45deg;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e5e0d8;
+  background-image: linear-gradient(180deg, #1b1e1d, #111312);
+}
+
+.cinematic-btn-secondary:hover {
+  color: #ffffff;
+  border-color: rgba(229, 169, 88, 0.6);
+}
+
+/* 3. AMAZON (Dedicated Amazon Storefront CTA) */
+.cinematic-btn-amazon {
+  --button-color: #18140c;
+  --highlight-color-hue: 36deg;
+  border-color: rgba(229, 169, 88, 0.65);
+  color: #ffffff;
+  background-image: linear-gradient(180deg, #241c0f, #141009);
+}
+
+.cinematic-btn-amazon:hover {
+  color: #fff5e0;
+  text-shadow: 0 0 10px rgba(229, 169, 88, 0.6);
+}
+
+/* 4. PROJECT / SERIES / FORET (Cinematic Crimson Glow) */
+.cinematic-btn-project {
+  --button-color: #1c0c0e;
+  --highlight-color-hue: 0deg;
+  border-color: rgba(239, 68, 68, 0.55);
+  color: #ffffff;
+  background-image: linear-gradient(180deg, #2a0f12, #16080a);
+}
+
+.cinematic-btn-project:hover {
+  color: #ffdfe2;
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+  border-color: rgba(239, 68, 68, 0.85);
+}
+
+/* 5. AUDIO (Atmospheric Cyan / Amber Acoustic) */
+.cinematic-btn-audio {
+  --button-color: #0d1314;
+  --highlight-color-hue: 200deg;
+  border-color: rgba(140, 190, 210, 0.35);
+  color: #f2ede4;
+  background-image: linear-gradient(180deg, #121c1e, #0a0e0f);
+}
+
+.cinematic-btn-audio:hover {
+  color: #ffffff;
+}
+
+/* 6. CONTACT (Prestige Golden Submission CTA) */
+.cinematic-btn-contact {
+  --button-color: #17130b;
+  --highlight-color-hue: 38deg;
+  border-color: rgba(229, 169, 88, 0.6);
+  color: #ffffff;
+  background-image: linear-gradient(180deg, #231b0e, #141008);
+}
+
+.cinematic-btn-contact:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(229, 169, 88, 0.6);
+}
+
+/* 7. GHOST / MINIMAL */
+.cinematic-btn-ghost {
+  --button-color: rgba(255, 255, 255, 0.04);
+  --highlight-color-hue: 40deg;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #c7c2b8;
+  background-image: none;
+}
+
+.cinematic-btn-ghost:hover {
+  --button-color: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 8. OUTLINE */
+.cinematic-btn-outline {
+  --button-color: transparent;
+  --highlight-color-hue: 38deg;
+  border-color: rgba(229, 169, 88, 0.4);
+  color: #e5a958;
+  background-image: none;
+}
+
+.cinematic-btn-outline:hover {
+  --button-color: rgba(229, 169, 88, 0.1);
+  color: #ffffff;
+  border-color: rgba(229, 169, 88, 0.8);
+}
+
+/* 9. FILTER TAB PILL */
+.cinematic-btn-filter {
+  --border-radius: 9999px;
+  --button-color: #161817;
+  --highlight-color-hue: 38deg;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #a8a29e;
+  background-image: none;
+}
+
+.cinematic-btn-filter:hover {
+  color: #ffffff;
+  border-color: rgba(229, 169, 88, 0.4);
+}
+
+.cinematic-btn-filter.cinematic-btn-active-state {
+  --button-color: #241b10;
+  border-color: rgba(229, 169, 88, 0.85);
+  color: #ffffff;
+  background-image: linear-gradient(180deg, #2d2112, #1c150b);
+  box-shadow:
+    inset 0px 1px 2px rgba(255, 255, 255, 0.3),
+    0px 0px 14px rgba(229, 169, 88, 0.35);
+}
+
+/* ==========================================================
+   SIZING SPECIFICATIONS
+   ========================================================== */
+.cinematic-btn-sm {
+  min-height: 38px;
+  padding: 0.42em 0.95em;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  --border-radius: 14px;
+}
+
+.cinematic-btn-md {
+  min-height: 44px;
+  padding: 0.6em 1.35em;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  --border-radius: 18px;
+}
+
+.cinematic-btn-lg {
+  min-height: 48px;
+  padding: 0.75em 1.75em;
+  font-size: 0.84rem;
+  letter-spacing: 0.14em;
+  --border-radius: 22px;
+}
+
+.cinematic-btn-icon {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5em;
+  --border-radius: 14px;
+}
+
+.cinematic-btn-full {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.65em 1.25em;
+  font-size: 0.78rem;
+  --border-radius: 16px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-btn,
+  .cinematic-btn::before,
+  .cinematic-btn::after,
+  .cinematic-btn-inner,
+  .cinematic-btn-icon-wrapper {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 
 
 

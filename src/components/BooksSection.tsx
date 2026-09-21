@@ -4,6 +4,7 @@ import { BookItem } from '../types';
 import { useI18n } from '../i18n/I18nContext';
 import { ExternalLink, Film, Tv, Info, X } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { ExpandableText } from './ExpandableText';
 
 interface BooksSectionProps {
   onNavigateForet?: () => void;
@@ -66,9 +67,10 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
         </div>
 
         {/* Books Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 max-w-5xl mx-auto gap-6 sm:gap-8">
-          {booksData.slice(0, 2).map((book, idx) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto gap-6 sm:gap-8">
+          {booksData.map((book, idx) => {
             const isForet = book.id === 'foret-interdite';
+            const isPacte = book.id === 'pacte-du-demon';
 
             return (
               <div
@@ -77,6 +79,8 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                 className={`delay-${(idx + 1) * 150} bg-[#181b1a] rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col justify-between group shadow-lg card-premium-hover ${
                   isForet
                     ? 'border-red-900/40 hover:border-red-500/60'
+                    : isPacte
+                    ? 'border-amber-900/40 hover:border-amber-500/60'
                     : 'border-white/10 hover:border-brand-gold/60'
                 }`}
               >
@@ -94,6 +98,8 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                       className={`px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest backdrop-blur-md rounded border ${
                         isForet
                           ? 'bg-black/85 text-red-400 border-red-500/40'
+                          : isPacte
+                          ? 'bg-black/85 text-amber-300 border-amber-500/40'
                           : 'bg-black/85 text-brand-amber border-brand-amber/30'
                       }`}
                     >
@@ -118,13 +124,13 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                   <div>
                     <div className="flex items-center justify-between gap-2">
                       <span
-                        className={`text-[10px] sm:text-[11px] uppercase tracking-wider font-bold ${
-                          isForet ? 'text-red-400' : 'text-brand-gold'
+                        className={`text-[10px] sm:text-[11px] uppercase tracking-wider font-bold truncate ${
+                          isForet ? 'text-red-400' : isPacte ? 'text-amber-400' : 'text-brand-gold'
                         }`}
                       >
                         {book.category}
                       </span>
-                      <span className="text-[10px] text-stone-400 font-medium">
+                      <span className="text-[10px] text-stone-400 font-medium shrink-0">
                         {book.type}
                       </span>
                     </div>
@@ -133,6 +139,8 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                       className={`text-lg sm:text-xl font-cinzel font-bold text-white mt-1.5 transition-colors ${
                         isForet
                           ? 'group-hover:text-red-400'
+                          : isPacte
+                          ? 'group-hover:text-amber-400'
                           : 'group-hover:text-brand-amber'
                       }`}
                     >
@@ -143,9 +151,9 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                       {t('books.authorLabel')} : <strong className="text-stone-200">{book.author}</strong>
                     </p>
 
-                    <p className="text-xs text-stone-300 mt-2.5 leading-relaxed">
-                      {book.description}
-                    </p>
+                    <div className="text-xs text-stone-300 mt-2.5 leading-relaxed">
+                      <ExpandableText text={book.description} maxChars={130} />
+                    </div>
                   </div>
 
                   {/* Boutons d'Action & Passerelles */}
@@ -244,9 +252,11 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                 <strong className="text-white block font-semibold mb-1">
                   {language === 'en' ? 'Summary:' : 'Résumé :'}
                 </strong>
-                <p className="text-stone-300 whitespace-pre-line leading-relaxed">
-                  {selectedBook.summary}
-                </p>
+                <ExpandableText
+                  text={selectedBook.summary}
+                  maxChars={280}
+                  className="text-stone-300 leading-relaxed"
+                />
               </div>
 
               <div className="p-3 bg-white/5 rounded-xl text-xs space-y-1">

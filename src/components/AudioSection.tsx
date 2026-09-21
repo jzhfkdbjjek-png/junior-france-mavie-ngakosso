@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAudioTracks } from '../data/portfolioData';
 import { useI18n } from '../i18n/I18nContext';
-import { Play, Pause, SkipForward, Volume2, VolumeX, Sparkles } from 'lucide-react';
+import { Play, Pause, SkipForward, Volume2, VolumeX } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
 
 export const AudioSection: React.FC = () => {
@@ -170,8 +170,8 @@ export const AudioSection: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-brand-amber" />
+              <div className="flex items-center gap-2.5">
+                <span className="h-px w-6 bg-brand-amber"></span>
                 <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-brand-amber">
                   {t('audio.badge')}
                 </span>

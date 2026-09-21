@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
-import { getFilmsData, getSeriesData } from '../data/portfolioData';
-import { FilmItem, SeriesItem } from '../types';
+import React, { useState, useMemo } from 'react';
+import { getFilmsData, getSeriesData, getBooksData } from '../data/portfolioData';
+import { FilmItem, SeriesItem, BookItem } from '../types';
 import { useI18n } from '../i18n/I18nContext';
-import { Film, Tv, BookOpen, ExternalLink, X, MapPin, ArrowUpRight } from 'lucide-react';
+import {
+  Film,
+  Tv,
+  BookOpen,
+  ExternalLink,
+  X,
+  MapPin,
+  ArrowUpRight,
+  Search,
+  SlidersHorizontal,
+  RotateCcw,
+} from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { ExpandableText } from './ExpandableText';
 
 interface CatalogueSectionProps {
   onNavigateForet: () => void;
@@ -11,31 +23,243 @@ interface CatalogueSectionProps {
   onContactClick: () => void;
 }
 
+interface WorkItem {
+  id: string;
+  title: string;
+  type: string;
+  genre: string;
+  format?: string;
+  duration?: string;
+  status: string;
+  role: string;
+  location?: string;
+  languages?: string;
+  logline: string;
+  synopsis?: string;
+  summary?: string;
+  concept?: string;
+  inspiration?: string;
+  relatedBookId?: string;
+  relatedBookTitle?: string;
+  amazonUrl?: string;
+  workType: 'film' | 'series' | 'book';
+  rawItem: FilmItem | SeriesItem | BookItem;
+}
+
 export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
   onNavigateForet,
   onNavigateLivres,
   onContactClick,
 }) => {
-  const [activeTab, setActiveTab] = useState<'tout' | 'livres' | 'films' | 'series'>('tout');
-  const [selectedProject, setSelectedProject] = useState<FilmItem | SeriesItem | null>(null);
   const { t, language } = useI18n();
+
+  // Search & Filter states
+  const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilter, setTypeFilter] = useState<string>('Tous');
+  const [genreFilter, setGenreFilter] = useState<string>('Tous');
+  const [formatFilter, setFormatFilter] = useState<string>('Tous');
+  const [statutFilter, setStatutFilter] = useState<string>('Tous');
+  const [roleFilter, setRoleFilter] = useState<string>('Tous');
+
+  // Mobile Filters Drawer Modal
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
+  // Selected project modal
+  const [selectedProject, setSelectedProject] = useState<FilmItem | SeriesItem | BookItem | null>(null);
 
   const filmsData = getFilmsData(language);
   const seriesData = getSeriesData(language);
+  const booksData = getBooksData(language);
 
-  const handleTabClick = (tab: 'tout' | 'livres' | 'films' | 'series') => {
-    setActiveTab(tab);
-    if (tab === 'livres') {
-      onNavigateLivres();
-    }
+  // Unified items list
+  const allWorks: WorkItem[] = useMemo(() => {
+    const f: WorkItem[] = filmsData.map((item) => ({
+      id: item.id,
+      title: item.title,
+      type: item.type,
+      genre: item.genre,
+      duration: item.duration,
+      status: item.status,
+      role: item.role,
+      location: item.location,
+      languages: item.languages,
+      logline: item.logline,
+      synopsis: item.synopsis,
+      inspiration: item.inspiration,
+      relatedBookId: item.relatedBookId,
+      relatedBookTitle: item.relatedBookTitle,
+      workType: 'film',
+      rawItem: item,
+    }));
+    const s: WorkItem[] = seriesData.map((item) => ({
+      id: item.id,
+      title: item.title,
+      type: item.type,
+      genre: item.genre,
+      format: item.format,
+      status: item.status,
+      role: item.role,
+      location: item.location,
+      languages: item.languages,
+      logline: item.logline,
+      synopsis: item.synopsis,
+      concept: item.concept,
+      relatedBookId: item.relatedBookId,
+      relatedBookTitle: item.relatedBookTitle,
+      workType: 'series',
+      rawItem: item,
+    }));
+    const b: WorkItem[] = booksData.map((item) => ({
+      id: item.id,
+      title: item.title,
+      type: item.type,
+      genre: item.category,
+      status: 'Publié / Disponible',
+      role: 'Auteur',
+      logline: item.description,
+      summary: item.summary,
+      amazonUrl: item.amazonUrl,
+      workType: 'book',
+      rawItem: item,
+    }));
+    return [...f, ...s, ...b];
+  }, [filmsData, seriesData, booksData]);
+
+  // Filter options lists
+  const typeOptions = ['Tous', 'Film', 'Série', 'Livre'];
+  const genreOptions = [
+    'Tous',
+    'Thriller',
+    'Fantastique',
+    'Mystère',
+    'Surnaturel',
+    'Drame',
+    'Action',
+    'Horreur',
+    'Comédie',
+    'Crime',
+    'Social',
+    'Politique',
+  ];
+  const formatOptions = [
+    'Tous',
+    'Long métrage',
+    'Série 8 × 52',
+    'Série 8 × 45',
+    'Série 10 × 26',
+    'Série 15 × 26',
+  ];
+  const statutOptions = [
+    'Tous',
+    'Projet',
+    'Projet finalisé',
+    'En développement',
+    'Scénario',
+    'Scénario complet',
+    'Adaptation',
+  ];
+  const roleOptions = [
+    'Tous',
+    'Créateur',
+    'Scénariste',
+    'Auteur',
+    'Auteur / Scénariste',
+  ];
+
+  // Helper matching function
+  const normalize = (str?: string) =>
+    (str || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+  const filteredWorks = useMemo(() => {
+    const q = normalize(searchQuery.trim());
+
+    return allWorks.filter((item) => {
+      // Search query check across: title, genre, format, status, type, location, languages, role, keywords, logline, synopsis
+      if (q) {
+        const titleMatch = normalize(item.title).includes(q);
+        const genreMatch = normalize(item.genre).includes(q);
+        const formatMatch = normalize(item.format || item.duration || '').includes(q);
+        const statusMatch = normalize(item.status).includes(q);
+        const typeMatch = normalize(item.type).includes(q);
+        const locMatch = normalize(item.location || '').includes(q);
+        const langMatch = normalize(item.languages || '').includes(q);
+        const roleMatch = normalize(item.role).includes(q);
+        const loglineMatch = normalize(item.logline).includes(q);
+        const synopsisMatch = normalize(item.synopsis || item.summary || '').includes(q);
+
+        const anyMatch =
+          titleMatch ||
+          genreMatch ||
+          formatMatch ||
+          statusMatch ||
+          typeMatch ||
+          locMatch ||
+          langMatch ||
+          roleMatch ||
+          loglineMatch ||
+          synopsisMatch;
+
+        if (!anyMatch) return false;
+      }
+
+      // 1. TYPE filter
+      if (typeFilter !== 'Tous') {
+        if (typeFilter === 'Film' && item.workType !== 'film') return false;
+        if (typeFilter === 'Série' && item.workType !== 'series') return false;
+        if (typeFilter === 'Livre' && item.workType !== 'book') return false;
+      }
+
+      // 2. GENRE filter
+      if (genreFilter !== 'Tous') {
+        const itemGenre = normalize(item.genre);
+        if (!itemGenre.includes(normalize(genreFilter))) return false;
+      }
+
+      // 3. FORMAT filter
+      if (formatFilter !== 'Tous') {
+        const itemFormat = normalize(item.format || item.duration || item.type);
+        if (!itemFormat.includes(normalize(formatFilter))) return false;
+      }
+
+      // 4. STATUT filter
+      if (statutFilter !== 'Tous') {
+        const itemStatus = normalize(item.status);
+        if (!itemStatus.includes(normalize(statutFilter))) return false;
+      }
+
+      // 5. RÔLE filter
+      if (roleFilter !== 'Tous') {
+        const itemRole = normalize(item.role);
+        if (!itemRole.includes(normalize(roleFilter))) return false;
+      }
+
+      return true;
+    });
+  }, [allWorks, searchQuery, typeFilter, genreFilter, formatFilter, statutFilter, roleFilter]);
+
+  const resetAllFilters = () => {
+    setSearchQuery('');
+    setTypeFilter('Tous');
+    setGenreFilter('Tous');
+    setFormatFilter('Tous');
+    setStatutFilter('Tous');
+    setRoleFilter('Tous');
   };
 
-  const openProjectModal = (item: FilmItem | SeriesItem) => {
+  const activeFilterCount =
+    (searchQuery.trim() ? 1 : 0) +
+    (typeFilter !== 'Tous' ? 1 : 0) +
+    (genreFilter !== 'Tous' ? 1 : 0) +
+    (formatFilter !== 'Tous' ? 1 : 0) +
+    (statutFilter !== 'Tous' ? 1 : 0) +
+    (roleFilter !== 'Tous' ? 1 : 0);
+
+  const openProjectModal = (item: FilmItem | SeriesItem | BookItem) => {
     setSelectedProject(item);
   };
-
-  const showFilms = activeTab === 'tout' || activeTab === 'films';
-  const showSeries = activeTab === 'tout' || activeTab === 'series';
 
   return (
     <section
@@ -43,8 +267,8 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       className="py-16 sm:py-20 lg:py-24 bg-[#121413] relative border-t border-white/5"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-        {/* Editorial Filters Header */}
-        <div data-reveal="fade-up" className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-4 sm:gap-6">
+        {/* Section Header */}
+        <div data-reveal="fade-up" className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-2">
               <span className="h-px w-6 sm:w-8 bg-brand-gold"></span>
@@ -59,301 +283,625 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
               </span>
             </h2>
           </div>
+          <p className="text-xs sm:text-sm text-stone-400 max-w-md leading-relaxed">
+            {language === 'en'
+              ? 'Complete filmography, television series bibles, and original literary works.'
+              : 'Filmographie complète, bibles de séries télévisées et œuvres littéraires originales.'}
+          </p>
+        </div>
 
-          {/* Filter Pills with min-touch sizing */}
-          <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
-            <CinematicButton
-              variant="filter"
-              size="sm"
-              active={activeTab === 'tout'}
-              onClick={() => handleTabClick('tout')}
+        {/* SEARCH & FILTERS INTERFACE */}
+        <div data-reveal="fade-up" className="mb-10 space-y-4">
+          {/* Primary Architecture Tabs: Écrivain / Créateur / Scénariste */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-1.5 rounded-2xl bg-[#181b1a] border border-white/10">
+            <button
+              type="button"
+              onClick={() => setTypeFilter('Tous')}
+              className={`px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                typeFilter === 'Tous'
+                  ? 'bg-brand-gold text-black shadow-md'
+                  : 'text-stone-300 hover:text-white hover:bg-white/5'
+              }`}
             >
-              {t('catalogue.filters.all')}
-            </CinematicButton>
-            <CinematicButton
-              variant="filter"
-              size="sm"
-              active={activeTab === 'livres'}
-              onClick={() => handleTabClick('livres')}
+              <span>{language === 'en' ? 'All Works' : 'Toutes les œuvres'}</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
+                typeFilter === 'Tous' ? 'bg-black/20 text-black' : 'bg-white/10 text-stone-400'
+              }`}>
+                {allWorks.length}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setTypeFilter('Livre')}
+              className={`px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                typeFilter === 'Livre'
+                  ? 'bg-brand-gold text-black shadow-md'
+                  : 'text-stone-300 hover:text-white hover:bg-white/5'
+              }`}
             >
-              {t('catalogue.filters.books')}
-            </CinematicButton>
-            <CinematicButton
-              variant="filter"
-              size="sm"
-              active={activeTab === 'films'}
-              onClick={() => handleTabClick('films')}
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>{language === 'en' ? 'Writer • Books' : 'Écrivain • Livres'}</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
+                typeFilter === 'Livre' ? 'bg-black/20 text-black' : 'bg-white/10 text-stone-400'
+              }`}>
+                {booksData.length}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setTypeFilter('Série')}
+              className={`px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                typeFilter === 'Série'
+                  ? 'bg-brand-gold text-black shadow-md'
+                  : 'text-stone-300 hover:text-white hover:bg-white/5'
+              }`}
             >
-              {t('catalogue.filters.films')}
-            </CinematicButton>
-            <CinematicButton
-              variant="filter"
-              size="sm"
-              active={activeTab === 'series'}
-              onClick={() => handleTabClick('series')}
+              <Tv className="w-3.5 h-3.5" />
+              <span>{language === 'en' ? 'Creator • Series' : 'Créateur • Séries'}</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
+                typeFilter === 'Série' ? 'bg-black/20 text-black' : 'bg-white/10 text-stone-400'
+              }`}>
+                {seriesData.length}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setTypeFilter('Film')}
+              className={`px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                typeFilter === 'Film'
+                  ? 'bg-brand-gold text-black shadow-md'
+                  : 'text-stone-300 hover:text-white hover:bg-white/5'
+              }`}
             >
-              {t('catalogue.filters.series')}
-            </CinematicButton>
+              <Film className="w-3.5 h-3.5" />
+              <span>{language === 'en' ? 'Screenwriter • Films' : 'Scénariste • Films'}</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
+                typeFilter === 'Film' ? 'bg-black/20 text-black' : 'bg-white/10 text-stone-400'
+              }`}>
+                {filmsData.length}
+              </span>
+            </button>
+          </div>
+
+          {/* Main Search Bar + Mobile Filter Toggle */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="relative flex-1">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+                <Search className="w-4 h-4 text-brand-gold" />
+              </div>
+              <input
+                id="search-works-input"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="RECHERCHER UNE ŒUVRE..."
+                className="w-full pl-10 pr-10 py-3 rounded-xl bg-[#181b1a] border border-white/10 text-white placeholder-stone-400 text-xs sm:text-sm font-medium focus:outline-none focus:border-brand-gold/60 focus:ring-1 focus:ring-brand-gold/40 transition-all"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-stone-400 hover:text-white"
+                  aria-label="Effacer la recherche"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            {/* Mobile Filters Drawer Button */}
+            <button
+              type="button"
+              onClick={() => setIsMobileFiltersOpen(true)}
+              className="lg:hidden flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#181b1a] border border-white/10 text-white text-xs font-bold uppercase tracking-wider hover:border-brand-gold/40 min-h-[44px]"
+            >
+              <SlidersHorizontal className="w-4 h-4 text-brand-gold" />
+              <span>FILTRES</span>
+              {activeFilterCount > 0 && (
+                <span className="w-5 h-5 rounded-full bg-brand-gold text-black font-mono text-[10px] flex items-center justify-center font-bold">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* Desktop Filter Bar */}
+          <div className="hidden lg:grid grid-cols-5 gap-3 p-4 rounded-2xl bg-[#181b1a] border border-white/10">
+            {/* TYPE */}
+            <div>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold block mb-1.5">
+                TYPE
+              </label>
+              <select
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="w-full py-2 px-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-gold/50 cursor-pointer"
+              >
+                {typeOptions.map((opt) => (
+                  <option key={opt} value={opt} className="bg-[#181b1a] text-white">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* GENRE */}
+            <div>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold block mb-1.5">
+                GENRE
+              </label>
+              <select
+                value={genreFilter}
+                onChange={(e) => setGenreFilter(e.target.value)}
+                className="w-full py-2 px-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-gold/50 cursor-pointer"
+              >
+                {genreOptions.map((opt) => (
+                  <option key={opt} value={opt} className="bg-[#181b1a] text-white">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* FORMAT */}
+            <div>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold block mb-1.5">
+                FORMAT
+              </label>
+              <select
+                value={formatFilter}
+                onChange={(e) => setFormatFilter(e.target.value)}
+                className="w-full py-2 px-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-gold/50 cursor-pointer"
+              >
+                {formatOptions.map((opt) => (
+                  <option key={opt} value={opt} className="bg-[#181b1a] text-white">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* STATUT */}
+            <div>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold block mb-1.5">
+                STATUT
+              </label>
+              <select
+                value={statutFilter}
+                onChange={(e) => setStatutFilter(e.target.value)}
+                className="w-full py-2 px-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-gold/50 cursor-pointer"
+              >
+                {statutOptions.map((opt) => (
+                  <option key={opt} value={opt} className="bg-[#181b1a] text-white">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* RÔLE */}
+            <div>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold block mb-1.5">
+                RÔLE
+              </label>
+              <select
+                value={roleFilter}
+                onChange={(e) => setRoleFilter(e.target.value)}
+                className="w-full py-2 px-2.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-gold/50 cursor-pointer"
+              >
+                {roleOptions.map((opt) => (
+                  <option key={opt} value={opt} className="bg-[#181b1a] text-white">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Active Tags + Count + Reset Button */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold text-stone-300 font-mono">
+                {filteredWorks.length}{' '}
+                {filteredWorks.length > 1 ? 'œuvres trouvées' : 'œuvre trouvée'}
+              </span>
+
+              {/* Dismissible Tags */}
+              {typeFilter !== 'Tous' && (
+                <button
+                  onClick={() => setTypeFilter('Tous')}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-gold/15 border border-brand-gold/40 text-brand-amber text-[11px] font-semibold hover:bg-brand-gold/25"
+                >
+                  <span>Type: {typeFilter}</span>
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+
+              {genreFilter !== 'Tous' && (
+                <button
+                  onClick={() => setGenreFilter('Tous')}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-gold/15 border border-brand-gold/40 text-brand-amber text-[11px] font-semibold hover:bg-brand-gold/25"
+                >
+                  <span>{genreFilter}</span>
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+
+              {formatFilter !== 'Tous' && (
+                <button
+                  onClick={() => setFormatFilter('Tous')}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-gold/15 border border-brand-gold/40 text-brand-amber text-[11px] font-semibold hover:bg-brand-gold/25"
+                >
+                  <span>{formatFilter}</span>
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+
+              {statutFilter !== 'Tous' && (
+                <button
+                  onClick={() => setStatutFilter('Tous')}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-gold/15 border border-brand-gold/40 text-brand-amber text-[11px] font-semibold hover:bg-brand-gold/25"
+                >
+                  <span>{statutFilter}</span>
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+
+              {roleFilter !== 'Tous' && (
+                <button
+                  onClick={() => setRoleFilter('Tous')}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-gold/15 border border-brand-gold/40 text-brand-amber text-[11px] font-semibold hover:bg-brand-gold/25"
+                >
+                  <span>{roleFilter}</span>
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[11px] font-semibold hover:bg-white/20"
+                >
+                  <span>« {searchQuery} »</span>
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+
+            {activeFilterCount > 0 && (
+              <button
+                onClick={resetAllFilters}
+                className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-stone-400 hover:text-brand-amber transition-colors ml-auto"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>RÉINITIALISER LES FILTRES</span>
+              </button>
+            )}
           </div>
         </div>
 
-        {/* SECTION: FILMS (SECTION SCÉNARISTE — FILMS / LONGS-MÉTRAGES) */}
-        {showFilms && (
-          <div className="mb-16 sm:mb-20" id="films">
-            <div data-reveal="fade-down" className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 mb-6 pb-3 border-b border-white/10">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <span className="p-1.5 rounded-lg bg-white/10 text-brand-amber">
-                  <Film className="w-4 h-4" />
-                </span>
-                <span className="px-3 py-1 bg-brand-gold/20 text-brand-amber text-xs font-bold uppercase rounded border border-brand-gold/30">
-                  {t('catalogue.filmsSectionBadge')}
-                </span>
-              </div>
-              <span className="text-xs text-stone-400">
-                {t('catalogue.filmsSectionSubtitle')}
-              </span>
+        {/* RESULTS GRID OR EMPTY STATE */}
+        {filteredWorks.length === 0 ? (
+          /* EMPTY STATE */
+          <div className="py-16 sm:py-24 text-center max-w-md mx-auto px-4 bg-[#181b1a]/60 rounded-3xl border border-white/10">
+            <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-4 text-stone-400">
+              <Search className="w-7 h-7 text-brand-gold" />
             </div>
+            <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-white mb-2">
+              AUCUNE ŒUVRE TROUVÉE
+            </h3>
+            <p className="text-xs sm:text-sm text-stone-300 mb-6 leading-relaxed">
+              Essayez une autre recherche ou modifiez vos filtres.
+            </p>
+            <CinematicButton
+              variant="primary"
+              size="md"
+              onClick={resetAllFilters}
+              icon={<RotateCcw className="w-3.5 h-3.5" />}
+              iconPosition="left"
+            >
+              RÉINITIALISER
+            </CinematicButton>
+          </div>
+        ) : (
+          /* GRID DES ŒUVRES */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {filteredWorks.map((work) => {
+              const isForet = work.id.includes('foret');
+              const isBook = work.workType === 'book';
+              const isSeries = work.workType === 'series';
+              const isFilm = work.workType === 'film';
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-              {filmsData.map((film, idx) => {
-                const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500', 'delay-600', 'delay-700'];
-                const isCercueil = film.id === 'film-cercueil';
+              return (
+                <div
+                  key={work.id}
+                  className={`p-5 sm:p-6 rounded-2xl transition-all flex flex-col justify-between group shadow-md card-premium-hover ${
+                    isForet
+                      ? 'bg-red-950/25 border border-red-900/50 hover:border-red-500/60'
+                      : 'bg-[#181b1a] border border-white/10 hover:border-brand-gold/60'
+                  }`}
+                >
+                  <div>
+                    {/* Header Item : Type badge & Genre */}
+                    <div className="flex items-center justify-between text-xs gap-2">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-gold/15 text-brand-amber border border-brand-gold/25">
+                        {isFilm && <Film className="w-3 h-3" />}
+                        {isSeries && <Tv className="w-3 h-3" />}
+                        {isBook && <BookOpen className="w-3 h-3" />}
+                        <span>{work.type}</span>
+                      </span>
+                      <span className="uppercase tracking-widest text-[10px] sm:text-[11px] font-bold text-stone-400 truncate">
+                        {work.genre}
+                      </span>
+                    </div>
 
-                return (
-                  <div
-                    key={film.id}
-                    data-reveal="fade-up"
-                    className={`${delays[idx % delays.length]} p-5 sm:p-6 rounded-2xl bg-[#181b1a] border ${
-                      isCercueil
-                        ? 'border-brand-gold/40'
-                        : 'border-white/10'
-                    } hover:border-brand-gold/60 card-premium-hover transition-all flex flex-col justify-between group shadow-md`}
-                  >
-                    <div>
-                      {/* Genre & Durée */}
-                      <div className="flex items-center justify-between text-xs text-stone-400 gap-2">
-                        <span className="uppercase tracking-widest text-brand-amber font-bold text-[10px] sm:text-xs">
-                          {film.genre}
-                        </span>
-                        {film.duration && (
-                          <span className="font-semibold text-[11px] shrink-0">{film.duration}</span>
-                        )}
-                      </div>
+                    {/* Title */}
+                    <h3
+                      className={`text-lg sm:text-xl font-cinzel font-bold mt-3 transition-colors ${
+                        isForet
+                          ? 'text-white group-hover:text-red-400'
+                          : 'text-white group-hover:text-brand-amber'
+                      }`}
+                    >
+                      {work.title}
+                    </h3>
 
-                      {/* Titre */}
-                      <h4 className="text-lg sm:text-xl font-cinzel font-bold text-white mt-2.5 group-hover:text-brand-amber transition-colors">
-                        {film.title}
-                      </h4>
-
-                      {/* Type & Rôle */}
-                      <div className="flex flex-wrap gap-1.5 mt-1.5 text-[10px] text-stone-400">
+                    {/* Format / Duration / Location */}
+                    <div className="flex flex-wrap gap-1.5 mt-2 text-[10px] text-stone-400">
+                      {'format' in work && work.format && (
                         <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-medium">
-                          {film.type}
+                          {work.format}
                         </span>
-                        {film.location && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 border border-white/10 font-medium">
-                            <MapPin className="w-2.5 h-2.5" />
-                            {film.location}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Logline */}
-                      <div className="mt-3">
-                        <span className="text-[9px] uppercase font-bold tracking-widest text-stone-400 block mb-1">
-                          {language === 'en' ? 'Logline:' : 'Logline :'}
+                      )}
+                      {'duration' in work && work.duration && (
+                        <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-medium">
+                          {work.duration}
                         </span>
-                        <p className="text-xs text-stone-300 leading-relaxed italic">
-                          « {film.logline} »
-                        </p>
-                      </div>
-
-                      {/* Lien œuvre littéraire reliée */}
-                      {film.relatedBookId && (
-                        <div className="mt-3 p-2 bg-amber-950/20 rounded-lg border border-amber-900/40 text-[11px] flex items-center justify-between">
-                          <span className="text-brand-amber font-semibold flex items-center gap-1.5">
-                            <BookOpen className="w-3 h-3" />
-                            {film.relatedBookTitle}
-                          </span>
-                          <CinematicButton
-                            variant="ghost"
-                            size="sm"
-                            onClick={onNavigateLivres}
-                            className="text-[9.5px] tracking-wider text-white hover:text-brand-amber"
-                          >
-                            {language === 'en' ? 'View book' : 'Voir livre'}
-                          </CinematicButton>
-                        </div>
+                      )}
+                      {'location' in work && work.location && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 border border-white/10 font-medium">
+                          <MapPin className="w-2.5 h-2.5" />
+                          {work.location}
+                        </span>
                       )}
                     </div>
 
-                    {/* Footer Fiche */}
-                    <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between gap-2">
-                      <span className="text-[10px] sm:text-[11px] text-stone-400 font-medium truncate">
-                        {film.status}
+                    {/* Logline avec ExpandableText */}
+                    <div className="mt-3.5">
+                      <span className="text-[9px] uppercase font-bold tracking-widest text-stone-400 block mb-1">
+                        {isBook ? 'Présentation :' : 'Logline Officielle :'}
                       </span>
-                      <div className="flex items-center gap-2">
+                      <div className="text-xs text-stone-300 italic">
+                        <ExpandableText
+                          text={work.logline}
+                          maxChars={130}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Related Book link if any */}
+                    {work.relatedBookId && (
+                      <div className="mt-3 p-2 bg-amber-950/20 rounded-lg border border-amber-900/40 text-[11px] flex items-center justify-between">
+                        <span className="text-brand-amber font-semibold flex items-center gap-1.5 truncate">
+                          <BookOpen className="w-3 h-3 shrink-0" />
+                          <span className="truncate">{work.relatedBookTitle}</span>
+                        </span>
+                        <CinematicButton
+                          variant="ghost"
+                          size="sm"
+                          onClick={onNavigateLivres}
+                          className="text-[9.5px] tracking-wider text-white hover:text-brand-amber shrink-0"
+                        >
+                          {language === 'en' ? 'Book' : 'Livre'}
+                        </CinematicButton>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Footer Card */}
+                  <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between gap-2">
+                    <span
+                      className={`text-[10px] sm:text-[11px] font-medium truncate ${
+                        isForet ? 'text-red-400 font-bold' : 'text-stone-400'
+                      }`}
+                    >
+                      {work.status}
+                    </span>
+
+                    <div className="flex items-center gap-2">
+                      {isBook ? (
                         <CinematicButton
                           variant="secondary"
                           size="sm"
-                          onClick={() => openProjectModal(film)}
+                          href={work.amazonUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          icon={<ExternalLink className="w-3.5 h-3.5" />}
+                          iconPosition="right"
+                        >
+                          Amazon
+                        </CinematicButton>
+                      ) : (
+                        <CinematicButton
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => openProjectModal(work.rawItem)}
                           icon={<ArrowUpRight className="w-3.5 h-3.5 text-brand-gold" />}
                           iconPosition="right"
                         >
                           {t('catalogue.viewDossier')}
                         </CinematicButton>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* SECTION: SÉRIES (SECTION CRÉATEUR — MES SÉRIES) */}
-        {showSeries && (
-          <div id="series">
-            <div data-reveal="fade-down" className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 mb-6 pb-3 border-b border-white/10">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <span className="p-1.5 rounded-lg bg-white/10 text-red-400">
-                  <Tv className="w-4 h-4" />
-                </span>
-                <span className="px-3 py-1 bg-red-600/15 text-red-400 text-xs font-bold uppercase rounded border border-red-500/30">
-                  {t('catalogue.seriesSectionBadge')}
-                </span>
-              </div>
-              <span className="text-xs text-stone-400">
-                {t('catalogue.seriesSectionSubtitle')}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-              {seriesData.map((serie, idx) => {
-                const isSpecial = serie.id === 'serie-foret-interdite';
-                const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500', 'delay-600'];
-
-                return (
-                  <div
-                    key={serie.id}
-                    data-reveal="fade-up"
-                    className={`${delays[idx % delays.length]} p-5 sm:p-6 rounded-2xl card-premium-hover transition-colors flex flex-col justify-between group shadow-md ${
-                      isSpecial
-                        ? 'bg-red-950/25 border border-red-900/50 hover:border-red-500/60'
-                        : 'bg-[#181b1a] border border-white/10 hover:border-brand-gold/40'
-                    }`}
-                  >
-                    <div>
-                      {/* Genre & Format */}
-                      <div
-                        className={`flex items-center justify-between text-xs gap-2 ${
-                          isSpecial ? 'text-red-400' : 'text-stone-400'
-                        }`}
-                      >
-                        <span className="uppercase tracking-widest font-bold text-[10px] sm:text-xs">
-                          {serie.genre}
-                        </span>
-                        <span className="font-semibold text-[11px] shrink-0">{serie.format}</span>
-                      </div>
-
-                      {/* Titre */}
-                      <h4
-                        className={`text-lg sm:text-xl font-cinzel font-bold mt-2.5 transition-colors ${
-                          isSpecial
-                            ? 'text-white group-hover:text-red-400'
-                            : 'text-white group-hover:text-brand-amber'
-                        }`}
-                      >
-                        {serie.title}
-                      </h4>
-
-                      {/* Type & Statut */}
-                      <div className="flex flex-wrap gap-1.5 mt-1.5 text-[10px] text-stone-400">
-                        <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-medium">
-                          {serie.type}
-                        </span>
-                        {serie.location && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 border border-white/10 font-medium">
-                            <MapPin className="w-2.5 h-2.5" />
-                            {serie.location}
-                          </span>
-                        )}
-                        {serie.country && (
-                          <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-medium">
-                            {serie.country}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Logline */}
-                      <div className="mt-3">
-                        <span className="text-[9px] uppercase font-bold tracking-widest text-stone-400 block mb-1">
-                          {language === 'en' ? 'Official Logline:' : 'Logline Officielle :'}
-                        </span>
-                        <p className="text-xs text-stone-300 leading-relaxed italic">
-                          « {serie.logline} »
-                        </p>
-                      </div>
-
-                      {/* Lien livre si relié */}
-                      {serie.relatedBookId && (
-                        <div className="mt-3 p-2 bg-amber-950/20 rounded-lg border border-amber-900/40 text-[11px] flex items-center justify-between">
-                          <span className="text-brand-amber font-semibold flex items-center gap-1.5">
-                            <BookOpen className="w-3 h-3" />
-                            {serie.relatedBookTitle}
-                          </span>
-                          <CinematicButton
-                            variant="ghost"
-                            size="sm"
-                            onClick={onNavigateLivres}
-                            className="text-[9.5px] tracking-wider text-white hover:text-brand-amber"
-                          >
-                            {language === 'en' ? 'View book' : 'Voir livre'}
-                          </CinematicButton>
-                        </div>
                       )}
                     </div>
-
-                    {/* Footer Fiche */}
-                    <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between gap-2">
-                      <span
-                        className={`text-[10px] sm:text-[11px] font-medium truncate ${
-                          isSpecial ? 'text-red-400 font-bold' : 'text-stone-400'
-                        }`}
-                      >
-                        {serie.status}
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {isSpecial ? (
-                          <CinematicButton
-                            variant="project"
-                            size="sm"
-                            onClick={onNavigateForet}
-                          >
-                            {language === 'en' ? 'Spotlight ✦' : 'Dossier Phare ✦'}
-                          </CinematicButton>
-                        ) : (
-                          <CinematicButton
-                            variant="secondary"
-                            size="sm"
-                            onClick={() => openProjectModal(serie)}
-                            icon={<ArrowUpRight className="w-3.5 h-3.5 text-brand-gold" />}
-                            iconPosition="right"
-                          >
-                            {t('catalogue.viewDossier')}
-                          </CinematicButton>
-                        )}
-                      </div>
-                    </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
 
-      {/* MODALE FICHE COMPLÈTE & DOSSIER DU PROJET */}
+      {/* MOBILE FILTERS BOTTOM SHEET / DRAWER */}
+      {isMobileFiltersOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm animate-fadeIn"
+          onClick={() => setIsMobileFiltersOpen(false)}
+        >
+          <div
+            className="w-full max-w-lg bg-[#181b1a] rounded-t-3xl sm:rounded-3xl p-6 border border-white/15 max-h-[85vh] overflow-y-auto space-y-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-brand-gold" />
+                <h3 className="font-cinzel text-lg font-bold text-white uppercase">
+                  Filtres Avancés
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsMobileFiltersOpen(false)}
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-stone-300 hover:text-white"
+                aria-label="Fermer les filtres"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Mobile Filter: TYPE */}
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-gold block mb-2">
+                TYPE
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {typeOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setTypeFilter(opt)}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all min-h-[40px] ${
+                      typeFilter === opt
+                        ? 'bg-brand-gold text-black'
+                        : 'bg-white/5 text-stone-300 hover:bg-white/10 border border-white/5'
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Filter: GENRE */}
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-gold block mb-2">
+                GENRE
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {genreOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setGenreFilter(opt)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all min-h-[38px] ${
+                      genreFilter === opt
+                        ? 'bg-brand-gold text-black font-bold'
+                        : 'bg-white/5 text-stone-300 hover:bg-white/10 border border-white/5'
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Filter: FORMAT */}
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-gold block mb-2">
+                FORMAT
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {formatOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setFormatFilter(opt)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all min-h-[38px] ${
+                      formatFilter === opt
+                        ? 'bg-brand-gold text-black font-bold'
+                        : 'bg-white/5 text-stone-300 hover:bg-white/10 border border-white/5'
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Filter: STATUT */}
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-gold block mb-2">
+                STATUT
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {statutOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setStatutFilter(opt)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all min-h-[38px] ${
+                      statutFilter === opt
+                        ? 'bg-brand-gold text-black font-bold'
+                        : 'bg-white/5 text-stone-300 hover:bg-white/10 border border-white/5'
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Filter: RÔLE */}
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-gold block mb-2">
+                RÔLE
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {roleOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setRoleFilter(opt)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all min-h-[38px] ${
+                      roleFilter === opt
+                        ? 'bg-brand-gold text-black font-bold'
+                        : 'bg-white/5 text-stone-300 hover:bg-white/10 border border-white/5'
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Drawer Actions */}
+            <div className="pt-4 border-t border-white/10 flex gap-3">
+              <CinematicButton
+                variant="primary"
+                size="md"
+                onClick={() => setIsMobileFiltersOpen(false)}
+                className="flex-1"
+              >
+                Appliquer les filtres
+              </CinematicButton>
+              <CinematicButton
+                variant="ghost"
+                size="md"
+                onClick={resetAllFilters}
+              >
+                Effacer
+              </CinematicButton>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODALE FICHE COMPLÈTE & DOSSIER DU PROJET (EXISTANTE CONSERVÉE) */}
       {selectedProject && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn"
@@ -371,7 +919,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                     {selectedProject.type}
                   </span>
                   <span className="text-xs text-stone-400 font-medium">
-                    {selectedProject.genre}
+                    {'genre' in selectedProject ? selectedProject.genre : selectedProject.category}
                   </span>
                 </div>
                 <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-white mt-1.5">
@@ -396,7 +944,9 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                   <span className="text-[10px] uppercase font-bold text-stone-400 block">
                     {language === 'en' ? 'Role / Author' : 'Rôle / Auteur'}
                   </span>
-                  <span className="font-semibold text-white">{selectedProject.role}</span>
+                  <span className="font-semibold text-white">
+                    {'role' in selectedProject ? selectedProject.role : selectedProject.author}
+                  </span>
                 </div>
                 {'duration' in selectedProject && selectedProject.duration && (
                   <div>
@@ -414,7 +964,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                     <span className="font-semibold text-white">{selectedProject.format}</span>
                   </div>
                 )}
-                {selectedProject.location && (
+                {'location' in selectedProject && selectedProject.location && (
                   <div>
                     <span className="text-[10px] uppercase font-bold text-stone-400 block">
                       {language === 'en' ? 'Location' : 'Lieu'}
@@ -422,7 +972,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                     <span className="font-semibold text-white">{selectedProject.location}</span>
                   </div>
                 )}
-                {selectedProject.languages && (
+                {'languages' in selectedProject && selectedProject.languages && (
                   <div>
                     <span className="text-[10px] uppercase font-bold text-stone-400 block">
                       {language === 'en' ? 'Languages' : 'Langues'}
@@ -434,7 +984,9 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                   <span className="text-[10px] uppercase font-bold text-stone-400 block">
                     {language === 'en' ? 'Status' : 'Statut'}
                   </span>
-                  <span className="font-semibold text-brand-amber">{selectedProject.status}</span>
+                  <span className="font-semibold text-brand-amber">
+                    {'status' in selectedProject ? selectedProject.status : 'Disponible'}
+                  </span>
                 </div>
               </div>
 
@@ -444,19 +996,27 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                   {language === 'en' ? 'Official Logline:' : 'Logline Officielle :'}
                 </strong>
                 <p className="italic bg-black/30 p-3 rounded-xl border border-white/10 text-stone-200">
-                  « {selectedProject.logline} »
+                  « {'logline' in selectedProject ? selectedProject.logline : selectedProject.description} »
                 </p>
               </div>
 
               {/* Synopsis si présent */}
-              {selectedProject.synopsis && (
+              {('synopsis' in selectedProject && selectedProject.synopsis) && (
                 <div>
                   <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
                     {language === 'en' ? 'Synopsis / Treatment:' : 'Synopsis / Traitement :'}
                   </strong>
-                  <p className="text-stone-300 leading-relaxed">
-                    {selectedProject.synopsis}
-                  </p>
+                  <ExpandableText text={selectedProject.synopsis} maxChars={280} className="text-stone-300 leading-relaxed" />
+                </div>
+              )}
+
+              {/* Summary if book */}
+              {('summary' in selectedProject && selectedProject.summary) && (
+                <div>
+                  <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
+                    {language === 'en' ? 'Book Synopsis:' : 'Synopsis du Livre :'}
+                  </strong>
+                  <ExpandableText text={selectedProject.summary} maxChars={280} className="text-stone-300 leading-relaxed" />
                 </div>
               )}
 

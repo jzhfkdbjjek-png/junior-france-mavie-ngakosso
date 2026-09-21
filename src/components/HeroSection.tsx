@@ -1,6 +1,8 @@
 import React from 'react';
 import { OFFICIAL_IMAGES } from '../data/portfolioData';
 import { useI18n } from '../i18n/I18nContext';
+import { CinematicButton } from './CinematicButton';
+import { ArrowUpRight } from 'lucide-react';
 
 interface HeroSectionProps {
   onExploreWorks: () => void;
@@ -47,31 +49,34 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </span>
             </div>
 
-            {/* Main Headline */}
+            {/* Main Headline & Typographic Identity */}
             <h1
-              className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-cinzel font-black tracking-tight leading-[1.08] text-stone-900 dark:text-white ${
+              className={`flex flex-col items-start leading-[1.05] ${
                 hasLoaded ? 'animate-hero-title' : 'opacity-0'
               }`}
             >
-              <span className="block text-lg sm:text-2xl md:text-3xl font-serif italic font-normal text-[#8c6738] dark:text-brand-amber tracking-normal mb-1">
+              <span className="block text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.25em] text-[#8c6738] dark:text-brand-amber mb-2">
                 {t('hero.roleSubtitle')}
               </span>
-              <span className="break-words">{t('hero.nameLine1')}</span>
-              <br />
-              <span className="text-gold-gradient break-words">{t('hero.nameLine2')}</span>
+              <span className="font-cinzel text-xl sm:text-3xl md:text-4xl lg:text-[38px] font-semibold tracking-[0.06em] text-stone-800 dark:text-stone-300 uppercase leading-snug break-words">
+                JUNIOR FRANCE MAVIE
+              </span>
+              <span className="author-brand-ngakosso text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[92px] mt-1 sm:mt-1.5 break-words select-none">
+                NGAKOSSO
+              </span>
             </h1>
 
-            {/* Subtitle & Key Quote */}
+            {/* Subtitle & Key Identity Formula */}
             <div
               className={`space-y-1.5 border-l-2 border-brand-gold/60 pl-3.5 sm:pl-4 py-1 ${
                 hasLoaded ? 'animate-hero-subtitle' : 'opacity-0'
               }`}
             >
-              <p className="text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.18em] text-[#8c6738] dark:text-brand-gold">
-                {t('hero.professionTag')}
+              <p className="text-sm sm:text-base md:text-lg font-cinzel font-bold text-stone-900 dark:text-white leading-snug">
+                {t('hero.authorFormula')}
               </p>
-              <p className="text-base sm:text-xl md:text-2xl font-serif italic text-stone-900 dark:text-white font-normal leading-snug">
-                {t('hero.quote')}
+              <p className="text-sm sm:text-base font-serif italic text-stone-700 dark:text-stone-300">
+                {t('hero.authorSubFormula')}
               </p>
             </div>
 
@@ -86,34 +91,41 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Action Buttons */}
             <div
-              className={`w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 ${
+              className={`w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 ${
                 hasLoaded ? 'animate-hero-buttons' : 'opacity-0'
               }`}
             >
-              <a
+              <CinematicButton
                 id="hero-explore-cta"
+                variant="primary"
+                size="lg"
                 href="#livres"
                 onClick={(e) => {
                   e.preventDefault();
                   onExploreWorks();
                 }}
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 min-h-[44px] py-3.5 rounded-full bg-gradient-to-r from-[#8c6738] to-[#c59b63] dark:from-brand-amber dark:to-brand-gold text-white dark:text-black text-xs font-bold uppercase tracking-widest hover:opacity-95 active:scale-[0.98] transition-all shadow-lg cursor-pointer"
+                icon={<ArrowUpRight className="w-4 h-4 shrink-0" />}
+                iconPosition="right"
+                className="w-full sm:w-auto text-center"
               >
-                <span>{t('hero.exploreBtn')}</span>
-                <span className="text-sm">↗</span>
-              </a>
-              <a
+                {t('hero.exploreBtn')}
+              </CinematicButton>
+
+              <CinematicButton
                 id="hero-collaborate-cta"
+                variant="secondary"
+                size="lg"
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
                   onContactClick();
                 }}
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 min-h-[44px] py-3.5 rounded-full bg-stone-200/80 dark:bg-[#181b1a] text-stone-900 dark:text-[#f2ede4] text-xs font-bold uppercase tracking-widest border border-stone-400/50 dark:border-white/20 hover:border-brand-gold hover:text-[#8c6738] dark:hover:text-brand-amber active:scale-[0.98] transition-all shadow-md cursor-pointer"
+                icon={<ArrowUpRight className="w-3.5 h-3.5 text-brand-gold shrink-0" />}
+                iconPosition="right"
+                className="w-full sm:w-auto text-center"
               >
-                <span>{t('hero.collaborateBtn')}</span>
-                <span className="text-sm text-[#8c6738] dark:text-brand-amber">↗</span>
-              </a>
+                {t('hero.collaborateBtn')}
+              </CinematicButton>
             </div>
 
             {/* Scroll to Discover Indicator */}

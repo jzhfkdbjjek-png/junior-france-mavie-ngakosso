@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { OFFICIAL_IMAGES } from '../data/portfolioData';
 import { useI18n } from '../i18n/I18nContext';
-import { BookOpen, Tv, Sparkles, Compass } from 'lucide-react';
+import { BookOpen, Tv, ArrowUpRight } from 'lucide-react';
+import { CinematicButton } from './CinematicButton';
 
 interface SpotlightSectionProps {
   onContactClick?: () => void;
@@ -19,74 +20,62 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
       name: 'Kito Ngoma',
       role: 'Main Protagonist (17 yo)',
       desc: 'Introverted and passionate about drawing. Discovers he possesses the Meso Miviri from ancient Weavers, letting him see mystical tears in the veil.',
-      icon: '✦',
     },
     {
       name: 'Samba',
       role: 'Steadfast Ally',
       desc: 'Kito’s childhood friend who provides bravery and unwavering loyalty against the rising hostility of the villagers.',
-      icon: '◈',
     },
     {
       name: 'Mama Kito',
       role: 'Grandmother & Guardian of Lore',
       desc: 'Bearer of oral traditions and ancient rituals of spiritual protection.',
-      icon: '❖',
     },
     {
       name: 'Maléko',
       role: 'Sanctuary Guardian',
       desc: 'Sentinel of the sacred forest, initiated in the secret laws of the Bisengo.',
-      icon: '☩',
     },
     {
       name: 'Spirit Nala',
       role: 'Mystical Guide',
       desc: 'Spiritual entity born of the shattered forest guiding Kito toward mending the ancestral rift.',
-      icon: '✧',
     },
     {
       name: 'Ba-Mvumbi & Nganga',
       role: 'Antagonistic Forces',
       desc: 'Tormented spirits and corrupted sorcerers exploiting the breach to rule the physical realm.',
-      icon: '▲',
     },
   ] : [
     {
       name: 'Kito Ngoma',
       role: 'Protagoniste principal (17 ans)',
       desc: 'Introverti et passionné de dessin. Découvre qu’il possède le Meso Miviri lié aux anciens Tisseurs, lui permettant de voir les déchirures mystiques.',
-      icon: '✦',
     },
     {
       name: 'Samba',
       role: 'Allié indéfectible',
       desc: 'Ami d’enfance de Kito, il apporte son courage et sa loyauté face à l’hostilité grandissante des villageois.',
-      icon: '◈',
     },
     {
       name: 'Mama Kito',
       role: 'Grand-mère & Gardienne des savoirs',
       desc: 'Détentrice des traditions orales et des rituels de protection ancestraux.',
-      icon: '❖',
     },
     {
       name: 'Maléko',
       role: 'Le Gardien du Sanctuaire',
       desc: 'Sentinelle de la forêt sacrée, initié aux lois secrètes du Bisengo.',
-      icon: '☩',
     },
     {
       name: 'Esprit Nala',
       role: 'Guide Mystique',
       desc: 'Entité spirituelle issue de la forêt brisée guidant Kito vers la réparation du lien ancestral.',
-      icon: '✧',
     },
     {
       name: 'Ba-Mvumbi & Nganga',
       role: 'Forces Antagonistes',
       desc: 'Esprits tourmentés et sorciers corrompus exploitant la brèche pour dominer le monde des vivants.',
-      icon: '▲',
     },
   ];
 
@@ -218,21 +207,25 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
             </div>
 
             {/* 2 BOUTONS D'ACTION : LIEN LITTÉRAIRE & LIEN AUDIOVISUEL */}
-            <div data-reveal="fade-up" className="delay-300 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
+            <div data-reveal="fade-up" className="delay-300 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-3 max-w-full">
               {/* Lien Littéraire (Découvrir le livre) */}
-              <a
+              <CinematicButton
+                variant="amazon"
+                size="md"
                 href="https://a.co/d/08g7FiVA"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 min-h-[44px] py-3.5 rounded-full bg-brand-amber text-black text-xs font-bold uppercase tracking-wider hover:bg-white active:scale-[0.98] transition-all shadow-lg cursor-pointer"
+                icon={<BookOpen className="w-4 h-4 shrink-0" />}
+                iconPosition="left"
+                className="w-full sm:w-auto text-center"
               >
-                <BookOpen className="w-4 h-4 shrink-0" />
-                <span>{t('spotlight.readAmazon')}</span>
-                <span>↗</span>
-              </a>
+                {t('spotlight.readAmazon')}
+              </CinematicButton>
 
               {/* Lien Audiovisuel (Découvrir la série / Coproduction) */}
-              <a
+              <CinematicButton
+                variant="project"
+                size="md"
                 href="#contact"
                 onClick={(e) => {
                   if (onContactClick) {
@@ -240,12 +233,12 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
                     onContactClick();
                   }
                 }}
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 min-h-[44px] py-3.5 rounded-full bg-red-950/70 border border-red-700/60 text-white text-xs font-bold uppercase tracking-wider hover:border-red-400 hover:text-red-200 active:scale-[0.98] transition-all cursor-pointer"
+                icon={<Tv className="w-4 h-4 text-red-400 shrink-0" />}
+                iconPosition="left"
+                className="w-full sm:w-auto text-center"
               >
-                <Tv className="w-4 h-4 text-red-400 shrink-0" />
-                <span>{t('spotlight.discoverSeries')}</span>
-                <span>↗</span>
-              </a>
+                {t('spotlight.discoverSeries')}
+              </CinematicButton>
             </div>
           </div>
         </div>
@@ -254,58 +247,45 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
         <div data-reveal="fade-up" className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-7 backdrop-blur-md space-y-6">
           {/* Menu d'onglets */}
           <div className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-4">
-            <button
-              type="button"
+            <CinematicButton
+              variant="filter"
+              size="sm"
+              active={activeTab === 'synopsis'}
               onClick={() => setActiveTab('synopsis')}
-              className={`px-4 py-2 min-h-[38px] rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === 'synopsis'
-                  ? 'bg-red-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-white bg-white/5'
-              }`}
             >
               {language === 'en' ? 'Synopsis' : 'Synopsis'}
-            </button>
-            <button
-              type="button"
+            </CinematicButton>
+            <CinematicButton
+              variant="filter"
+              size="sm"
+              active={activeTab === 'personnages'}
               onClick={() => setActiveTab('personnages')}
-              className={`px-4 py-2 min-h-[38px] rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === 'personnages'
-                  ? 'bg-red-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-white bg-white/5'
-              }`}
             >
               {language === 'en' ? 'Characters' : 'Personnages'}
-            </button>
-            <button
-              type="button"
+            </CinematicButton>
+            <CinematicButton
+              variant="filter"
+              size="sm"
+              active={activeTab === 'univers'}
               onClick={() => setActiveTab('univers')}
-              className={`px-4 py-2 min-h-[38px] rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === 'univers'
-                  ? 'bg-red-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-white bg-white/5'
-              }`}
             >
               {language === 'en' ? 'Universe & Bisengo' : 'Univers & Bisengo'}
-            </button>
-            <button
-              type="button"
+            </CinematicButton>
+            <CinematicButton
+              variant="filter"
+              size="sm"
+              active={activeTab === 'intention'}
               onClick={() => setActiveTab('intention')}
-              className={`px-4 py-2 min-h-[38px] rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === 'intention'
-                  ? 'bg-red-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-white bg-white/5'
-              }`}
             >
               {language === 'en' ? 'Artistic Statement' : 'Intention Artistique'}
-            </button>
+            </CinematicButton>
           </div>
 
           {/* Contenu de l'onglet actif */}
           <div>
             {activeTab === 'synopsis' && (
               <div className="space-y-4 animate-fadeIn">
-                <h4 className="font-cinzel text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                  <span className="text-red-500">✦</span>
+                <h4 className="font-cinzel text-lg sm:text-xl font-bold text-white">
                   {t('spotlight.synopsisLabel')}
                 </h4>
                 <p className="text-stone-300 text-sm sm:text-base leading-relaxed whitespace-pre-line">
@@ -321,10 +301,7 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
                     key={char.name}
                     className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5 card-premium-hover"
                   >
-                    <div className="flex items-center justify-between">
-                      <h5 className="font-cinzel font-bold text-white text-base">{char.name}</h5>
-                      <span className="text-red-400 text-sm">{char.icon}</span>
-                    </div>
+                    <h5 className="font-cinzel font-bold text-white text-base">{char.name}</h5>
                     <span className="text-[11px] font-semibold text-brand-amber block uppercase tracking-wider">
                       {char.role}
                     </span>
@@ -338,8 +315,7 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
 
             {activeTab === 'univers' && (
               <div className="space-y-4 animate-fadeIn">
-                <h4 className="font-cinzel text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                  <Compass className="w-5 h-5 text-red-500" />
+                <h4 className="font-cinzel text-lg sm:text-xl font-bold text-white">
                   {t('spotlight.universeLabel')}
                 </h4>
                 <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
@@ -372,8 +348,7 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
 
             {activeTab === 'intention' && (
               <div className="space-y-4 animate-fadeIn">
-                <h4 className="font-cinzel text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-brand-amber" />
+                <h4 className="font-cinzel text-lg sm:text-xl font-bold text-white">
                   {t('spotlight.intentionLabel')}
                 </h4>
                 <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
