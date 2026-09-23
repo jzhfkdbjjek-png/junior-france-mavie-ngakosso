@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useI18n } from '../i18n/I18nContext';
 import { FileText, Download, CheckCircle2, Eye, ShieldCheck, Loader2 } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { CinematicImage } from './CinematicImage';
 import { OFFICIAL_IMAGES } from '../data/portfolioData';
 import { generatePressKitPdf } from '../utils/pressKitPdf';
 
@@ -104,22 +105,32 @@ export const PressKitSection: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
             {/* Author Portrait Preview in Editorial Frame */}
             <div className="lg:col-span-4 flex flex-col items-center">
-              <div className="relative group w-full max-w-[280px] sm:max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden border border-brand-gold/40 shadow-2xl bg-stone-900">
-                <img
+              <div className="relative group w-full max-w-[280px] sm:max-w-[320px] rounded-2xl overflow-hidden border border-brand-gold/40 shadow-2xl bg-stone-900">
+                <CinematicImage
                   src={OFFICIAL_IMAGES.portrait}
                   alt="Junior France Mavie Ngakosso — Dossier Artistique"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-top filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-500"
+                  aspectRatio="4/5"
+                  objectFit="cover"
+                  objectPosition="top"
+                  type="portrait"
+                  title="Dossier de Référence A4"
+                  category="Junior France Mavie Ngakosso"
+                  containerClassName="border-0"
+                  className="filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-500"
+                  overlay={
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none" />
+                      <div className="absolute bottom-4 inset-x-4 text-center pointer-events-none">
+                        <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-brand-gold block mb-1">
+                          Dossier de Référence A4
+                        </span>
+                        <p className="text-xs font-semibold text-white">
+                          Junior France Mavie Ngakosso
+                        </p>
+                      </div>
+                    </>
+                  }
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20" />
-                <div className="absolute bottom-4 inset-x-4 text-center">
-                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-brand-gold block mb-1">
-                    Dossier de Référence A4
-                  </span>
-                  <p className="text-xs font-semibold text-white">
-                    Junior France Mavie Ngakosso
-                  </p>
-                </div>
               </div>
             </div>
 

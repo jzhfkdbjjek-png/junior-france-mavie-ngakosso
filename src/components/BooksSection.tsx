@@ -4,6 +4,7 @@ import { BookItem } from '../types';
 import { useI18n } from '../i18n/I18nContext';
 import { ExternalLink, Film, Info, X, BookOpen, CheckCircle2 } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { CinematicImage } from './CinematicImage';
 import { ExpandableText } from './ExpandableText';
 
 interface BooksSectionProps {
@@ -34,9 +35,19 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
         ? ['Grief & Loss', 'Masculinity & Armor', 'Family Secrets', 'Personal Reconstruction']
         : ['Deuil & Douleur', 'Masculinité & Armure', 'Secrets de Famille', 'Reconstruction Personnelle'];
     }
+    if (bookId === 'livre-1560') {
+      return language === 'en'
+        ? ['Mystic Grimoire 1560', 'Twins & Duality', 'Anomalies & Possession', 'Ancestral Heritage']
+        : ['Grimoire mystique 1560', 'Jumeaux & Dualité', 'Anomalies & Esprits', 'Héritage Ancestral'];
+    }
+    if (bookId === 'pacte-du-demon') {
+      return language === 'en'
+        ? ['Occult Pact & Ambition', 'Supernatural Debt', 'Moral Collapse', 'Spiritual Redemption']
+        : ['Pacte occulte & Ambition', 'Dette surnaturelle', 'Dilemme moral', 'Rachat & Salut'];
+    }
     return language === 'en'
-      ? ['Occult Pact & Ambition', 'Supernatural Debt', 'Moral Collapse', 'Spiritual Redemption']
-      : ['Pacte occulte & Ambition', 'Dette surnaturelle', 'Dilemme moral', 'Rachat & Salut'];
+      ? ['Literary Fiction', 'Supernatural Drama', 'Ancestral Quest']
+      : ['Fiction littéraire', 'Drame surnaturel', 'Quête ancestrale'];
   };
 
   return (
@@ -79,25 +90,33 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                 {/* Couverture Livre */}
                 <div className="md:col-span-5 relative overflow-hidden bg-stone-900 flex items-center justify-center p-6 sm:p-8 bg-gradient-to-b from-stone-900 via-[#151716] to-[#0e100f]">
                   <div className="relative aspect-[9/13] w-full max-w-[260px] shadow-2xl rounded-lg overflow-hidden border border-white/15 group">
-                    <img
+                    <CinematicImage
                       src={book.image}
                       alt={book.title}
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      aspectRatio="9/13"
+                      objectFit="cover"
+                      type="book"
+                      title={book.title}
+                      category={book.category}
+                      className="transition-transform duration-500 group-hover:scale-105"
+                      containerClassName="border-0"
+                      overlay={
+                        <>
+                          <div className="absolute top-2.5 left-2.5">
+                            <span className="px-2 py-0.5 text-[9px] uppercase font-bold tracking-widest backdrop-blur-md rounded border bg-black/85 text-brand-amber border-brand-amber/30">
+                              {book.badge}
+                            </span>
+                          </div>
+                          {book.subBadge && (
+                            <div className="absolute bottom-2.5 right-2.5">
+                              <span className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest rounded font-sans shadow bg-brand-amber text-black font-semibold">
+                                {book.subBadge}
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      }
                     />
-                    <div className="absolute top-2.5 left-2.5">
-                      <span className="px-2 py-0.5 text-[9px] uppercase font-bold tracking-widest backdrop-blur-md rounded border bg-black/85 text-brand-amber border-brand-amber/30">
-                        {book.badge}
-                      </span>
-                    </div>
-                    {book.subBadge && (
-                      <div className="absolute bottom-2.5 right-2.5">
-                        <span className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest rounded font-sans shadow bg-brand-amber text-black font-semibold">
-                          {book.subBadge}
-                        </span>
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -226,100 +245,151 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
         </div>
       </div>
 
-      {/* Modal Détails / Résumé Complet */}
+      {/* Modal Détails / Fiche Complète du Livre */}
       {selectedBook && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
           onClick={() => setSelectedBook(null)}
         >
           <div
-            className="bg-[#181b1a] rounded-2xl max-w-lg w-full p-6 sm:p-7 border border-white/15 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
+            className="bg-[#181b1a] rounded-2xl max-w-3xl w-full p-5 sm:p-7 border border-white/15 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Header Modal */}
             <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-3">
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-brand-amber block">
+                <span className="px-2.5 py-0.5 text-[10px] uppercase font-bold tracking-widest bg-brand-amber/20 text-brand-amber rounded inline-block">
                   {selectedBook.type}
                 </span>
-                <h3 className="font-cinzel text-xl font-bold text-white mt-0.5">
+                <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-white mt-1.5">
                   {selectedBook.title}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedBook(null)}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-stone-300 hover:text-white cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-stone-300 hover:text-white cursor-pointer transition-colors"
                 aria-label={t('books.closeModal')}
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-4 text-xs sm:text-sm text-stone-300 leading-relaxed">
-              <div className="p-3.5 rounded-lg bg-black/30 border border-white/5 space-y-1.5">
-                <div className="flex justify-between text-xs text-stone-400">
-                  <span>{t('books.authorLabel')} :</span>
-                  <strong className="text-white">{selectedBook.author}</strong>
+            {/* Corps Modal : Grille 2 colonnes avec couverture grand format */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 items-start">
+              {/* Couverture Grand Format */}
+              <div className="md:col-span-5 flex flex-col items-center">
+                <div className="relative aspect-[2/3] w-full max-w-[280px] rounded-xl overflow-hidden border border-brand-gold/40 shadow-2xl bg-black/60 group">
+                  <CinematicImage
+                    src={selectedBook.image}
+                    alt={selectedBook.title}
+                    aspectRatio="2/3"
+                    objectFit="cover"
+                    type="book"
+                    title={selectedBook.title}
+                    category={selectedBook.category}
+                    className="transition-transform duration-500 group-hover:scale-105"
+                    containerClassName="border-0"
+                    overlay={
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+                        <div className="absolute bottom-3 left-3 right-3 text-center pointer-events-none">
+                          <span className="inline-block px-2.5 py-1 rounded bg-black/80 border border-brand-gold/40 text-[9.5px] uppercase tracking-widest text-brand-amber font-bold shadow">
+                            {selectedBook.badge || 'Couverture Officielle'}
+                          </span>
+                        </div>
+                      </>
+                    }
+                  />
                 </div>
-                <div className="flex justify-between text-xs text-stone-400">
-                  <span>{t('books.universeLabel')} :</span>
-                  <span className="text-brand-amber">{selectedBook.category}</span>
-                </div>
-                <div className="flex justify-between text-xs text-stone-400">
-                  <span>{t('books.availableLabel')} :</span>
-                  <span className="text-stone-300 font-semibold">Amazon</span>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1.5">
-                  {language === 'en' ? 'Presentation' : 'Présentation'}
-                </h4>
-                <p className="text-stone-300 leading-relaxed">
-                  {selectedBook.description}
+                <p className="text-[10px] text-stone-400 font-medium text-center mt-2 tracking-wider uppercase">
+                  {selectedBook.author}
+                  <span className="block text-brand-gold/80 text-[9px]">Auteur</span>
                 </p>
               </div>
 
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1.5">
-                  {language === 'en' ? 'Complete Synopsis' : 'Synopsis Complet'}
-                </h4>
-                <p className="text-stone-300 leading-relaxed">
-                  {selectedBook.summary || selectedBook.description}
-                </p>
-              </div>
-
-              {selectedBook.extract && (
-                <div className="p-3.5 rounded-lg bg-black/40 border-l-2 border-brand-gold border-white/5">
-                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-brand-gold mb-1">
-                    {language === 'en' ? 'Literary Excerpt' : 'Extrait de l’œuvre'}
-                  </h4>
-                  <p className="text-xs italic text-stone-300 font-serif leading-relaxed">
-                    {selectedBook.extract}
-                  </p>
+              {/* Détails & Contenu */}
+              <div className="md:col-span-7 space-y-4 text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {/* Spécifications du Livre */}
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-2 text-xs">
+                  <div className="flex justify-between items-center text-stone-400">
+                    <span className="uppercase text-[10px] font-bold tracking-wider">{t('books.authorLabel')} :</span>
+                    <strong className="text-white font-semibold">{selectedBook.author}</strong>
+                  </div>
+                  <div className="flex justify-between items-center text-stone-400">
+                    <span className="uppercase text-[10px] font-bold tracking-wider">{t('books.universeLabel')} :</span>
+                    <span className="text-brand-amber font-medium truncate max-w-[220px] text-right">{selectedBook.category}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-stone-400">
+                    <span className="uppercase text-[10px] font-bold tracking-wider">{t('books.availableLabel')} :</span>
+                    <span className="text-stone-200 font-semibold flex items-center gap-1">
+                      <BookOpen className="w-3 h-3 text-brand-gold" /> Amazon
+                    </span>
+                  </div>
                 </div>
-              )}
 
-              <div className="pt-3 border-t border-white/10 flex gap-2">
-                <CinematicButton
-                  variant="amazon"
-                  size="sm"
-                  href={selectedBook.amazonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  icon={<ExternalLink className="w-3.5 h-3.5" />}
-                  className="flex-1"
-                >
-                  {t('books.buyAmazon')}
-                </CinematicButton>
-                <CinematicButton
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setSelectedBook(null)}
-                >
-                  {t('books.closeModal')}
-                </CinematicButton>
+                {/* Logline */}
+                {selectedBook.logline && (
+                  <div>
+                    <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
+                      {language === 'en' ? 'Official Logline:' : 'Logline Officielle :'}
+                    </strong>
+                    <p className="italic bg-black/30 p-3 rounded-xl border border-white/10 text-stone-200">
+                      « {selectedBook.logline} »
+                    </p>
+                  </div>
+                )}
+
+                {/* Pitch / Synopsis complet */}
+                <div>
+                  <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1.5">
+                    {selectedBook.pitch
+                      ? (language === 'en' ? 'Official Pitch:' : 'Pitch Officiel :')
+                      : (language === 'en' ? 'Complete Synopsis:' : 'Synopsis Complet :')}
+                  </strong>
+                  <div className="text-stone-300 leading-relaxed space-y-2 text-xs sm:text-[13px]">
+                    {(selectedBook.pitch || selectedBook.summary || selectedBook.description)
+                      .split('\n\n')
+                      .map((paragraph, idx) => (
+                        <p key={idx}>{paragraph}</p>
+                      ))}
+                  </div>
+                </div>
+
+                {/* Extrait Littéraire */}
+                {selectedBook.extract && (
+                  <div className="p-3.5 rounded-xl bg-black/40 border-l-2 border-brand-gold border-white/5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-brand-gold block mb-1">
+                      {language === 'en' ? 'Literary Excerpt' : 'Extrait de l’œuvre'}
+                    </span>
+                    <p className="text-xs italic text-stone-300 font-serif leading-relaxed">
+                      {selectedBook.extract}
+                    </p>
+                  </div>
+                )}
               </div>
+            </div>
+
+            {/* Actions Modal */}
+            <div className="pt-3.5 border-t border-white/10 flex flex-col sm:flex-row gap-2.5">
+              <CinematicButton
+                variant="amazon"
+                size="md"
+                href={selectedBook.amazonUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                icon={<ExternalLink className="w-3.5 h-3.5" />}
+                className="flex-1"
+              >
+                {t('books.buyAmazon')}
+              </CinematicButton>
+              <CinematicButton
+                variant="ghost"
+                size="md"
+                onClick={() => setSelectedBook(null)}
+              >
+                {t('books.closeModal')}
+              </CinematicButton>
             </div>
           </div>
         </div>

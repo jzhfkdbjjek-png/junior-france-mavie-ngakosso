@@ -4,7 +4,6 @@ import { HeroSection } from './components/HeroSection';
 import { BooksSection } from './components/BooksSection';
 import { SpotlightSection } from './components/SpotlightSection';
 import { CatalogueSection } from './components/CatalogueSection';
-import { AudioSection } from './components/AudioSection';
 import { UniversSection } from './components/UniversSection';
 import { PressKitSection } from './components/PressKitSection';
 import { ContactSection } from './components/ContactSection';
@@ -174,10 +173,7 @@ export default function App() {
           onContactClick={() => handleNavigateSection('contact')}
         />
 
-        {/* Section 5 — Audio « La Voix des Œuvres » */}
-        <AudioSection />
-
-        {/* Section 6 — Mon Univers */}
+        {/* Section 5 — Mon Univers */}
         <UniversSection />
 
         {/* Section 7 — Presse & Médias : Press Kit Professionnel A4 */}

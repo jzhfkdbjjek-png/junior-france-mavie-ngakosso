@@ -20,6 +20,7 @@ import {
   Award,
 } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { CinematicImage } from './CinematicImage';
 
 interface ForetInterditePageProps {
   onReturnHome: () => void;
@@ -192,35 +193,44 @@ export const ForetInterditePage: React.FC<ForetInterditePageProps> = ({
               <div className="relative group max-w-[340px] sm:max-w-md w-full">
                 <div className="absolute -inset-3 bg-gradient-to-tr from-red-800/50 via-amber-600/30 to-emerald-800/40 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition duration-700"></div>
                 <div className="relative rounded-2xl overflow-hidden border border-red-800/60 shadow-2xl bg-black">
-                  <img
+                  <CinematicImage
                     src={OFFICIAL_IMAGES.seriesForet}
                     alt="La Forêt Interdite - Série Télévisée"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Badges sur l'affiche */}
-                  <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                    <span className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest rounded bg-black/85 text-red-300 border border-red-700/50 backdrop-blur-md">
-                      SÉRIE ÉVÉNEMENT
-                    </span>
-                    <span className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest rounded bg-red-950/90 text-white border border-red-500/40">
-                      PROJET FINALISÉ
-                    </span>
-                  </div>
+                    aspectRatio="2/3"
+                    objectFit="cover"
+                    type="series"
+                    title="La Forêt Interdite"
+                    category="Série Télévisée Prestige"
+                    className="transition-transform duration-700 group-hover:scale-105"
+                    containerClassName="border-0"
+                    overlay={
+                      <>
+                        {/* Badges sur l'affiche */}
+                        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+                          <span className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest rounded bg-black/85 text-red-300 border border-red-700/50 backdrop-blur-md">
+                            SÉRIE ÉVÉNEMENT
+                          </span>
+                          <span className="px-2.5 py-1 text-[9px] uppercase font-bold tracking-widest rounded bg-red-950/90 text-white border border-red-500/40">
+                            PROJET FINALISÉ
+                          </span>
+                        </div>
 
-                  <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-red-400 block">
-                        FORMAT PRESTIGE
-                      </span>
-                      <p className="text-sm font-cinzel font-bold text-white">
-                        8 Épisodes × 52 Minutes
-                      </p>
-                    </div>
-                    <span className="px-2.5 py-1 bg-red-900/80 text-white text-[10px] font-bold rounded border border-red-500/50">
-                      Congo (Brazzaville)
-                    </span>
-                  </div>
+                        <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-between">
+                          <div>
+                            <span className="text-[10px] uppercase font-bold tracking-widest text-red-400 block">
+                              FORMAT PRESTIGE
+                            </span>
+                            <p className="text-sm font-cinzel font-bold text-white">
+                              8 Épisodes × 52 Minutes
+                            </p>
+                          </div>
+                          <span className="px-2.5 py-1 bg-red-900/80 text-white text-[10px] font-bold rounded border border-red-500/50">
+                            Congo (Brazzaville)
+                          </span>
+                        </div>
+                      </>
+                    }
+                  />
                 </div>
               </div>
             </div>

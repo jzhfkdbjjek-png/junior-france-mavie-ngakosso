@@ -15,6 +15,7 @@ import {
   RotateCcw,
 } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { CinematicImage } from './CinematicImage';
 import { ExpandableText } from './ExpandableText';
 
 interface CatalogueSectionProps {
@@ -39,6 +40,7 @@ interface WorkItem {
   summary?: string;
   concept?: string;
   inspiration?: string;
+  image?: string;
   relatedBookId?: string;
   relatedBookTitle?: string;
   amazonUrl?: string;
@@ -86,6 +88,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       logline: item.logline,
       synopsis: item.synopsis,
       inspiration: item.inspiration,
+      image: item.image,
       relatedBookId: item.relatedBookId,
       relatedBookTitle: item.relatedBookTitle,
       workType: 'film',
@@ -104,6 +107,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       logline: item.logline,
       synopsis: item.synopsis,
       concept: item.concept,
+      image: item.image,
       relatedBookId: item.relatedBookId,
       relatedBookTitle: item.relatedBookTitle,
       workType: 'series',
@@ -118,6 +122,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       role: 'Auteur',
       logline: item.description,
       summary: item.summary,
+      image: item.image,
       amazonUrl: item.amazonUrl,
       workType: 'book',
       rawItem: item,
@@ -624,14 +629,65 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                   }`}
                 >
                   <div>
-                    {/* Header Item : Type badge & Genre */}
+                    {/* Visual Key Art / Poster if available */}
+                    {work.image && (
+                      <div
+                        className="relative aspect-[2/3] w-full max-h-[380px] sm:max-h-[400px] overflow-hidden rounded-xl bg-black/40 border border-white/10 mb-4 group/poster cursor-pointer shadow-lg transition-all duration-300 group-hover:border-brand-gold/50"
+                        onClick={() => {
+                          if (isBook && work.amazonUrl) {
+                            window.open(work.amazonUrl, '_blank', 'noopener,noreferrer');
+                          } else {
+                            openProjectModal(work.rawItem);
+                          }
+                        }}
+                      >
+                        <CinematicImage
+                          src={work.image}
+                          alt={work.title}
+                          aspectRatio="2/3"
+                          objectFit="cover"
+                          type={isBook ? 'book' : isSeries ? 'series' : 'film'}
+                          title={work.title}
+                          category={work.genre}
+                          className="transition-transform duration-700 ease-out group-hover/poster:scale-105"
+                          containerClassName="border-0"
+                          overlay={
+                            <>
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#181b1a] via-transparent to-black/30 pointer-events-none" />
+                              
+                              {/* Floating Top Badge */}
+                              <div className="absolute top-2.5 left-2.5 z-10">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-black/75 text-brand-amber border border-brand-gold/30 backdrop-blur-md shadow-md">
+                                  {isFilm && <Film className="w-3 h-3 text-brand-gold" />}
+                                  {isSeries && <Tv className="w-3 h-3 text-brand-gold" />}
+                                  {isBook && <BookOpen className="w-3 h-3 text-brand-gold" />}
+                                  <span>{work.type}</span>
+                                </span>
+                              </div>
+
+                              {/* Hover Overlay indicator */}
+                              <div className="absolute bottom-2.5 right-2.5 opacity-0 group-hover/poster:opacity-100 transition-opacity duration-300 z-10">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-bold bg-brand-gold text-black shadow-lg">
+                                  {isBook ? 'Amazon' : (language === 'en' ? 'View Dossier' : 'Voir Fiche')}
+                                  <ArrowUpRight className="w-3 h-3" />
+                                </span>
+                              </div>
+                            </>
+                          }
+                        />
+                      </div>
+                    )}
+
+                    {/* Header Item : Type badge & Genre (shown if no image or as supplementary) */}
                     <div className="flex items-center justify-between text-xs gap-2">
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-gold/15 text-brand-amber border border-brand-gold/25">
-                        {isFilm && <Film className="w-3 h-3" />}
-                        {isSeries && <Tv className="w-3 h-3" />}
-                        {isBook && <BookOpen className="w-3 h-3" />}
-                        <span>{work.type}</span>
-                      </span>
+                      {!work.image && (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-gold/15 text-brand-amber border border-brand-gold/25">
+                          {isFilm && <Film className="w-3 h-3" />}
+                          {isSeries && <Tv className="w-3 h-3" />}
+                          {isBook && <BookOpen className="w-3 h-3" />}
+                          <span>{work.type}</span>
+                        </span>
+                      )}
                       <span className="uppercase tracking-widest text-[10px] sm:text-[11px] font-bold text-stone-400 truncate">
                         {work.genre}
                       </span>
@@ -639,7 +695,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
 
                     {/* Title */}
                     <h3
-                      className={`text-lg sm:text-xl font-cinzel font-bold mt-3 transition-colors ${
+                      className={`text-lg sm:text-xl font-cinzel font-bold mt-2.5 transition-colors ${
                         isForet
                           ? 'text-white group-hover:text-red-400'
                           : 'text-white group-hover:text-brand-amber'
@@ -901,14 +957,16 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
         </div>
       )}
 
-      {/* MODALE FICHE COMPLÈTE & DOSSIER DU PROJET (EXISTANTE CONSERVÉE) */}
+      {/* MODALE FICHE COMPLÈTE & DOSSIER DU PROJET (AVEC POSTER CINÉMATOGRAPHIQUE) */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="bg-[#181b1a] rounded-2xl max-w-2xl w-full p-6 sm:p-8 border border-white/15 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
+            className={`bg-[#181b1a] rounded-2xl w-full p-5 sm:p-7 border border-white/15 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto ${
+              'image' in selectedProject && selectedProject.image ? 'max-w-4xl' : 'max-w-2xl'
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header Modal */}
@@ -929,7 +987,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
               <button
                 type="button"
                 onClick={() => setSelectedProject(null)}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-stone-300 hover:text-white cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-stone-300 hover:text-white cursor-pointer transition-colors"
                 aria-label={t('books.closeModal')}
               >
                 <X className="w-5 h-5" />
@@ -937,110 +995,156 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
             </div>
 
             {/* Corps de la Fiche */}
-            <div className="space-y-4 text-xs sm:text-sm text-stone-300 leading-relaxed">
-              {/* Grille des spécifications */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 p-3.5 bg-white/5 rounded-xl text-xs">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                    {language === 'en' ? 'Role / Author' : 'Rôle / Auteur'}
-                  </span>
-                  <span className="font-semibold text-white">
-                    {'role' in selectedProject ? selectedProject.role : selectedProject.author}
-                  </span>
-                </div>
-                {'duration' in selectedProject && selectedProject.duration && (
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                      {language === 'en' ? 'Duration' : 'Durée'}
-                    </span>
-                    <span className="font-semibold text-white">{selectedProject.duration}</span>
+            <div
+              className={`gap-6 ${
+                'image' in selectedProject && selectedProject.image
+                  ? 'grid grid-cols-1 md:grid-cols-12 items-start'
+                  : 'space-y-4'
+              }`}
+            >
+              {/* Colonne Image / Poster Officiel 2:3 */}
+              {'image' in selectedProject && selectedProject.image && (
+                <div className="md:col-span-5 flex flex-col items-center">
+                  <div className="relative aspect-[2/3] w-full max-w-[320px] rounded-xl overflow-hidden border border-brand-gold/40 shadow-2xl bg-black/60 group">
+                    <CinematicImage
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      aspectRatio="2/3"
+                      objectFit="cover"
+                      type={'genre' in selectedProject ? 'film' : 'book'}
+                      title={selectedProject.title}
+                      category={'genre' in selectedProject ? selectedProject.genre : selectedProject.category}
+                      className="transition-transform duration-500 group-hover:scale-105"
+                      containerClassName="border-0"
+                      overlay={
+                        <>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+                          <div className="absolute bottom-3 left-3 right-3 text-center pointer-events-none">
+                            <span className="inline-block px-2.5 py-1 rounded bg-black/80 border border-brand-gold/40 text-[9.5px] uppercase tracking-widest text-brand-amber font-bold shadow">
+                              Key Art Officiel • 2:3
+                            </span>
+                          </div>
+                        </>
+                      }
+                    />
                   </div>
-                )}
-                {'format' in selectedProject && selectedProject.format && (
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                      Format
-                    </span>
-                    <span className="font-semibold text-white">{selectedProject.format}</span>
-                  </div>
-                )}
-                {'location' in selectedProject && selectedProject.location && (
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                      {language === 'en' ? 'Location' : 'Lieu'}
-                    </span>
-                    <span className="font-semibold text-white">{selectedProject.location}</span>
-                  </div>
-                )}
-                {'languages' in selectedProject && selectedProject.languages && (
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                      {language === 'en' ? 'Languages' : 'Langues'}
-                    </span>
-                    <span className="font-semibold text-white">{selectedProject.languages}</span>
-                  </div>
-                )}
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                    {language === 'en' ? 'Status' : 'Statut'}
-                  </span>
-                  <span className="font-semibold text-brand-amber">
-                    {'status' in selectedProject ? selectedProject.status : 'Disponible'}
-                  </span>
-                </div>
-              </div>
-
-              {/* Logline */}
-              <div>
-                <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
-                  {language === 'en' ? 'Official Logline:' : 'Logline Officielle :'}
-                </strong>
-                <p className="italic bg-black/30 p-3 rounded-xl border border-white/10 text-stone-200">
-                  « {'logline' in selectedProject ? selectedProject.logline : selectedProject.description} »
-                </p>
-              </div>
-
-              {/* Synopsis si présent */}
-              {('synopsis' in selectedProject && selectedProject.synopsis) && (
-                <div>
-                  <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
-                    {language === 'en' ? 'Synopsis / Treatment:' : 'Synopsis / Traitement :'}
-                  </strong>
-                  <ExpandableText text={selectedProject.synopsis} maxChars={280} className="text-stone-300 leading-relaxed" />
-                </div>
-              )}
-
-              {/* Summary if book */}
-              {('summary' in selectedProject && selectedProject.summary) && (
-                <div>
-                  <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
-                    {language === 'en' ? 'Book Synopsis:' : 'Synopsis du Livre :'}
-                  </strong>
-                  <ExpandableText text={selectedProject.summary} maxChars={280} className="text-stone-300 leading-relaxed" />
-                </div>
-              )}
-
-              {/* Concept si présent (Chez le Psy) */}
-              {'concept' in selectedProject && selectedProject.concept && (
-                <div>
-                  <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
-                    {language === 'en' ? 'Narrative Concept:' : 'Concept Narratif :'}
-                  </strong>
-                  <p className="text-stone-300 leading-relaxed">
-                    {selectedProject.concept}
+                  <p className="text-[10px] text-stone-400 font-medium text-center mt-2.5 tracking-wider uppercase">
+                    Junior France Mavie NGAKOSSO
+                    <span className="block text-brand-gold/80 text-[9px]">Auteur / Scénariste</span>
                   </p>
                 </div>
               )}
 
-              {/* Inspiration si présente (L'enfant albinos) */}
-              {'inspiration' in selectedProject && selectedProject.inspiration && (
-                <div className="p-3 bg-amber-950/30 rounded-xl border border-amber-900/40 text-xs">
-                  <strong className="text-white block font-semibold mb-0.5">
-                    {language === 'en' ? 'Inspiration Source:' : "Source d'inspiration :"}
-                  </strong>
-                  <p className="text-stone-300 italic">{selectedProject.inspiration}</p>
+              {/* Colonne Informations & Contenu */}
+              <div
+                className={`space-y-4 text-xs sm:text-sm text-stone-300 leading-relaxed ${
+                  'image' in selectedProject && selectedProject.image ? 'md:col-span-7' : ''
+                }`}
+              >
+                {/* Grille des spécifications */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 p-3.5 bg-white/5 rounded-xl text-xs">
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-stone-400 block">
+                      {language === 'en' ? 'Role / Author' : 'Rôle / Auteur'}
+                    </span>
+                    <span className="font-semibold text-white">
+                      {'role' in selectedProject ? selectedProject.role : selectedProject.author}
+                    </span>
+                  </div>
+                  {'duration' in selectedProject && selectedProject.duration && (
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-stone-400 block">
+                        {language === 'en' ? 'Duration' : 'Durée'}
+                      </span>
+                      <span className="font-semibold text-white">{selectedProject.duration}</span>
+                    </div>
+                  )}
+                  {'format' in selectedProject && selectedProject.format && (
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-stone-400 block">
+                        Format
+                      </span>
+                      <span className="font-semibold text-white">{selectedProject.format}</span>
+                    </div>
+                  )}
+                  {'location' in selectedProject && selectedProject.location && (
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-stone-400 block">
+                        {language === 'en' ? 'Location' : 'Lieu'}
+                      </span>
+                      <span className="font-semibold text-white">{selectedProject.location}</span>
+                    </div>
+                  )}
+                  {'languages' in selectedProject && selectedProject.languages && (
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-stone-400 block">
+                        {language === 'en' ? 'Languages' : 'Langues'}
+                      </span>
+                      <span className="font-semibold text-white">{selectedProject.languages}</span>
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-stone-400 block">
+                      {language === 'en' ? 'Status' : 'Statut'}
+                    </span>
+                    <span className="font-semibold text-brand-amber">
+                      {'status' in selectedProject ? selectedProject.status : 'Disponible'}
+                    </span>
+                  </div>
                 </div>
-              )}
+
+                {/* Logline */}
+                <div>
+                  <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
+                    {language === 'en' ? 'Official Logline:' : 'Logline Officielle :'}
+                  </strong>
+                  <p className="italic bg-black/30 p-3 rounded-xl border border-white/10 text-stone-200">
+                    « {'logline' in selectedProject ? selectedProject.logline : selectedProject.description} »
+                  </p>
+                </div>
+
+                {/* Synopsis si présent */}
+                {'synopsis' in selectedProject && selectedProject.synopsis && (
+                  <div>
+                    <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
+                      {language === 'en' ? 'Synopsis / Treatment:' : 'Synopsis / Traitement :'}
+                    </strong>
+                    <ExpandableText text={selectedProject.synopsis} maxChars={280} className="text-stone-300 leading-relaxed" />
+                  </div>
+                )}
+
+                {/* Summary if book */}
+                {'summary' in selectedProject && selectedProject.summary && (
+                  <div>
+                    <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
+                      {language === 'en' ? 'Book Synopsis:' : 'Synopsis du Livre :'}
+                    </strong>
+                    <ExpandableText text={selectedProject.summary} maxChars={280} className="text-stone-300 leading-relaxed" />
+                  </div>
+                )}
+
+                {/* Concept si présent (Chez le Psy) */}
+                {'concept' in selectedProject && selectedProject.concept && (
+                  <div>
+                    <strong className="text-white uppercase font-bold text-xs tracking-wider block mb-1">
+                      {language === 'en' ? 'Narrative Concept:' : 'Concept Narratif :'}
+                    </strong>
+                    <p className="text-stone-300 leading-relaxed">
+                      {selectedProject.concept}
+                    </p>
+                  </div>
+                )}
+
+                {/* Inspiration si présente (L'enfant albinos) */}
+                {'inspiration' in selectedProject && selectedProject.inspiration && (
+                  <div className="p-3 bg-amber-950/30 rounded-xl border border-amber-900/40 text-xs">
+                    <strong className="text-white block font-semibold mb-0.5">
+                      {language === 'en' ? 'Inspiration Source:' : "Source d'inspiration :"}
+                    </strong>
+                    <p className="text-stone-300 italic">{selectedProject.inspiration}</p>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Footer Modal */}

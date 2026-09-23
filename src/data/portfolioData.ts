@@ -1,5 +1,15 @@
-import { BookItem, FilmItem, SeriesItem, AudioTrack } from '../types';
+import { BookItem, FilmItem, SeriesItem } from '../types';
 import { Language } from '../i18n/I18nContext';
+
+// Key Arts Cinématographiques — Posters Officiels (Ratio 2:3)
+import posterPacteDiable from '../assets/images/poster_pacte_diable_1790195423710.jpg';
+import posterCurseMouth from '../assets/images/poster_curse_mouth_1790195431554.jpg';
+import posterCercueilFilm from '../assets/images/poster_cercueil_film_1790195439186.jpg';
+import posterMarcheOmbres from '../assets/images/poster_marche_ombres_1790195447496.jpg';
+import poster100Jours from '../assets/images/poster_100_jours_1790195458027.jpg';
+import posterFatouDembele from '../assets/images/poster_fatou_dembele_1790195466829.jpg';
+import posterEnfantAlbinos from '../assets/images/poster_enfant_albinos_1790195476119.jpg';
+import posterLivre1560 from '../assets/images/poster_livre_1560_1790195962138.jpg';
 
 export const OFFICIAL_IMAGES = {
   monogram: 'https://lh3.googleusercontent.com/aida/AEtjO1Uh-GTpTg1sfKYtPgVw6pjcSoLSZCX4dy-lOLmXIyNFmB7gk8Bt5-49n1jqn5a7s5HkvWq1o30eL7n31QbRwD-vrDxLtuTxPaQTwNwLaXBzd9HcSdvvHplebclWDtyOP1CS71IuybNnx5QYzjNU_xhGbDrNISsEQqdfSgXwDIcKRFPTU7YGl-BMNHEGDweOpK2Q5lQoFTg7cK3Ums1L_iNmVab2kh3cjhu75Wv6F_D1',
@@ -7,7 +17,17 @@ export const OFFICIAL_IMAGES = {
   bookCercueil: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCGB0Ks6qc9xQvHmhseN0JSZAdKYj71fJ2i_3MzylkjBKlzeK8GnFJP8MIvMBG_Hum8BXRY02MIUDbplUn9UU14t793sfzyZ5VLZOdF-MciBuREb-kXpSRxJNOT8c5PORuccLbXHbZfEznJE2tGABVg4KXA385qn-tM05PDfxxgj3sMH-eJblQru0dowTuf81OxFLHgesIRyvT741yzmGdw82PSc4fxggDCOx7TXue765W8VA3_jPl5',
   bookForet: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCy3Vasbm0fH8tk7lmO6bufbOxmEFbK6Su5EKuJZR3EuaiJe5Nd7FIPOsZ77S99988uWpSiCP9RJpEkoiVCeOwaHjHbN1SyoTFK8iL3RFj-WSnpzBXwpKubM1xg_9uLCAvbIsRd6zXi6Xt6fttdrlv-Up2o7MqwihPFiyepCFj1Cr_dFpHdkCFz9xWmJIorBfVf7IRASytAtALfccp_FmeoEeg3xTSlVViOBc73C_97PnWCLN6DN4KB',
   bookPacte: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDX31iNNl4-7qXBihrxDhK5399dRm4_Qo2QxPanxkpD-6dYOyMw2q1BQFzJMxeY-g5dJOEzfZ0Xh7QXFe3pXSn08f8Jd9YcdoaRpeAhWoFssthMJ6J1m0dlEpe7vnjSQZQm4DGxmXHH-ScT2Refij0DjAzHf8JJuIYZ3fBCwAVIuzoth7WU5i6we0O1oMypWPxhbN0I_vdU-XIqwHvTFsb0jKm0_08-uHJsxu72Kxd7bAeT4dmRIVdK',
+  bookLivre1560: posterLivre1560,
   seriesForet: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAzEJT6FJUzqDzM50bc5nsI2f5Wtpg76HKPw2LX5QsSRJZs2qby7VfencEVixmJkyvARa9zAjjwM3MUEbvQC7ef0h5Bcbx4X77-5taX_kV0U-4XlTzZ_2DLIiETRqEVEZzZm-_IcHxN-mq55KVpsVQWMO1LiZv-bZ9Do78n9G8Oc_j5ju-A86kTbK6mrG2VQJOJzK2ch1Nx9_uLqFI5pYMqp5cAlhm6q-ekJ6dh6bJk7H5-TaoJnu5Y',
+  // Posters Films
+  posterPacteDiable,
+  posterCurseMouth,
+  posterCercueilFilm,
+  posterMarcheOmbres,
+  poster100Jours,
+  posterFatouDembele,
+  posterEnfantAlbinos,
+  posterLivre1560,
 };
 
 export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
@@ -62,6 +82,44 @@ export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
         : "« L'ombre n'accorde jamais de grâce sans réclamer l'usure de votre âme. Lorsque vous scellez le contrat de votre plein gré, ce que vous croyiez être une conquête devient votre plus cruelle prison. »",
     amazonUrl: 'https://a.co/d/01ZNkXtg',
   },
+  {
+    id: 'livre-1560',
+    title: 'LE LIVRE – 1560',
+    type: lang === 'en' ? 'Book / Literary Work' : 'Livre / œuvre littéraire',
+    author: 'Junior France Mavie NGAKOSSO',
+    category:
+      lang === 'en'
+        ? 'Supernatural Thriller • Mystery • Fantasy • Mystical'
+        : 'Thriller surnaturel • Mystère • Fantastique • Mystique',
+    badge: lang === 'en' ? 'Official Novel' : 'Roman Officiel',
+    subBadge: lang === 'en' ? 'New Release' : 'Nouveauté',
+    image: OFFICIAL_IMAGES.bookLivre1560,
+    universe:
+      lang === 'en'
+        ? 'Supernatural Thriller • Mystical Universe'
+        : 'Thriller surnaturel • Univers mystique',
+    logline:
+      lang === 'en'
+        ? "In Brazzaville, two twins born of a tragedy discover that a mystical grimoire dated 1560 immunizes them against the spirits secretly controlling the city. Targeted for execution, they must master the secrets of the book to survive, avenge their mother, and break the entities' grip on the capital."
+        : "À Brazzaville, deux jumeaux nés d'une tragédie découvrent qu'un grimoire mystique daté de 1560 les immunise contre les esprits qui contrôlent secrètement la ville. Devenus des cibles à abattre, ils doivent maîtriser les secrets du livre pour survivre, venger leur mère et briser l'emprise des entités sur la capitale.",
+    description:
+      lang === 'en'
+        ? "In Brazzaville, two twins born of a tragedy discover that a mystical grimoire dated 1560 immunizes them against the spirits secretly controlling the city. Targeted for execution, they must master the secrets of the book to survive, avenge their mother, and break the entities' grip on the capital."
+        : "À Brazzaville, deux jumeaux nés d'une tragédie découvrent qu'un grimoire mystique daté de 1560 les immunise contre les esprits qui contrôlent secrètement la ville. Devenus des cibles à abattre, ils doivent maîtriser les secrets du livre pour survivre, venger leur mère et briser l'emprise des entités sur la capitale.",
+    pitch:
+      lang === 'en'
+        ? "Brazzaville. A modern metropolis that buried its beliefs.\n\nA woman dies giving birth to twins. On the bedside table: a leather-bound book, dated 1560, that wasn't there 5 minutes before.\n\nThis book isn't a book. It is a hunting grimoire. It catalogues 'Anomalies'—spirits that have possessed the living for centuries to maintain covert control over the city.\n\nIts hallmark: those chosen by the book become invisible to spirits. Untouchable. The twins are the first in 400 years.\n\nWhen the entities discover their existence, the hunt begins. They want the book—not to read it, but to burn it, because as long as it exists, their true origin and final plan remain exposed.\n\nGrowing up, the twins develop two opposing and complementary gifts. They realize their mother's death was no accident: she was the Keeper of the Book. Now, the mantle is theirs."
+        : "Brazzaville. Une ville moderne qui a enterré ses croyances.\n\nUne femme meurt en donnant naissance à des jumeaux. Sur la table à côté d'elle : un livre relié de cuir, daté de 1560, qui n'était pas là 5 minutes avant.\n\nCe livre n'est pas un livre. C'est un grimoire de chasse. Il recense les « Anomalies », ces esprits qui possèdent les vivants depuis des siècles pour garder le contrôle sur la ville.\n\nSa particularité : ceux qu'il choisit deviennent invisibles aux yeux des esprits. Intouchables. Les jumeaux sont les premiers depuis 400 ans.\n\nQuand les entités découvrent leur existence, la chasse commence. Elles veulent le livre. Pas pour le lire. Pour le brûler. Car tant qu'il existe, leur véritable origine et leur plan final restent exposés.\n\nEn grandissant, les jumeaux développent deux dons opposés et complémentaires. Ils comprennent une chose : la mort de leur mère n'était pas un accident. Elle était la Gardienne du Livre.\n\nMaintenant, c'est à eux de le devenir.",
+    summary:
+      lang === 'en'
+        ? "Brazzaville. A modern metropolis that buried its beliefs.\n\nA woman dies giving birth to twins. On the bedside table: a leather-bound book, dated 1560, that wasn't there 5 minutes before.\n\nThis book isn't a book. It is a hunting grimoire. It catalogues 'Anomalies'—spirits that have possessed the living for centuries to maintain covert control over the city.\n\nIts hallmark: those chosen by the book become invisible to spirits. Untouchable. The twins are the first in 400 years.\n\nWhen the entities discover their existence, the hunt begins. They want the book—not to read it, but to burn it, because as long as it exists, their true origin and final plan remain exposed.\n\nGrowing up, the twins develop two opposing and complementary gifts. They realize their mother's death was no accident: she was the Keeper of the Book. Now, the mantle is theirs."
+        : "Brazzaville. Une ville moderne qui a enterré ses croyances.\n\nUne femme meurt en donnant naissance à des jumeaux. Sur la table à côté d'elle : un livre relié de cuir, daté de 1560, qui n'était pas là 5 minutes avant.\n\nCe livre n'est pas un livre. C'est un grimoire de chasse. Il recense les « Anomalies », ces esprits qui possèdent les vivants depuis des siècles pour garder le contrôle sur la ville.\n\nSa particularité : ceux qu'il choisit deviennent invisibles aux yeux des esprits. Intouchables. Les jumeaux sont les premiers depuis 400 ans.\n\nQuand les entités découvrent leur existence, la chasse commence. Elles veulent le livre. Pas pour le lire. Pour le brûler. Car tant qu'il existe, leur véritable origine et leur plan final restent exposés.\n\nEn grandissant, les jumeaux développent deux dons opposés et complémentaires. Ils comprennent une chose : la mort de leur mère n'était pas un accident. Elle était la Gardienne du Livre.\n\nMaintenant, c'est à eux de le devenir.",
+    extract:
+      lang === 'en'
+        ? "“This book is not a manuscript. It is a hunting grimoire. Those it chooses become invisible to the eyes of the spirits. Untouchable.”"
+        : "« Ce livre n'est pas un livre. C'est un grimoire de chasse. Sa particularité : ceux qu'il choisit deviennent invisibles aux yeux des esprits. Intouchables. »",
+    amazonUrl: 'https://a.co/d/01ZNkXtg',
+  },
 ];
 
 export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
@@ -76,6 +134,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     status: lang === 'en' ? 'Screenplay in development' : 'Scénario en développement',
     statusType: 'script',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: posterPacteDiable,
     logline:
       lang === 'en'
         ? "Three impoverished young men enter an occult pact to obtain wealth and respect, but when the price begins destroying their humanity and bonds, they realize only the truth can break the contract."
@@ -95,6 +154,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     status: lang === 'en' ? 'Complete Screenplay' : 'Scénario',
     statusType: 'pitch',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: posterCurseMouth,
     logline:
       lang === 'en'
         ? "In a city where an unseen curse strikes anyone sincerely condemned by a harassed victim, an investigative journalist probes a string of unexplained deaths before the next sunset claims another target."
@@ -115,6 +175,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     status: lang === 'en' ? 'Audiovisual Project / Adaptation' : 'Projet audiovisuel / adaptation',
     statusType: 'dialogue',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: posterCercueilFilm,
     logline:
       lang === 'en'
         ? "Following his father's death, a young man turns his body into muscular armor, until he understands that true strength is not about concealing pain, but learning to live with it."
@@ -137,6 +198,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     status: lang === 'en' ? 'Screenplay' : 'Scénario',
     statusType: 'continuity',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: posterMarcheOmbres,
     logline:
       lang === 'en'
         ? "Twenty years after the war, a veteran encounters by the Congo River the woman he thought dead and an eight-year-old son he never knew existed, forcing him to reckon with his past."
@@ -154,6 +216,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     status: lang === 'en' ? 'Complete Screenplay' : 'Scénario complet',
     statusType: 'script',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: poster100Jours,
     logline:
       lang === 'en'
         ? "When a man discovers an ancient book dictating a set of rules for 100 days, he gradually realizes each commandment is part of a supernatural ordeal with stakes far beyond his own mortality."
@@ -172,6 +235,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     status: lang === 'en' ? 'Screenplay in Development' : 'Scénario en développement',
     statusType: 'pitch',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: posterFatouDembele,
     logline:
       lang === 'en'
         ? "After abandoning her family and fleeing Congo, Fatou tries rebuilding her life abroad, but a heritage artifact and Congolese gastronomy force her to confront her history, roots, and true identity."
@@ -192,6 +256,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     status: lang === 'en' ? 'Screenplay' : 'Scénario',
     statusType: 'dialogue',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: posterEnfantAlbinos,
     logline:
       lang === 'en'
         ? "In Brazzaville, Néné, a young albino artist facing prejudice, transforms the central public square with a monumental fresco dedicated to his mother, challenging the community to see beyond differences."
@@ -322,35 +387,7 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
   },
 ];
 
-export const getAudioTracks = (lang: Language = 'fr'): AudioTrack[] => [
-  {
-    id: 'track-cercueil',
-    title: lang === 'en' ? 'Le Cercueil aux Muscles — Chapter I Excerpt' : 'Le Cercueil aux Muscles — Extrait Chapitre I',
-    subtitle: lang === 'en' ? 'Original Narrative Voice & Soundscape' : 'Voix & Paysage Sonore Original',
-    duration: '04:18',
-    durationSeconds: 258,
-    bookReference: 'Le Cercueil aux Muscles',
-  },
-  {
-    id: 'track-foret',
-    title: lang === 'en' ? 'La Forêt Interdite — Supernatural Prologue' : 'La Forêt Interdite — Prologue Surnaturel',
-    subtitle: lang === 'en' ? 'Equatorial Ambience & Mystical Score' : 'Ambiance Équatoriale & Thème Mystique',
-    duration: '03:45',
-    durationSeconds: 225,
-    bookReference: lang === 'en' ? 'The Forbidden Forest (Series)' : 'La Forêt Interdite (Série)',
-  },
-  {
-    id: 'track-pacte',
-    title: lang === 'en' ? 'Pacte du Démon — The Negotiation of Shadows' : 'Pacte du Démon — La Négociation des Ombres',
-    subtitle: lang === 'en' ? 'Dramatic Reading & Dark Cello Arrangement' : 'Lecture Dramatique & Cordes Obscures',
-    duration: '05:12',
-    durationSeconds: 312,
-    bookReference: lang === 'en' ? 'Pacte du Démon (Book)' : 'Pacte du Démon (Livre)',
-  },
-];
-
 // Fallback constant exports for backwards compatibility
 export const BOOKS_DATA = getBooksData('fr');
 export const FILMS_DATA = getFilmsData('fr');
 export const SERIES_DATA = getSeriesData('fr');
-export const AUDIO_TRACKS = getAudioTracks('fr');

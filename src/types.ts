@@ -10,6 +10,8 @@ export interface BookItem {
   universe: string;
   description: string;
   summary: string;
+  pitch?: string;
+  logline?: string;
   extract?: string;
   amazonUrl: string;
   adaptationNote?: string;
@@ -32,6 +34,7 @@ export interface FilmItem {
   logline: string;
   synopsis?: string;
   inspiration?: string;
+  image?: string;
   relatedBookId?: string;
   relatedBookTitle?: string;
 }
@@ -50,18 +53,10 @@ export interface SeriesItem {
   logline: string;
   synopsis?: string;
   concept?: string;
+  image?: string;
   isPrestige?: boolean;
   relatedBookId?: string;
   relatedBookTitle?: string;
-}
-
-export interface AudioTrack {
-  id: string;
-  title: string;
-  subtitle: string;
-  duration: string;
-  durationSeconds: number;
-  bookReference: string;
 }
 
 export interface ContactFormSubmission {

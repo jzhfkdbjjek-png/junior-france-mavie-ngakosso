@@ -65,13 +65,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSection }) => {
           </button>
           <button
             type="button"
-            onClick={() => onNavigateSection('audio')}
-            className="min-h-[36px] py-1.5 px-2 hover:text-brand-amber active:scale-95 transition-all cursor-pointer"
-          >
-            {t('nav.audio')}
-          </button>
-          <button
-            type="button"
             onClick={() => onNavigateSection('univers')}
             className="min-h-[36px] py-1.5 px-2 hover:text-brand-amber active:scale-95 transition-all cursor-pointer"
           >

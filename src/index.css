@@ -104,8 +104,8 @@ html.light .author-brand-ngakosso {
 @keyframes heroPortraitCinematic {
   0% {
     opacity: 0;
-    transform: scale3d(1.05, 1.05, 1);
-    filter: blur(10px);
+    transform: scale3d(1.03, 1.03, 1);
+    filter: blur(6px);
   }
   100% {
     opacity: 1;
@@ -117,7 +117,7 @@ html.light .author-brand-ngakosso {
 @keyframes heroContentCinematic {
   0% {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 20px, 0);
   }
   100% {
     opacity: 1;
@@ -126,8 +126,22 @@ html.light .author-brand-ngakosso {
 }
 
 .animate-hero-portrait {
-  animation: heroPortraitCinematic 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  animation: heroPortraitCinematic 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
   will-change: opacity, transform, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-portrait,
+  .animate-hero-title,
+  .animate-hero-subtitle,
+  .animate-hero-description,
+  .animate-hero-buttons,
+  .animate-hero-cards {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
 .animate-hero-title {
@@ -712,20 +726,7 @@ html.light .glass-tool-btn:hover {
   border-color: rgba(239, 68, 68, 0.85);
 }
 
-/* 5. AUDIO (Atmospheric Cyan / Amber Acoustic) */
-.cinematic-btn-audio {
-  --button-color: #0d1314;
-  --highlight-color-hue: 200deg;
-  border-color: rgba(140, 190, 210, 0.35);
-  color: #f2ede4;
-  background-image: linear-gradient(180deg, #121c1e, #0a0e0f);
-}
-
-.cinematic-btn-audio:hover {
-  color: #ffffff;
-}
-
-/* 6. CONTACT (Prestige Golden Submission CTA) */
+/* 5. CONTACT (Prestige Golden Submission CTA) */
 .cinematic-btn-contact {
   --button-color: #17130b;
   --highlight-color-hue: 38deg;

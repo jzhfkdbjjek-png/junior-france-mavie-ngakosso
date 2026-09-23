@@ -40,7 +40,6 @@ export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) =
     { id: 'foret-interdite', label: t('nav.foret'), href: '#foret-interdite' },
     { id: 'films', label: t('nav.films'), href: '#films' },
     { id: 'series', label: t('nav.series'), href: '#series' },
-    { id: 'audio', label: t('nav.audio'), href: '#audio' },
     { id: 'univers', label: t('nav.universe'), href: '#univers' },
     { id: 'presse', label: t('nav.press'), href: '#presse' },
     { id: 'contact', label: t('nav.contact'), href: '#contact' },

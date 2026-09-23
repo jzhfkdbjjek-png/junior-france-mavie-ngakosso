@@ -5,7 +5,6 @@
     "foret": "La Forêt Interdite",
     "films": "Films",
     "series": "Séries",
-    "audio": "Audio",
     "universe": "À Propos",
     "press": "Presse",
     "contact": "Contact",
@@ -191,35 +190,6 @@
       "inspiration": "Inspiration",
       "related": "Œuvre liée",
       "contactCta": "Demande de Dossier / Coproduction ↗"
-    }
-  },
-  "audio": {
-    "badge": "Expérience Immersive",
-    "title": "LA VOIX DES ŒUVRES",
-    "tagline": "« Des histoires à lire. Des univers à écouter. »",
-    "desc": "Écoutez les lectures immersives, prologues narrés et ambiances sonores des romans et scénarios de Junior France Mavie Ngakosso. Une immersion dramatique avant le grand écran.",
-    "sample": "Extrait",
-    "listeningPrivilege": "Écoute Privilégiée",
-    "activeAmbiance": "Ambiance Active",
-    "pause": "Mettre en pause",
-    "play": "Écouter l'extrait",
-    "next": "Piste suivante",
-    "tracks": {
-      "cercueil": {
-        "title": "Le Cercueil aux Muscles — Extrait Chapitre I",
-        "subtitle": "Voix & Paysage Sonore Original",
-        "book": "Le Cercueil aux Muscles"
-      },
-      "foret": {
-        "title": "La Forêt Interdite — Prologue Surnaturel",
-        "subtitle": "Ambiance Équatoriale & Thème Mystique",
-        "book": "La Forêt Interdite"
-      },
-      "pacte": {
-        "title": "Pacte avec le Diable — La Négociation des Ombres",
-        "subtitle": "Lecture Dramatique & Cordes Obscures",
-        "book": "Pacte avec le Diable"
-      }
     }
   },
   "contact": {

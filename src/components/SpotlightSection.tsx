@@ -3,6 +3,7 @@ import { OFFICIAL_IMAGES } from '../data/portfolioData';
 import { useI18n } from '../i18n/I18nContext';
 import { BookOpen, Tv, ArrowUpRight } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { CinematicImage } from './CinematicImage';
 
 interface SpotlightSectionProps {
   onContactClick?: () => void;
@@ -106,26 +107,32 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
             <div className="relative group max-w-[320px] sm:max-w-sm w-full card-premium-hover">
               <div className="absolute -inset-2 bg-gradient-to-r from-red-700 to-amber-600 rounded-2xl blur-lg opacity-40 group-hover:opacity-75 transition duration-500"></div>
               <div className="relative rounded-2xl overflow-hidden border border-red-900/60 shadow-2xl bg-black">
-                <img
+                <CinematicImage
                   src={OFFICIAL_IMAGES.seriesForet}
                   alt={t('spotlight.title')}
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                  className="w-full h-auto object-cover image-zoom-hover"
+                  aspectRatio="2/3"
+                  objectFit="cover"
+                  type="series"
+                  title="La Forêt Interdite"
+                  category="Série TV Prestige"
+                  className="image-zoom-hover"
+                  containerClassName="border-0"
+                  overlay={
+                    <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-between gap-2">
+                      <div className="min-w-0">
+                        <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-red-400 block truncate">
+                          {t('spotlight.overlayPrestige')}
+                        </span>
+                        <p className="text-xs font-semibold text-white truncate">
+                          {t('spotlight.overlayEpisodes')}
+                        </p>
+                      </div>
+                      <span className="shrink-0 px-2 sm:px-2.5 py-1 bg-red-950/90 border border-red-700/60 text-[9px] sm:text-[10px] text-red-200 font-bold rounded">
+                        {t('spotlight.overlayBadge')}
+                      </span>
+                    </div>
+                  }
                 />
-                <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 bg-gradient-to-t from-black via-black/90 to-transparent flex items-center justify-between gap-2">
-                  <div className="min-w-0">
-                    <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-red-400 block truncate">
-                      {t('spotlight.overlayPrestige')}
-                    </span>
-                    <p className="text-xs font-semibold text-white truncate">
-                      {t('spotlight.overlayEpisodes')}
-                    </p>
-                  </div>
-                  <span className="shrink-0 px-2 sm:px-2.5 py-1 bg-red-950/90 border border-red-700/60 text-[9px] sm:text-[10px] text-red-200 font-bold rounded">
-                    {t('spotlight.overlayBadge')}
-                  </span>
-                </div>
               </div>
             </div>
           </div>

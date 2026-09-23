@@ -5,7 +5,6 @@ export type ButtonVariant =
   | 'secondary'
   | 'amazon'
   | 'project'
-  | 'audio'
   | 'contact'
   | 'ghost'
   | 'outline'
@@ -60,7 +59,6 @@ export const CinematicButton: React.FC<CinematicButtonProps> = ({
     secondary: 'cinematic-btn-secondary',
     amazon: 'cinematic-btn-amazon',
     project: 'cinematic-btn-project',
-    audio: 'cinematic-btn-audio',
     contact: 'cinematic-btn-contact',
     ghost: 'cinematic-btn-ghost',
     outline: 'cinematic-btn-outline',

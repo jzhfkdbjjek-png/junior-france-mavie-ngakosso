@@ -2,6 +2,7 @@ import React from 'react';
 import { OFFICIAL_IMAGES } from '../data/portfolioData';
 import { useI18n } from '../i18n/I18nContext';
 import { CinematicButton } from './CinematicButton';
+import { CinematicImage } from './CinematicImage';
 import { ArrowUpRight } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -140,27 +141,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* Right Column: Exact, Unaltered Official Portrait (Progressive 1200-1800ms Cinematic Reveal) */}
-          <div className={`lg:col-span-5 relative flex justify-center lg:justify-end order-1 lg:order-2 ${
-            hasLoaded ? 'animate-hero-portrait' : 'opacity-0'
-          }`}>
+          {/* Right Column: Exact, Unaltered Official Portrait (Progressive 1200-1600ms Cinematic Reveal) */}
+          <div className="lg:col-span-5 relative flex justify-center lg:justify-end order-1 lg:order-2 animate-hero-portrait">
             <div className="relative w-full max-w-[280px] sm:max-w-sm lg:max-w-md">
               {/* Background Glow */}
-              <div className="absolute -inset-2 sm:-inset-3 bg-gradient-to-tr from-brand-bronze/40 via-brand-amber/25 to-transparent rounded-3xl blur-2xl -z-10"></div>
+              <div className="absolute -inset-2 sm:-inset-3 bg-gradient-to-tr from-brand-bronze/40 via-brand-amber/25 to-transparent rounded-3xl blur-2xl -z-10 pointer-events-none"></div>
               
-              {/* Strict Image Frame */}
-              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-stone-300 dark:border-white/15 bg-stone-900 shadow-2xl group">
+              {/* Strict Image Frame (Aspect 4:5 with top-anchored framing) */}
+              <div className="relative aspect-[4/5] w-full max-h-[420px] sm:max-h-[500px] lg:max-h-[580px] rounded-2xl sm:rounded-3xl overflow-hidden border border-stone-300 dark:border-white/15 bg-stone-900 shadow-2xl group">
                 <img
                   id="hero-portrait-image"
                   src={OFFICIAL_IMAGES.portrait}
-                  alt={t('hero.photoBadgeName')}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-auto max-h-[380px] sm:max-h-[480px] lg:max-h-[560px] object-cover object-top image-zoom-hover"
+                  alt={t('hero.photoBadgeName') || 'Junior France Mavie NGAKOSSO'}
                   loading="eager"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  fetchPriority="high"
+                  className="w-full h-full object-cover object-top filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                {/* Gradient Overlay for seamless integration */}
+
+                {/* Seamless Cinematic Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none"></div>
-                <div className="absolute bottom-3 sm:bottom-4 inset-x-3 sm:inset-x-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-black/75 backdrop-blur-md border border-white/10 flex items-center justify-between gap-2 shadow-lg">
+
+                {/* Official Author Badge Overlay */}
+                <div className="absolute bottom-3 sm:bottom-4 inset-x-3 sm:inset-x-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-black/75 backdrop-blur-md border border-white/10 flex items-center justify-between gap-2 shadow-lg z-10">
                   <div className="min-w-0">
                     <p className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider truncate">
                       {t('hero.photoBadgeName')}

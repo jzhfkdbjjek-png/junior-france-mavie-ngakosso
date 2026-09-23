@@ -5,7 +5,6 @@
     "foret": "The Forbidden Forest",
     "films": "Films",
     "series": "Series",
-    "audio": "Audio",
     "universe": "About",
     "press": "Press Kit",
     "contact": "Contact",
@@ -191,35 +190,6 @@
       "inspiration": "Inspiration",
       "related": "Related Work",
       "contactCta": "Request Dossier / Coproduction ↗"
-    }
-  },
-  "audio": {
-    "badge": "Immersive Experience",
-    "title": "THE VOICE OF THE WORKS",
-    "tagline": "“Stories to read. Universes to hear.”",
-    "desc": "Listen to immersive readings, narrated prologues, and original soundscapes from the novels and screenplays of Junior France Mavie Ngakosso. A dramatic auditory preview before the screen.",
-    "sample": "Sample",
-    "listeningPrivilege": "Exclusive Audio",
-    "activeAmbiance": "Active Ambience",
-    "pause": "Pause track",
-    "play": "Listen to sample",
-    "next": "Next track",
-    "tracks": {
-      "cercueil": {
-        "title": "Le Cercueil aux Muscles — Chapter I Excerpt",
-        "subtitle": "Narrative Voice & Original Soundscape",
-        "book": "Le Cercueil aux Muscles"
-      },
-      "foret": {
-        "title": "La Forêt Interdite — Supernatural Prologue",
-        "subtitle": "Equatorial Ambience & Mystical Score",
-        "book": "La Forêt Interdite"
-      },
-      "pacte": {
-        "title": "Pacte avec le Diable — The Negotiation of Shadows",
-        "subtitle": "Dramatic Reading & Dark Cello Arrangement",
-        "book": "Pacte avec le Diable"
-      }
     }
   },
   "contact": {
