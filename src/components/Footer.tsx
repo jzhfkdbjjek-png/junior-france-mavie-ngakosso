@@ -92,6 +92,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSection }) => {
           <span>{t('footer.copyright')}</span>
           <span>{t('footer.studio')}</span>
         </div>
+
+        {/* Technical Creator Credit */}
+        <div className="pt-1 text-[10.5px] sm:text-[11px] text-stone-500 tracking-wide">
+          <span>{t('footer.techCredit')}</span>
+          <a
+            href="https://daniel-biampika-portfolio-rscc.arcada.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-stone-400 hover:text-brand-amber transition-colors duration-200 underline-offset-4 hover:underline cursor-pointer"
+          >
+            Daniel Biampika
+          </a>
+        </div>
       </div>
     </footer>
   );
