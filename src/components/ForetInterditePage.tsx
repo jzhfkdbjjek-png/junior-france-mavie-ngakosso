@@ -198,6 +198,8 @@ export const ForetInterditePage: React.FC<ForetInterditePageProps> = ({
                     alt="La Forêt Interdite - Série Télévisée"
                     aspectRatio="2/3"
                     objectFit="cover"
+                    loading="eager"
+                    fetchPriority="high"
                     type="series"
                     title="La Forêt Interdite"
                     category="Série Télévisée Prestige"
@@ -682,6 +684,10 @@ export const ForetInterditePage: React.FC<ForetInterditePageProps> = ({
                       <img
                         src={OFFICIAL_IMAGES.seriesForet}
                         alt="Affiche Officielle Série"
+                        loading="lazy"
+                        decoding="async"
+                        width={600}
+                        height={450}
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
@@ -703,6 +709,10 @@ export const ForetInterditePage: React.FC<ForetInterditePageProps> = ({
                       <img
                         src={OFFICIAL_IMAGES.bookForet}
                         alt="Concept Art Sanctuaire"
+                        loading="lazy"
+                        decoding="async"
+                        width={600}
+                        height={450}
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />

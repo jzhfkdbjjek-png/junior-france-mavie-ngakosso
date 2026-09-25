@@ -41,6 +41,7 @@ interface WorkItem {
   concept?: string;
   inspiration?: string;
   image?: string;
+  imageSm?: string;
   relatedBookId?: string;
   relatedBookTitle?: string;
   amazonUrl?: string;
@@ -89,6 +90,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       synopsis: item.synopsis,
       inspiration: item.inspiration,
       image: item.image,
+      imageSm: item.imageSm,
       relatedBookId: item.relatedBookId,
       relatedBookTitle: item.relatedBookTitle,
       workType: 'film',
@@ -108,6 +110,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       synopsis: item.synopsis,
       concept: item.concept,
       image: item.image,
+      imageSm: item.imageSm,
       relatedBookId: item.relatedBookId,
       relatedBookTitle: item.relatedBookTitle,
       workType: 'series',
@@ -123,6 +126,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       logline: item.description,
       summary: item.summary,
       image: item.image,
+      imageSm: item.imageSm,
       amazonUrl: item.amazonUrl,
       workType: 'book',
       rawItem: item,
@@ -271,14 +275,18 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       id="catalogue"
       className="py-16 sm:py-20 lg:py-24 bg-[#121413] relative border-t border-white/5"
     >
+      {/* Anchor point for `#films` link */}
+      <div id="films" className="absolute -top-16 left-0 pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Section Header */}
         <div data-reveal="fade-up" className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-2">
               <span className="h-px w-6 sm:w-8 bg-brand-gold"></span>
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
-                {t('catalogue.badge')}
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-brand-gold flex items-center gap-1.5">
+                <span className="sparkle-slow-spin text-brand-gold text-[10px] select-none" aria-hidden="true">✦</span>
+                <span>{t('catalogue.badge')}</span>
               </span>
             </div>
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-cinzel font-bold text-white tracking-tight">
@@ -643,6 +651,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
                       >
                         <CinematicImage
                           src={work.image}
+                          srcSm={work.imageSm}
                           alt={work.title}
                           aspectRatio="2/3"
                           objectFit="cover"

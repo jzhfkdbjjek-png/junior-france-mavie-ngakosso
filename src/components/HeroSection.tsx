@@ -56,9 +56,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 hasLoaded ? 'animate-hero-title' : 'opacity-0'
               }`}
             >
-              <span className="block text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.25em] text-[#8c6738] dark:text-brand-amber mb-2">
-                {t('hero.roleSubtitle')}
-              </span>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="sparkle-slow-spin text-brand-gold text-xs select-none" aria-hidden="true">✦</span>
+                <span className="block text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.25em] text-[#8c6738] dark:text-brand-amber">
+                  {t('hero.roleSubtitle')}
+                </span>
+              </div>
               <span className="font-cinzel text-xl sm:text-3xl md:text-4xl lg:text-[38px] font-semibold tracking-[0.06em] text-stone-800 dark:text-stone-300 uppercase leading-snug break-words">
                 JUNIOR FRANCE MAVIE
               </span>
@@ -153,6 +156,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   id="hero-portrait-image"
                   src={OFFICIAL_IMAGES.portrait}
                   alt={t('hero.photoBadgeName') || 'Junior France Mavie NGAKOSSO'}
+                  width={400}
+                  height={500}
                   loading="eager"
                   decoding="async"
                   referrerPolicy="no-referrer"

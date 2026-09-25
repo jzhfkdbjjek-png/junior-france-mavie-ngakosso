@@ -7,6 +7,7 @@ export interface BookItem {
   badge: string;
   subBadge?: string;
   image: string;
+  imageSm?: string;
   universe: string;
   description: string;
   summary: string;
@@ -35,6 +36,7 @@ export interface FilmItem {
   synopsis?: string;
   inspiration?: string;
   image?: string;
+  imageSm?: string;
   relatedBookId?: string;
   relatedBookTitle?: string;
 }
@@ -54,6 +56,7 @@ export interface SeriesItem {
   synopsis?: string;
   concept?: string;
   image?: string;
+  imageSm?: string;
   isPrestige?: boolean;
   relatedBookId?: string;
   relatedBookTitle?: string;

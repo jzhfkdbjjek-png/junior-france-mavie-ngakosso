@@ -1,24 +1,58 @@
 import { BookItem, FilmItem, SeriesItem } from '../types';
 import { Language } from '../i18n/I18nContext';
 
-// Key Arts Cinématographiques — Posters Officiels (Ratio 2:3)
-import posterPacteDiable from '../assets/images/poster_pacte_diable_1790195423710.jpg';
-import posterCurseMouth from '../assets/images/poster_curse_mouth_1790195431554.jpg';
-import posterCercueilFilm from '../assets/images/poster_cercueil_film_1790195439186.jpg';
-import posterMarcheOmbres from '../assets/images/poster_marche_ombres_1790195447496.jpg';
-import poster100Jours from '../assets/images/poster_100_jours_1790195458027.jpg';
-import posterFatouDembele from '../assets/images/poster_fatou_dembele_1790195466829.jpg';
-import posterEnfantAlbinos from '../assets/images/poster_enfant_albinos_1790195476119.jpg';
-import posterLivre1560 from '../assets/images/poster_livre_1560_1790195962138.jpg';
+// Key Arts Cinématographiques — Posters Officiels WebP Ultra-Optimisés (Ratio 2:3)
+import posterPacteDiable from '../assets/images/poster_pacte_diable_1790195423710.webp';
+import posterPacteDiableSm from '../assets/images/poster_pacte_diable_1790195423710_sm.webp';
+
+import posterCurseMouth from '../assets/images/poster_curse_mouth_1790195431554.webp';
+import posterCurseMouthSm from '../assets/images/poster_curse_mouth_1790195431554_sm.webp';
+
+import posterCercueilFilm from '../assets/images/poster_cercueil_film_1790195439186.webp';
+import posterCercueilFilmSm from '../assets/images/poster_cercueil_film_1790195439186_sm.webp';
+
+import posterMarcheOmbres from '../assets/images/poster_marche_ombres_1790195447496.webp';
+import posterMarcheOmbresSm from '../assets/images/poster_marche_ombres_1790195447496_sm.webp';
+
+import poster100Jours from '../assets/images/poster_100_jours_1790195458027.webp';
+import poster100JoursSm from '../assets/images/poster_100_jours_1790195458027_sm.webp';
+
+import posterFatouDembele from '../assets/images/poster_fatou_dembele_1790195466829.webp';
+import posterFatouDembeleSm from '../assets/images/poster_fatou_dembele_1790195466829_sm.webp';
+
+import posterEnfantAlbinos from '../assets/images/poster_enfant_albinos_1790195476119.webp';
+import posterEnfantAlbinosSm from '../assets/images/poster_enfant_albinos_1790195476119_sm.webp';
+
+import posterLivre1560 from '../assets/images/poster_livre_1560_1790195962138.webp';
+import posterLivre1560Sm from '../assets/images/poster_livre_1560_1790195962138_sm.webp';
+
+// Posters Séries TV (Ratio 2:3)
+import posterForetInterdite from '../assets/images/poster_foret_interdite_1790326285252.webp';
+import posterForetInterditeSm from '../assets/images/poster_foret_interdite_1790326285252_sm.webp';
+
+import posterHeritageOmbres from '../assets/images/poster_heritage_ombres_1790248565213.webp';
+import posterHeritageOmbresSm from '../assets/images/poster_heritage_ombres_1790248565213_sm.webp';
+
+import posterRoyaume242 from '../assets/images/poster_royaume_242_1790248578606.webp';
+import posterRoyaume242Sm from '../assets/images/poster_royaume_242_1790248578606_sm.webp';
+
+import posterLesSix from '../assets/images/poster_les_six_1790248590800.webp';
+import posterLesSixSm from '../assets/images/poster_les_six_1790248590800_sm.webp';
+
+import posterLeSac from '../assets/images/poster_le_sac_1790248607496.webp';
+import posterLeSacSm from '../assets/images/poster_le_sac_1790248607496_sm.webp';
+
+import posterChezLePsy from '../assets/images/poster_chez_le_psy_1790248619276.webp';
+import posterChezLePsySm from '../assets/images/poster_chez_le_psy_1790248619276_sm.webp';
 
 export const OFFICIAL_IMAGES = {
   monogram: 'https://lh3.googleusercontent.com/aida/AEtjO1Uh-GTpTg1sfKYtPgVw6pjcSoLSZCX4dy-lOLmXIyNFmB7gk8Bt5-49n1jqn5a7s5HkvWq1o30eL7n31QbRwD-vrDxLtuTxPaQTwNwLaXBzd9HcSdvvHplebclWDtyOP1CS71IuybNnx5QYzjNU_xhGbDrNISsEQqdfSgXwDIcKRFPTU7YGl-BMNHEGDweOpK2Q5lQoFTg7cK3Ums1L_iNmVab2kh3cjhu75Wv6F_D1',
   portrait: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCMA7LeAzMfMDJRE5BssNK18gc9qFlys4HuOJJ7J7U5DvThpmWrvE32AEP1afslKrSm-aJ1LE0sIwi3pDbkNmleieIJKpSOnSntRNznhSCEL7QJ7Mb19PxNa9ezuLUUSPR3HQzNGUP5NqYwi5ojY_8_3rP5kJ5Mb5g2Yv0Jmj02NWqZka4Y5B8uuzt2prXcNys40Uj7rMTZcAfbzTN0DyxQUIqb5kPnQg_H5I1LHWk6aro3Nq1IzqWx',
   bookCercueil: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCGB0Ks6qc9xQvHmhseN0JSZAdKYj71fJ2i_3MzylkjBKlzeK8GnFJP8MIvMBG_Hum8BXRY02MIUDbplUn9UU14t793sfzyZ5VLZOdF-MciBuREb-kXpSRxJNOT8c5PORuccLbXHbZfEznJE2tGABVg4KXA385qn-tM05PDfxxgj3sMH-eJblQru0dowTuf81OxFLHgesIRyvT741yzmGdw82PSc4fxggDCOx7TXue765W8VA3_jPl5',
-  bookForet: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCy3Vasbm0fH8tk7lmO6bufbOxmEFbK6Su5EKuJZR3EuaiJe5Nd7FIPOsZ77S99988uWpSiCP9RJpEkoiVCeOwaHjHbN1SyoTFK8iL3RFj-WSnpzBXwpKubM1xg_9uLCAvbIsRd6zXi6Xt6fttdrlv-Up2o7MqwihPFiyepCFj1Cr_dFpHdkCFz9xWmJIorBfVf7IRASytAtALfccp_FmeoEeg3xTSlVViOBc73C_97PnWCLN6DN4KB',
+  bookForet: posterForetInterdite,
   bookPacte: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDX31iNNl4-7qXBihrxDhK5399dRm4_Qo2QxPanxkpD-6dYOyMw2q1BQFzJMxeY-g5dJOEzfZ0Xh7QXFe3pXSn08f8Jd9YcdoaRpeAhWoFssthMJ6J1m0dlEpe7vnjSQZQm4DGxmXHH-ScT2Refij0DjAzHf8JJuIYZ3fBCwAVIuzoth7WU5i6we0O1oMypWPxhbN0I_vdU-XIqwHvTFsb0jKm0_08-uHJsxu72Kxd7bAeT4dmRIVdK',
   bookLivre1560: posterLivre1560,
-  seriesForet: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAzEJT6FJUzqDzM50bc5nsI2f5Wtpg76HKPw2LX5QsSRJZs2qby7VfencEVixmJkyvARa9zAjjwM3MUEbvQC7ef0h5Bcbx4X77-5taX_kV0U-4XlTzZ_2DLIiETRqEVEZzZm-_IcHxN-mq55KVpsVQWMO1LiZv-bZ9Do78n9G8Oc_j5ju-A86kTbK6mrG2VQJOJzK2ch1Nx9_uLqFI5pYMqp5cAlhm6q-ekJ6dh6bJk7H5-TaoJnu5Y',
+  seriesForet: posterForetInterdite,
   // Posters Films
   posterPacteDiable,
   posterCurseMouth,
@@ -28,6 +62,13 @@ export const OFFICIAL_IMAGES = {
   posterFatouDembele,
   posterEnfantAlbinos,
   posterLivre1560,
+  // Posters Séries
+  posterForetInterdite,
+  posterHeritageOmbres,
+  posterRoyaume242,
+  posterLesSix,
+  posterLeSac,
+  posterChezLePsy,
 };
 
 export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
@@ -59,28 +100,32 @@ export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
     adaptationTargetId: 'film-cercueil',
   },
   {
-    id: 'pacte-du-demon',
-    title: 'PACTE DU DÉMON',
+    id: 'foret-interdite',
+    title: 'LA FORÊT INTERDITE',
     type: lang === 'en' ? 'Book / Literary Work' : 'Livre / œuvre littéraire',
     author: 'Junior France Mavie NGAKOSSO',
-    category: lang === 'en' ? 'Mystical Thriller / Supernatural Fiction' : 'Thriller mystique / Fiction surnaturelle',
+    category: lang === 'en' ? 'Fantasy • Mystical • Supernatural • Congo' : 'Fantastique • Mystique • Surnaturel • Congo',
     badge: lang === 'en' ? 'Official Novel' : 'Roman Officiel',
     subBadge: lang === 'en' ? 'Available on Amazon' : 'Disponible sur Amazon',
-    image: OFFICIAL_IMAGES.bookPacte,
-    universe: lang === 'en' ? 'Supernatural Thriller / Mystical Fiction' : 'Thriller surnaturel / Fiction mystique',
+    image: OFFICIAL_IMAGES.bookForet,
+    imageSm: posterForetInterditeSm,
+    universe: lang === 'en' ? 'Fantasy • Mystical • Supernatural • Congo' : 'Fantastique • Mystique • Surnaturel • Congo',
     description:
       lang === 'en'
-        ? "A chilling literary plunge into the forbidden corners of ambition, where a desperate secret agreement unleashes supernatural forces with a devastating price."
-        : "Une plongée littéraire captivante dans les méandres de l'ambition et de l'interdit, où un accord mystique scellé dans l'ombre réclame un prix impitoyable à ceux qui ont osé défier les lois de l'invisible.",
+        ? "Deep in the equatorial rainforest, the breach of a sacred sanctuary unleashes ancient spirit entities upon a village, awakening an ancestral legacy."
+        : "Au cœur de la forêt équatoriale congolaise, la profanation d'un sanctuaire ancestral libère les forces de l'invisible, réveillant un pacte séculaire entre les hommes et les esprits.",
     summary:
       lang === 'en'
-        ? "Through a tense, gripping literary narrative, “Pacte du Démon” explores human vulnerability confronted with extreme temptation. Seeking an escape from hardship and despair, the protagonists enter a dark pact promising unmeasured fortune. But as the supernatural contract tightens its grip, paranoia and moral collapse take hold, forcing an existential struggle to reclaim one's stolen soul."
-        : "À travers une narration littéraire immersive et sous haute tension, « Pacte du Démon » explore la vulnérabilité humaine face aux tentations absolues. Voulant fuir la précarité et l'impuissance, les protagonistes concluent un pacte obscur leur promettant fortune et rayonnement. Mais à mesure que l'emprise surnaturelle se referme, la réussite se mue en calvaire psychologique et familial, les contraignant à une lutte désespérée pour racheter leur liberté et leur âme.",
+        ? "When the sacred forest shielding the village of Ngoma is felled for commercial gain, the ancient Bisengo veil fractures. The spirits of the departed and corrupted occultists cross into the realm of the living. A young bearer of the Meso Miviri must navigate betrayal and ancestral rituals to mend the rift before the full moon."
+        : "Lorsque la forêt sacrée protégeant le village de Ngoma est détruite, le voile ancestral du Bisengo se déchire, libérant les entités de l'invisible parmi les vivants. Porteur du Meso Miviri, un jeune homme traqué comme sorcier doit affronter les rancœurs et restaurer le pacte millénaire avant le zénith de la pleine lune.",
     extract:
       lang === 'en'
-        ? "“The shadows never grant favors without demanding the full measure of your soul. When you sign with your own will, what you thought was power becomes your inescapable cage.”"
-        : "« L'ombre n'accorde jamais de grâce sans réclamer l'usure de votre âme. Lorsque vous scellez le contrat de votre plein gré, ce que vous croyiez être une conquête devient votre plus cruelle prison. »",
+        ? "“When the trees fall, the veil tears. What was bound in the silence of the roots now walks among the living.”"
+        : "« Lorsque les arbres tombent, le voile se déchire. Ce qui reposait dans le silence des racines marche désormais parmi les vivants. »",
     amazonUrl: 'https://a.co/d/01ZNkXtg',
+    adaptationNote: lang === 'en' ? '● Screen Link: Discover Television Series' : '● Passerelle : Découvrir la Série Télévisée',
+    adaptationType: 'series',
+    adaptationTargetId: 'serie-foret-interdite',
   },
   {
     id: 'livre-1560',
@@ -93,7 +138,8 @@ export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
         : 'Thriller surnaturel • Mystère • Fantastique • Mystique',
     badge: lang === 'en' ? 'Official Novel' : 'Roman Officiel',
     subBadge: lang === 'en' ? 'New Release' : 'Nouveauté',
-    image: OFFICIAL_IMAGES.bookLivre1560,
+    image: posterLivre1560,
+    imageSm: posterLivre1560Sm,
     universe:
       lang === 'en'
         ? 'Supernatural Thriller • Mystical Universe'
@@ -135,6 +181,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     statusType: 'script',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     image: posterPacteDiable,
+    imageSm: posterPacteDiableSm,
     logline:
       lang === 'en'
         ? "Three impoverished young men enter an occult pact to obtain wealth and respect, but when the price begins destroying their humanity and bonds, they realize only the truth can break the contract."
@@ -155,6 +202,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     statusType: 'pitch',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     image: posterCurseMouth,
+    imageSm: posterCurseMouthSm,
     logline:
       lang === 'en'
         ? "In a city where an unseen curse strikes anyone sincerely condemned by a harassed victim, an investigative journalist probes a string of unexplained deaths before the next sunset claims another target."
@@ -176,6 +224,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     statusType: 'dialogue',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     image: posterCercueilFilm,
+    imageSm: posterCercueilFilmSm,
     logline:
       lang === 'en'
         ? "Following his father's death, a young man turns his body into muscular armor, until he understands that true strength is not about concealing pain, but learning to live with it."
@@ -199,6 +248,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     statusType: 'continuity',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     image: posterMarcheOmbres,
+    imageSm: posterMarcheOmbresSm,
     logline:
       lang === 'en'
         ? "Twenty years after the war, a veteran encounters by the Congo River the woman he thought dead and an eight-year-old son he never knew existed, forcing him to reckon with his past."
@@ -217,6 +267,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     statusType: 'script',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     image: poster100Jours,
+    imageSm: poster100JoursSm,
     logline:
       lang === 'en'
         ? "When a man discovers an ancient book dictating a set of rules for 100 days, he gradually realizes each commandment is part of a supernatural ordeal with stakes far beyond his own mortality."
@@ -236,6 +287,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     statusType: 'pitch',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     image: posterFatouDembele,
+    imageSm: posterFatouDembeleSm,
     logline:
       lang === 'en'
         ? "After abandoning her family and fleeing Congo, Fatou tries rebuilding her life abroad, but a heritage artifact and Congolese gastronomy force her to confront her history, roots, and true identity."
@@ -257,6 +309,7 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
     statusType: 'dialogue',
     role: lang === 'en' ? 'Author / Screenwriter: Junior France Mavie NGAKOSSO' : 'Auteur / Scénariste : Junior France Mavie NGAKOSSO',
     image: posterEnfantAlbinos,
+    imageSm: posterEnfantAlbinosSm,
     logline:
       lang === 'en'
         ? "In Brazzaville, Néné, a young albino artist facing prejudice, transforms the central public square with a monumental fresco dedicated to his mother, challenging the community to see beyond differences."
@@ -279,6 +332,8 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
     languages: 'Français 70 % • Lingala 30 %',
     status: lang === 'en' ? 'Finalized Project' : 'Projet finalisé',
     role: lang === 'en' ? 'Creator / Screenwriter: Junior France Mavie NGAKOSSO' : 'Créateur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: OFFICIAL_IMAGES.seriesForet,
+    imageSm: posterForetInterditeSm,
     logline:
       lang === 'en'
         ? "In Ngoma, following the destruction of a sacred forest, 17-year-old Kito discovers he is the last heir to an ancient power capable of seeing mystical tears threatening his village. Hunted as a witch, he must repair the bond before the full moon."
@@ -298,6 +353,8 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
     location: 'Brazzaville, République du Congo',
     status: lang === 'en' ? 'Finalized Project' : 'Projet finalisé',
     role: lang === 'en' ? 'Creator / Screenwriter: Junior France Mavie NGAKOSSO' : 'Créateur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: OFFICIAL_IMAGES.posterHeritageOmbres,
+    imageSm: posterHeritageOmbresSm,
     logline:
       lang === 'en'
         ? "Following his father's assassination, Jason infiltrates the corporate empire responsible for his death. But in uncovering his own family's criminal ties, he must choose between destroying the system or ruling it."
@@ -316,6 +373,8 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
     location: 'République du Congo — Brazzaville et Pool',
     status: lang === 'en' ? 'Finalized Project' : 'Projet finalisé',
     role: lang === 'en' ? 'Creator / Screenwriter: Junior France Mavie NGAKOSSO' : 'Créateur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: OFFICIAL_IMAGES.posterRoyaume242,
+    imageSm: posterRoyaume242Sm,
     logline:
       lang === 'en'
         ? "When a Brazzaville professor discovers a map revealing a colossal gold deposit in the Pool region, the find ignites a clandestine war between citizens, political elites, and military forces."
@@ -335,6 +394,8 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
     languages: 'Français / Lingala',
     status: lang === 'en' ? 'Finalized Project' : 'Projet finalisé',
     role: lang === 'en' ? 'Creator / Screenwriter: Junior France Mavie NGAKOSSO' : 'Créateur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: OFFICIAL_IMAGES.posterLesSix,
+    imageSm: posterLesSixSm,
     logline:
       lang === 'en'
         ? "Six young adults discover a secret server containing compromising footage of prominent citizens. Attempting blackmail to escape poverty, they realize someone is secretly watching their every move."
@@ -354,6 +415,8 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
     languages: 'Français',
     status: lang === 'en' ? 'Project' : 'Projet',
     role: lang === 'en' ? 'Creator / Screenwriter: Junior France Mavie NGAKOSSO' : 'Créateur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: OFFICIAL_IMAGES.posterLeSac,
+    imageSm: posterLeSacSm,
     logline:
       lang === 'en'
         ? "After stumbling on a bag containing 200 million FCFA from a botched heist, three broke friends try hiding the fortune, only to become targets of dangerous syndicate owners."
@@ -372,6 +435,8 @@ export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
     location: 'Brazzaville — Poto-Poto / Bacongo',
     status: lang === 'en' ? 'Project' : 'Projet',
     role: lang === 'en' ? 'Creator / Screenwriter: Junior France Mavie NGAKOSSO' : 'Créateur / Scénariste : Junior France Mavie NGAKOSSO',
+    image: OFFICIAL_IMAGES.posterChezLePsy,
+    imageSm: posterChezLePsySm,
     concept:
       lang === 'en'
         ? "Anthology series. In a Brazzaville therapy clinic, each episode explores a patient facing personal, familial, or cultural struggles with tenderness, insight, and sharp humor."

@@ -192,6 +192,76 @@
       "contactCta": "Demande de Dossier / Coproduction ↗"
     }
   },
+  "press": {
+    "badge": "Presse & Médias",
+    "title": "DOSSIER",
+    "titleAccent": "ARTISTIQUE",
+    "subtitle": "Dossier de référence officiel pour producteurs, festivals, éditeurs, journalistes et plateformes de diffusion.",
+    "docBadge": "Document Professionnel • Dossier A4",
+    "mainTitle": "PRESS KIT & PRÉSENTATION D’AUTEUR",
+    "mainDesc": "Ce dossier artistique rassemble l’univers complet de Junior France Mavie Ngakosso : biographie certifiée, vision artistique, bibliographie littéraire, projets cinéma, bibles de séries télévisées et contacts professionnels directs.",
+    "downloadBtn": "TÉLÉCHARGER LE PRESS KIT (PDF A4)",
+    "downloading": "Génération du PDF...",
+    "downloadSuccess": "Press Kit Téléchargé !",
+    "pdfNotice": "Format PDF officiel A4 • Génération instantanée",
+    "tabs": {
+      "presentation": "Présentation",
+      "identity": "Identité (4 Rôles)",
+      "spotlight": "Œuvre Phare",
+      "books": "Livres (3)",
+      "films": "Cinéma / Films (7)",
+      "series": "Séries TV (6)",
+      "universe": "Mon Univers"
+    },
+    "bioOfficial": {
+      "p1": "JUNIOR FRANCE MAVIE NGAKOSSO est un écrivain, auteur, scénariste et créateur congolais.",
+      "p2": "Il développe des œuvres littéraires et audiovisuelles principalement ancrées dans des univers africains et congolais, avec une prédilection pour le thriller, le fantastique, le surnaturel, le drame, le mystère, l’action et les récits sociaux.",
+      "p3": "Son travail cherche à associer des histoires profondément humaines à des univers forts, avec une identité congolaise assumée."
+    },
+    "roles": {
+      "writer": {
+        "title": "ÉCRIVAIN",
+        "desc": "Auteur de romans officiels et œuvres littéraires introspectives éditées, explorant la condition humaine et la reconstruction face aux épreuves."
+      },
+      "author": {
+        "title": "AUTEUR",
+        "desc": "Concepteur d'univers narratifs denses, de bibles littéraires et d'arches dramaturgiques singulières."
+      },
+      "screenwriter": {
+        "title": "SCÉNARISTE",
+        "desc": "Auteur de scénarios de longs-métrages de cinéma, continuités dialoguées et adaptations littéraires pour les écrans."
+      },
+      "creator": {
+        "title": "CRÉATEUR",
+        "desc": "Showrunner et créateur de séries télévisées originales structurées pour les diffuseurs et plateformes internationales."
+      }
+    },
+    "spotlight": {
+      "badge": "ŒUVRE PHARE DU CATALOGUE",
+      "title": "LA FORÊT INTERDITE",
+      "desc": "Projet majeur de son univers créatif, explorant la fracture cosmique entre le monde des vivants et des esprits.",
+      "dualFormat": "UNE ŒUVRE DÉCLINÉE SOUS DEUX FORMES MAJEURES",
+      "bookLabel": "LIVRE / ROMAN OFFICIEL",
+      "bookDesc": "Disponible sur Amazon. Roman fantastique, mystique et surnaturel ancré dans la forêt équatoriale congolaise.",
+      "seriesLabel": "SÉRIE TÉLÉVISÉE PRESTIGE",
+      "seriesDesc": "8 × 52 minutes • Thriller surnaturel, mystique, action et drame. Projet finalisé.",
+      "specs": "8 × 52 min • Français 70 % / Lingala 30 % • République du Congo",
+      "logline": "À Ngoma, après l'abattage d'une forêt sacrée, Kito, 17 ans, découvre qu'il est le dernier héritier d'un ancien pouvoir capable de percevoir les déchirures mystiques qui menacent son village. Traqué comme un sorcier, il doit réparer le lien brisé entre les hommes et la forêt avant la pleine lune, au risque de sacrifier sa propre humanité."
+    },
+    "universeAxes": {
+      "title": "MON UNIVERS — LIGNE ARTISTIQUE",
+      "desc": "Une vision artistique résolument ancrée dans les imaginaires contemporains et ancestraux :",
+      "item1": "Cinéma africain & Résonance internationale",
+      "item2": "Histoires congolaises & Mémoire vivante",
+      "item3": "Thriller psychologique & Mystique",
+      "item4": "Fantastique & Cosmogonies réinventées",
+      "item5": "Surnaturel & Pactes occultes",
+      "item6": "Mystère & Enquêtes initiatiques",
+      "item7": "Drame & Humanité brute",
+      "item8": "Action & Rythme cinématographique",
+      "item9": "Récits sociaux & Fractures contemporaines"
+    }
+  },
   "contact": {
     "badge": "Direction & Représentation",
     "title": "CRÉONS LE",

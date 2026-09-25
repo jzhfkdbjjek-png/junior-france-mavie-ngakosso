@@ -336,91 +336,139 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
      ========================================================================= */
   if (onProgress) onProgress('Page 4 : Bibliographie...');
   doc.addPage();
-  applyPageHeaderFooter(4, 9, 'Publications Officielles');
+  applyPageHeaderFooter(4, 9, 'Publications Officielles & Bibliographie');
 
   doc.setFont('times', 'bold');
   doc.setFontSize(22);
   doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
-  doc.text('BIBLIOGRAPHIE', margin, 34);
+  doc.text('BIBLIOGRAPHIE', margin, 32);
 
   doc.setDrawColor(gold[0], gold[1], gold[2]);
   doc.setLineWidth(0.6);
-  doc.line(margin, 38, margin + 20, 38);
+  doc.line(margin, 36, margin + 20, 36);
 
   // Livre 1: LE CERCUEIL AUX MUSCLES
+  let bY = 42;
   doc.setFillColor(bgCard[0], bgCard[1], bgCard[2]);
-  doc.rect(margin, 46, contentWidth, 88, 'F');
+  doc.rect(margin, bY, contentWidth, 68, 'F');
   doc.setDrawColor(gold[0], gold[1], gold[2]);
   doc.setLineWidth(0.4);
-  doc.rect(margin, 46, contentWidth, 88);
+  doc.rect(margin, bY, contentWidth, 68);
 
   doc.setFont('times', 'bold');
-  doc.setFontSize(13);
+  doc.setFontSize(11);
   doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
-  doc.text('LE CERCUEIL AUX MUSCLES', margin + 8, 57);
+  doc.text('1. LE CERCUEIL AUX MUSCLES', margin + 6, bY + 8);
 
   doc.setFont('times', 'italic');
-  doc.setFontSize(9);
+  doc.setFontSize(8);
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('Type : Livre / œuvre littéraire    •    Univers : Drame psychologique / introspectif', margin + 8, 65);
+  doc.text('Livre / œuvre littéraire  •  Auteur : Junior France Mavie NGAKOSSO  •  Disponible : Amazon', margin + 6, bY + 14);
+  doc.text('Univers : Drame psychologique / introspectif  •  Projet d’adaptation long-métrage cinéma', margin + 6, bY + 19);
 
   doc.setFont('times', 'normal');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8);
   doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
   const cDesc =
     "Le livre raconte le parcours d'un jeune homme confronté au décès de son père et qui transforme progressivement son corps en une sorte d'armure pour tenter de cacher sa souffrance. L'œuvre explore le deuil, la masculinité, la douleur, la famille, le rapport au corps et la reconstruction personnelle.";
-  const cLines = doc.splitTextToSize(cDesc, contentWidth - 16);
-  doc.text(cLines, margin + 8, 77, { lineHeightFactor: 1.5 });
-
-  doc.setFont('times', 'normal');
-  doc.setFontSize(8.5);
-  doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-  doc.text('Disponible sur Amazon  |  Projet d’adaptation en long-métrage de cinéma', margin + 8, 122);
-
-  // Livre 2: LA FORÊT INTERDITE
-  doc.setFillColor(bgCard[0], bgCard[1], bgCard[2]);
-  doc.rect(margin, 144, contentWidth, 96, 'F');
-  doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
-  doc.rect(margin, 144, contentWidth, 96);
-
-  doc.setFont('times', 'bold');
-  doc.setFontSize(13);
-  doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
-  doc.text('LA FORÊT INTERDITE', margin + 8, 155);
+  const cLines = doc.splitTextToSize(cDesc, contentWidth - 12);
+  doc.text(cLines, margin + 6, bY + 26, { lineHeightFactor: 1.4 });
 
   doc.setFont('times', 'italic');
-  doc.setFontSize(9);
+  doc.setFontSize(7.5);
+  doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
+  doc.text('« J’ai forgé du muscle là où mon cœur saignait, persuadé qu’une armure de fonte empêcherait mes larmes de couler. »', margin + 6, bY + 62);
+
+  // Livre 2: LA FORÊT INTERDITE
+  bY = 114;
+  doc.setFillColor(bgCard[0], bgCard[1], bgCard[2]);
+  doc.rect(margin, bY, contentWidth, 72, 'F');
+  doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
+  doc.rect(margin, bY, contentWidth, 72);
+
+  doc.setFont('times', 'bold');
+  doc.setFontSize(11);
+  doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
+  doc.text('2. LA FORÊT INTERDITE', margin + 6, bY + 8);
+
+  doc.setFont('times', 'italic');
+  doc.setFontSize(8);
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('Type : Livre    •    Univers : Fantastique • Mystique • Surnaturel • Congo', margin + 8, 163);
+  doc.text('Livre  •  Auteur : Junior France Mavie NGAKOSSO  •  Disponible : Amazon', margin + 6, bY + 14);
+  doc.text('Univers : Fantastique • Mystique • Surnaturel • Congo', margin + 6, bY + 19);
 
   doc.setFont('times', 'normal');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8);
   doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
   const fDesc =
-    "L'œuvre plonge le lecteur dans l'univers de Ngoma, de sa forêt sacrée, de ses traditions et de ses forces surnaturelles. Une plongée au cœur de la République du Congo où des forces ancestrales invisibles menacent l'équilibre fragile entre le monde des vivants et celui des esprits.";
-  const fLines = doc.splitTextToSize(fDesc, contentWidth - 16);
-  doc.text(fLines, margin + 8, 175, { lineHeightFactor: 1.5 });
+    "Au cœur de la forêt équatoriale congolaise, la profanation d'un sanctuaire ancestral libère les forces de l'invisible, réveillant un pacte séculaire entre les hommes et les esprits. Une plongée où des forces ancestrales menacent l'équilibre entre les vivants et les esprits.";
+  const fLines = doc.splitTextToSize(fDesc, contentWidth - 12);
+  doc.text(fLines, margin + 6, bY + 26, { lineHeightFactor: 1.4 });
 
   // Special Mention Audiovisuelle as required
   doc.setFillColor(bgDark[0], bgDark[1], bgDark[2]);
-  doc.rect(margin + 8, 204, contentWidth - 16, 26, 'F');
+  doc.rect(margin + 6, bY + 44, contentWidth - 12, 22, 'F');
   doc.setDrawColor(gold[0], gold[1], gold[2]);
   doc.setLineWidth(0.3);
-  doc.rect(margin + 8, 204, contentWidth - 16, 26);
+  doc.rect(margin + 6, bY + 44, contentWidth - 12, 22);
 
   doc.setFont('times', 'bold');
-  doc.setFontSize(9);
+  doc.setFontSize(8);
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('MENTION AUDIOVISUELLE OFFICIELLE', margin + 14, 213);
+  doc.text('✦ MENTION AUDIOVISUELLE OFFICIELLE', margin + 10, bY + 52);
 
   doc.setFont('times', 'normal');
-  doc.setFontSize(8.5);
+  doc.setFontSize(7.5);
   doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
   doc.text(
-    'Cette œuvre existe également sous la forme d’un projet de série audiovisuelle (8 × 52 min).',
-    margin + 14,
-    222
+    'Existe également sous la forme d’un projet majeur de série audiovisuelle (8 épisodes × 52 minutes).',
+    margin + 10,
+    bY + 60
   );
+
+  // Livre 3: LE LIVRE – 1560
+  bY = 190;
+  doc.setFillColor(bgCard[0], bgCard[1], bgCard[2]);
+  doc.rect(margin, bY, contentWidth, 80, 'F');
+  doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
+  doc.rect(margin, bY, contentWidth, 80);
+
+  doc.setFont('times', 'bold');
+  doc.setFontSize(11);
+  doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
+  doc.text('3. LE LIVRE – 1560', margin + 6, bY + 8);
+
+  doc.setFont('times', 'italic');
+  doc.setFontSize(8);
+  doc.setTextColor(gold[0], gold[1], gold[2]);
+  doc.text('Livre / œuvre littéraire  •  Auteur : Junior France Mavie NGAKOSSO', margin + 6, bY + 14);
+  doc.text('Univers : Thriller surnaturel • Mystère • Fantastique • Mystique', margin + 6, bY + 19);
+
+  doc.setFont('times', 'bold');
+  doc.setFontSize(7.5);
+  doc.setTextColor(gold[0], gold[1], gold[2]);
+  doc.text('LOGLINE :', margin + 6, bY + 26);
+
+  doc.setFont('times', 'normal');
+  doc.setFontSize(7.5);
+  doc.setTextColor(textWhite[0], textWhite[1], textWhite[2]);
+  const l1560Log =
+    "« À Brazzaville, deux jumeaux nés d'une tragédie découvrent qu'un grimoire mystique daté de 1560 les immunise contre les esprits qui contrôlent secrètement la ville. Devenus des cibles à abattre, ils doivent maîtriser les secrets du livre pour survivre, venger leur mère et briser l'emprise des entités sur la capitale. »";
+  const l1560Lines = doc.splitTextToSize(l1560Log, contentWidth - 12);
+  doc.text(l1560Lines, margin + 6, bY + 31, { lineHeightFactor: 1.35 });
+
+  doc.setFont('times', 'bold');
+  doc.setFontSize(7.5);
+  doc.setTextColor(gold[0], gold[1], gold[2]);
+  doc.text('PITCH ÉDITORIAL :', margin + 6, bY + 47);
+
+  doc.setFont('times', 'normal');
+  doc.setFontSize(7.3);
+  doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
+  const l1560Pitch =
+    "Brazzaville, métropole moderne. Une femme meurt en donnant naissance à des jumeaux en laissant un livre relié de cuir daté de 1560. Ce grimoire de chasse recense les « Anomalies », esprits possédant les vivants depuis des siècles. Les jumeaux, premiers immunisés depuis 400 ans, deviennent les nouveaux Gardiens du Livre.";
+  const p1560Lines = doc.splitTextToSize(l1560Pitch, contentWidth - 12);
+  doc.text(p1560Lines, margin + 6, bY + 52, { lineHeightFactor: 1.35 });
 
   /* =========================================================================
      PAGE 5 — FILMOGRAPHIE / LONGS-MÉTRAGES

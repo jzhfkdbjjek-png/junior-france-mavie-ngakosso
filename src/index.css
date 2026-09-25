@@ -843,9 +843,63 @@ html.light .glass-tool-btn:hover {
   .cinematic-btn::before,
   .cinematic-btn::after,
   .cinematic-btn-inner,
-  .cinematic-btn-icon-wrapper {
+  .cinematic-btn-icon-wrapper,
+  .sparkle-slow-spin {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* ==========================================================
+   SENIOR DESIGNER MICRO-INTERACTIONS & EDITORIAL ACCENTS
+   ========================================================== */
+@keyframes slowSparkleSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes subtleSparklePulse {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.sparkle-slow-spin {
+  animation: slowSparkleSpin 24s linear infinite;
+  display: inline-block;
+  will-change: transform;
+}
+
+.sparkle-pulse {
+  animation: subtleSparklePulse 3.5s ease-in-out infinite;
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Interactive Card Touch & Focus Elevation */
+.card-senior-interactive {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-senior-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 25px -5px rgba(197, 155, 99, 0.15);
+}
+
+@media (max-width: 768px) {
+  .card-senior-interactive:hover {
+    transform: translateY(-2px);
   }
 }
 

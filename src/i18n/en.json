@@ -192,6 +192,76 @@
       "contactCta": "Request Dossier / Coproduction ↗"
     }
   },
+  "press": {
+    "badge": "Press & Media Hub",
+    "title": "ARTISTIC",
+    "titleAccent": "PRESS KIT",
+    "subtitle": "Official comprehensive Press Kit for producers, festival programmers, editors, journalists and distribution platforms.",
+    "docBadge": "Professional Document • A4 Dossier",
+    "mainTitle": "PRESS KIT & AUTHOR PROFILE",
+    "mainDesc": "This reference dossier gathers the complete creative universe of Junior France Mavie Ngakosso: certified author biography, artistic vision, literary bibliography, filmography loglines, television series bibles, and direct contact details.",
+    "downloadBtn": "DOWNLOAD THE PRESS KIT (A4 PDF)",
+    "downloading": "Generating PDF...",
+    "downloadSuccess": "Press Kit Downloaded Successfully!",
+    "pdfNotice": "Official A4 PDF Format • Instant Generation",
+    "tabs": {
+      "presentation": "Presentation",
+      "identity": "Identity (4 Roles)",
+      "spotlight": "Key Highlight",
+      "books": "Books (3)",
+      "films": "Cinema / Feature Films (7)",
+      "series": "TV Series (6)",
+      "universe": "My Universe"
+    },
+    "bioOfficial": {
+      "p1": "JUNIOR FRANCE MAVIE NGAKOSSO is a Congolese writer, author, screenwriter, and series creator.",
+      "p2": "He develops literary and screen works primarily rooted in African and Congolese universes, with a focus on thriller, fantasy, supernatural, drama, mystery, action, and social realism.",
+      "p3": "His work seeks to intertwine deeply human stories with potent universes, carrying a proud Congolese identity."
+    },
+    "roles": {
+      "writer": {
+        "title": "WRITER",
+        "desc": "Author of official novels and introspective published literature exploring the human condition and resilience."
+      },
+      "author": {
+        "title": "AUTHOR",
+        "desc": "Architect of deep narrative worlds, literary bibles, and distinctive dramatic storytelling."
+      },
+      "screenwriter": {
+        "title": "SCREENWRITER",
+        "desc": "Writer of feature-length cinema screenplays, complete dialogue continuities, and book-to-screen adaptations."
+      },
+      "creator": {
+        "title": "CREATOR",
+        "desc": "Showrunner and creator of original television series structured for global broadcasters and international platforms."
+      }
+    },
+    "spotlight": {
+      "badge": "CATALOGUE KEY HIGHLIGHT",
+      "title": "THE FORBIDDEN FOREST",
+      "desc": "Flagship project of his creative universe, exploring the cosmic breach between the living and spirit worlds.",
+      "dualFormat": "A MAJOR WORK CRAFTED IN DUAL FORMAT",
+      "bookLabel": "BOOK / OFFICIAL NOVEL",
+      "bookDesc": "Available on Amazon. Supernatural, fantasy, and mystical novel set in the primeval Congolese rainforest.",
+      "seriesLabel": "PRESTIGE TV SERIES",
+      "seriesDesc": "8 × 52 minutes • Supernatural thriller, mystical, action, and drama. Finalized project.",
+      "specs": "8 × 52 min • French 70% / Lingala 30% • Republic of the Congo",
+      "logline": "In Ngoma, following the destruction of a sacred forest, 17-year-old Kito discovers he is the last heir to an ancient power capable of seeing mystical tears threatening his village. Hunted as a witch, he must repair the bond before the full moon, risking his own humanity."
+    },
+    "universeAxes": {
+      "title": "MY UNIVERSE — ARTISTIC LINE",
+      "desc": "An artistic vision deeply grounded in contemporary and ancestral storytelling:",
+      "item1": "African Cinema & International Reach",
+      "item2": "Congolese Narratives & Living Memory",
+      "item3": "Psychological & Mystical Thriller",
+      "item4": "Fantasy & Reimagined Cosmogonies",
+      "item5": "Supernatural & Occult Pacts",
+      "item6": "Mystery & Initiatory Investigations",
+      "item7": "Drama & Raw Human Emotion",
+      "item8": "Action & Cinematic Momentum",
+      "item9": "Social Realism & Modern Fractures"
+    }
+  },
   "contact": {
     "badge": "Representation & Inquiries",
     "title": "LET'S CREATE THE",

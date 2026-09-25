@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Film, BookOpen, Tv, Image as ImageIcon } from 'lucide-react';
+import { Film, BookOpen, Tv, Image as ImageIcon, Eye } from 'lucide-react';
 
 export interface CinematicImageProps {
   src: string;
+  srcSm?: string;
+  srcSet?: string;
+  sizes?: string;
   alt: string;
+  width?: number;
+  height?: number;
   className?: string;
   containerClassName?: string;
   aspectRatio?: '2/3' | '3/4' | '4/5' | '9/13' | '1/1' | '16/9' | 'auto';
@@ -16,12 +21,18 @@ export interface CinematicImageProps {
   type?: 'film' | 'series' | 'book' | 'portrait' | 'concept';
   onClick?: () => void;
   overlay?: React.ReactNode;
+  showClickCue?: boolean;
   id?: string;
 }
 
 export const CinematicImage: React.FC<CinematicImageProps> = ({
   src,
+  srcSm,
+  srcSet,
+  sizes,
   alt,
+  width,
+  height,
   className = '',
   containerClassName = '',
   aspectRatio = '2/3',
@@ -34,6 +45,7 @@ export const CinematicImage: React.FC<CinematicImageProps> = ({
   type = 'film',
   onClick,
   overlay,
+  showClickCue = false,
   id,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -48,15 +60,15 @@ export const CinematicImage: React.FC<CinematicImageProps> = ({
         setHasError(false);
       }
     }
-  }, [src]);
+  }, [src, srcSm]);
 
-  // Safety fallback timer: guarantee image is marked as loaded
+  // Safety fallback timer: guarantee image is marked as loaded to prevent stuck states
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 400);
+    }, 450);
     return () => clearTimeout(timer);
-  }, [src]);
+  }, [src, srcSm]);
 
   const aspectClassMap: Record<string, string> = {
     '2/3': 'aspect-[2/3]',
@@ -89,25 +101,52 @@ export const CinematicImage: React.FC<CinematicImageProps> = ({
     }
   };
 
+  // Build responsive srcSet if srcSm is provided
+  const computedSrcSet =
+    srcSet ||
+    (srcSm && srcSm !== src ? `${srcSm} 450w, ${src} 900w` : undefined);
+
+  const computedSizes =
+    sizes ||
+    (computedSrcSet
+      ? '(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px'
+      : undefined);
+
+  // Default width/height values based on ratio to eliminate CLS
+  const defaultDimMap: Record<string, { w: number; h: number }> = {
+    '2/3': { w: 600, h: 900 },
+    '3/4': { w: 600, h: 800 },
+    '4/5': { w: 640, h: 800 },
+    '9/13': { w: 600, h: 866 },
+    '1/1': { w: 600, h: 600 },
+    '16/9': { w: 960, h: 540 },
+  };
+  const computedWidth = width || defaultDimMap[aspectRatio]?.w || 600;
+  const computedHeight = height || defaultDimMap[aspectRatio]?.h || 900;
+
   return (
     <div
       id={id}
       onClick={onClick}
-      className={`relative w-full overflow-hidden bg-stone-900 border border-white/10 ${
+      className={`relative w-full overflow-hidden bg-[#121514] border border-white/10 select-none ${
         aspectClassMap[aspectRatio] || 'aspect-[2/3]'
-      } ${containerClassName}`}
+      } ${onClick ? 'cursor-pointer group' : ''} ${containerClassName}`}
     >
-      {/* Subtle Shimmer / Placeholder while loading */}
+      {/* Subtle Dark Graphite Shimmer while loading */}
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 animate-pulse pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#121514] via-[#1a1e1c] to-[#121514] animate-pulse pointer-events-none" />
       )}
 
-      {/* Main Image */}
+      {/* Main Image with Responsive srcSet and smooth entrance */}
       {!hasError ? (
         <img
           ref={imgRef}
-          src={src}
+          src={srcSm || src}
+          srcSet={computedSrcSet}
+          sizes={computedSizes}
           alt={alt}
+          width={computedWidth}
+          height={computedHeight}
           loading={loading}
           decoding="async"
           referrerPolicy="no-referrer"
@@ -118,7 +157,7 @@ export const CinematicImage: React.FC<CinematicImageProps> = ({
           }}
           onError={() => setHasError(true)}
           className={`w-full h-full ${fitClass} ${posClass} transition-all duration-700 ease-out ${
-            isLoaded ? 'opacity-100 scale-100' : 'opacity-90 scale-[1.01]'
+            isLoaded ? 'opacity-100 scale-100 filter-none' : 'opacity-90 scale-[1.01]'
           } ${className}`}
         />
       ) : (
@@ -135,6 +174,16 @@ export const CinematicImage: React.FC<CinematicImageProps> = ({
               {category}
             </span>
           )}
+        </div>
+      )}
+
+      {/* Senior UX Click Cue on Hover when interactive */}
+      {onClick && showClickCue && (
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center">
+          <div className="px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white text-xs font-semibold flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
+            <Eye className="w-3.5 h-3.5 text-brand-gold" />
+            <span>Découvrir</span>
+          </div>
         </div>
       )}
 

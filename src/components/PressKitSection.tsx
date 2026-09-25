@@ -48,7 +48,7 @@ export const PressKitSection: React.FC = () => {
     {
       page: '04',
       title: language === 'en' ? 'Bibliography' : 'Bibliographie',
-      desc: language === 'en' ? 'Le Cercueil aux Muscles, La Forêt Interdite' : 'Le Cercueil aux Muscles, La Forêt Interdite',
+      desc: language === 'en' ? 'Le Cercueil aux Muscles, La Forêt Interdite, Le Livre – 1560' : 'Le Cercueil aux Muscles, La Forêt Interdite, Le Livre – 1560',
     },
     {
       page: '05–06',
@@ -73,8 +73,9 @@ export const PressKitSection: React.FC = () => {
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5">
               <span className="h-px w-6 sm:w-8 bg-brand-gold"></span>
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
-                {language === 'en' ? 'Press & Media Hub' : 'Presse & Médias'}
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-brand-gold flex items-center gap-1.5">
+                <span className="sparkle-slow-spin text-brand-gold text-[10px] select-none" aria-hidden="true">✦</span>
+                <span>{language === 'en' ? 'Press & Media Hub' : 'Presse & Médias'}</span>
               </span>
             </div>
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-cinzel font-bold text-white tracking-tight">
