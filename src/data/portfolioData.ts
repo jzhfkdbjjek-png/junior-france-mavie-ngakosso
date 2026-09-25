@@ -26,24 +26,24 @@ import posterEnfantAlbinosSm from '../assets/images/poster_enfant_albinos_179019
 import posterLivre1560 from '../assets/images/poster_livre_1560_1790195962138.webp';
 import posterLivre1560Sm from '../assets/images/poster_livre_1560_1790195962138_sm.webp';
 
-// Posters Séries TV (Ratio 2:3)
-import posterForetInterdite from '../assets/images/poster_foret_interdite_1790326285252.webp';
-import posterForetInterditeSm from '../assets/images/poster_foret_interdite_1790326285252_sm.webp';
+// Posters Séries TV (Ratio 2:3 — Key Arts Cinématographiques Originaux)
+import posterForetInterdite from '../assets/images/poster_foret_interdite_1790327880164.webp';
+import posterForetInterditeSm from '../assets/images/poster_foret_interdite_1790327880164_sm.webp';
 
-import posterHeritageOmbres from '../assets/images/poster_heritage_ombres_1790248565213.webp';
-import posterHeritageOmbresSm from '../assets/images/poster_heritage_ombres_1790248565213_sm.webp';
+import posterHeritageOmbres from '../assets/images/poster_heritage_ombres_1790327893122.webp';
+import posterHeritageOmbresSm from '../assets/images/poster_heritage_ombres_1790327893122_sm.webp';
 
-import posterRoyaume242 from '../assets/images/poster_royaume_242_1790248578606.webp';
-import posterRoyaume242Sm from '../assets/images/poster_royaume_242_1790248578606_sm.webp';
+import posterRoyaume242 from '../assets/images/poster_royaume_242_1790327908114.webp';
+import posterRoyaume242Sm from '../assets/images/poster_royaume_242_1790327908114_sm.webp';
 
-import posterLesSix from '../assets/images/poster_les_six_1790248590800.webp';
-import posterLesSixSm from '../assets/images/poster_les_six_1790248590800_sm.webp';
+import posterLesSix from '../assets/images/poster_les_six_1790327920969.webp';
+import posterLesSixSm from '../assets/images/poster_les_six_1790327920969_sm.webp';
 
-import posterLeSac from '../assets/images/poster_le_sac_1790248607496.webp';
-import posterLeSacSm from '../assets/images/poster_le_sac_1790248607496_sm.webp';
+import posterLeSac from '../assets/images/poster_le_sac_1790327934000.webp';
+import posterLeSacSm from '../assets/images/poster_le_sac_1790327934000_sm.webp';
 
-import posterChezLePsy from '../assets/images/poster_chez_le_psy_1790248619276.webp';
-import posterChezLePsySm from '../assets/images/poster_chez_le_psy_1790248619276_sm.webp';
+import posterChezLePsy from '../assets/images/poster_chez_le_psy_1790327948061.webp';
+import posterChezLePsySm from '../assets/images/poster_chez_le_psy_1790327948061_sm.webp';
 
 export const OFFICIAL_IMAGES = {
   monogram: 'https://lh3.googleusercontent.com/aida/AEtjO1Uh-GTpTg1sfKYtPgVw6pjcSoLSZCX4dy-lOLmXIyNFmB7gk8Bt5-49n1jqn5a7s5HkvWq1o30eL7n31QbRwD-vrDxLtuTxPaQTwNwLaXBzd9HcSdvvHplebclWDtyOP1CS71IuybNnx5QYzjNU_xhGbDrNISsEQqdfSgXwDIcKRFPTU7YGl-BMNHEGDweOpK2Q5lQoFTg7cK3Ums1L_iNmVab2kh3cjhu75Wv6F_D1',
