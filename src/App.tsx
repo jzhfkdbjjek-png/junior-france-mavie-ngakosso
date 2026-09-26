@@ -11,9 +11,15 @@ import { Footer } from './components/Footer';
 import { CinematicBookLoader } from './components/CinematicBookLoader';
 import { NotFoundPage } from './components/NotFoundPage';
 import { ForetInterditePage } from './components/ForetInterditePage';
+import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { useSEO } from './utils/seo';
+import { initAnalytics, trackPageView } from './utils/analytics';
+import { useI18n } from './i18n/I18nContext';
 
 export default function App() {
+  const { language } = useI18n();
+
   const [currentView, setCurrentView] = useState<string>(() => {
     // Check if the current pathname or hash indicates foret-interdite or 404
     const path = window.location.pathname;
@@ -28,6 +34,34 @@ export default function App() {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Global SEO Configuration for Homepage & General Portfolio
+  useSEO({
+    title:
+      language === 'en'
+        ? 'Junior France Mavie Ngakosso — Writer • Author • Screenwriter • Creator'
+        : 'Junior France Mavie Ngakosso — Écrivain • Auteur • Scénariste • Créateur',
+    description:
+      language === 'en'
+        ? 'Official portfolio and editorial press kit of Junior France Mavie Ngakosso. Discover published novels (The Forbidden Forest, The Muscle Coffin), feature films and TV series bibles.'
+        : 'Portfolio et dossier de presse officiel de Junior France Mavie Ngakosso — Écrivain, auteur, scénariste et créateur congolais. Romans, longs-métrages et créations de séries télévisées.',
+    keywords:
+      'Junior France Mavie Ngakosso, Écrivain congolais, Scénariste Afrique, La Forêt Interdite, Le Cercueil aux Muscles, Le Livre 1560, Cinéma congolais, Séries télévisées congolaises, Auteur Brazzaville',
+    canonicalPath: '/',
+    ogType: 'website',
+  });
+
+  // Initialize Analytics on mount
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  // Track page views on view/route change
+  useEffect(() => {
+    if (currentView === 'accueil') {
+      trackPageView('/', 'Accueil — Junior France Mavie Ngakosso');
+    }
+  }, [currentView]);
 
   // Handle browser back/forward, hash changes, and 404 routing
   useEffect(() => {
@@ -108,26 +142,32 @@ export default function App() {
 
   if (currentView === '404') {
     return (
-      <NotFoundPage
-        onReturnHome={handleReturnHome}
-        onExploreWorks={handleExploreWorks}
-        onContactClick={handleContactFrom404}
-      />
+      <>
+        <NotFoundPage
+          onReturnHome={handleReturnHome}
+          onExploreWorks={handleExploreWorks}
+          onContactClick={handleContactFrom404}
+        />
+        <CookieConsentBanner />
+      </>
     );
   }
 
   if (currentView === 'foret-interdite') {
     return (
-      <ForetInterditePage
-        onReturnHome={handleReturnHome}
-        onContactClick={() => {
-          handleReturnHome();
-          setTimeout(() => {
-            const el = document.getElementById('contact');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
-        }}
-      />
+      <>
+        <ForetInterditePage
+          onReturnHome={handleReturnHome}
+          onContactClick={() => {
+            handleReturnHome();
+            setTimeout(() => {
+              const el = document.getElementById('contact');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 150);
+          }}
+        />
+        <CookieConsentBanner />
+      </>
     );
   }
 
@@ -187,6 +227,9 @@ export default function App() {
       <Footer
         onNavigateSection={handleNavigateSection}
       />
+
+      {/* GDPR / Privacy Compliant Cookie Consent Banner */}
+      <CookieConsentBanner />
     </div>
   );
 }

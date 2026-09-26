@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useI18n } from '../i18n/I18nContext';
 import { MapPin, Mail, BookOpen, CheckCircle2, ArrowRight } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
+import { analyticsEvents } from '../utils/analytics';
 
 export const ContactSection: React.FC = () => {
   const { t, language } = useI18n();
@@ -18,6 +19,7 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    analyticsEvents.clickContact('form');
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -80,6 +82,7 @@ export const ContactSection: React.FC = () => {
                     <a
                       id="contact-email-link"
                       href="mailto:ngakossoj35@gmail.com"
+                      onClick={() => analyticsEvents.clickContact('email')}
                       className="text-xs sm:text-sm font-bold text-white hover:text-brand-amber transition-colors inline-flex items-center min-h-[40px] sm:min-h-0 break-all"
                     >
                       ngakossoj35@gmail.com
@@ -90,6 +93,7 @@ export const ContactSection: React.FC = () => {
                   variant="ghost"
                   size="sm"
                   href="mailto:ngakossoj35@gmail.com"
+                  onClick={() => analyticsEvents.clickContact('email')}
                   className="shrink-0 text-[10px] uppercase tracking-wider hidden sm:inline-flex"
                 >
                   {language === 'en' ? 'Write' : 'Écrire'}
@@ -117,6 +121,7 @@ export const ContactSection: React.FC = () => {
                       href="https://wa.me/242067613213"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => analyticsEvents.clickContact('whatsapp')}
                       className="text-xs sm:text-sm font-bold text-white hover:text-[#25D366] transition-colors inline-flex items-center min-h-[40px] sm:min-h-0 tracking-wide"
                     >
                       067613213
@@ -129,6 +134,7 @@ export const ContactSection: React.FC = () => {
                   href="https://wa.me/242067613213"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => analyticsEvents.clickContact('whatsapp')}
                   className="shrink-0 text-[10px] uppercase tracking-wider text-[#25D366] hover:text-[#25D366]"
                 >
                   WhatsApp ↗

@@ -17,6 +17,7 @@ import {
 import { CinematicButton } from './CinematicButton';
 import { CinematicImage } from './CinematicImage';
 import { ExpandableText } from './ExpandableText';
+import { analyticsEvents } from '../utils/analytics';
 
 interface CatalogueSectionProps {
   onNavigateForet: () => void;
@@ -268,6 +269,8 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
 
   const openProjectModal = (item: FilmItem | SeriesItem | BookItem) => {
     setSelectedProject(item);
+    const category = 'format' in item ? 'serie' : 'duration' in item ? 'film' : 'livre';
+    analyticsEvents.viewWorkItem(item.title, category);
   };
 
   return (

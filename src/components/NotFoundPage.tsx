@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CinematicButton } from './CinematicButton';
 import { ArrowLeft, Compass, BookOpen, Mail } from 'lucide-react';
 import { useI18n } from '../i18n/I18nContext';
+import { useSEO } from '../utils/seo';
+import { trackPageView } from '../utils/analytics';
 
 interface NotFoundPageProps {
   onReturnHome: () => void;
@@ -15,6 +17,16 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
   onContactClick,
 }) => {
   const { language } = useI18n();
+
+  useSEO({
+    title: language === 'en' ? 'Page Not Found (404)' : 'Page Non Trouvée (404)',
+    description: language === 'en' ? 'The requested page does not exist or has been moved.' : "La page demandée n'existe pas ou a été déplacée.",
+    canonicalPath: '/404',
+  });
+
+  useEffect(() => {
+    trackPageView('/404', '404 - Page Non Trouvée');
+  }, []);
 
   return (
     <div className="relative min-h-screen w-full bg-[#0b0d0c] text-[#f2ede4] flex flex-col justify-between overflow-hidden selection:bg-[#c59b63] selection:text-black">

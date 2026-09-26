@@ -5,6 +5,7 @@ import { CinematicButton } from './CinematicButton';
 import { CinematicImage } from './CinematicImage';
 import { OFFICIAL_IMAGES } from '../data/portfolioData';
 import { generatePressKitPdf } from '../utils/pressKitPdf';
+import { analyticsEvents } from '../utils/analytics';
 
 export const PressKitSection: React.FC = () => {
   const { t, language } = useI18n();
@@ -17,6 +18,8 @@ export const PressKitSection: React.FC = () => {
       setIsGenerating(true);
       setDownloadSuccess(false);
       setProgressStatus(language === 'en' ? 'Preparing editorial dossier…' : 'Préparation du dossier éditorial…');
+
+      analyticsEvents.downloadPressKit(language);
 
       await generatePressKitPdf((step) => {
         setProgressStatus(step);

@@ -1,0 +1,6 @@
+# Robots.txt — Junior France Mavie Ngakosso
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ngakosso.com/sitemap.xml

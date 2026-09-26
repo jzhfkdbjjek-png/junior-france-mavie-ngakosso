@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { OFFICIAL_IMAGES } from '../data/portfolioData';
 import { useI18n } from '../i18n/I18nContext';
+import { useSEO } from '../utils/seo';
+import { trackPageView, analyticsEvents } from '../utils/analytics';
 import {
   ArrowLeft,
   Tv,
@@ -33,6 +35,46 @@ export const ForetInterditePage: React.FC<ForetInterditePageProps> = ({
 }) => {
   const { language } = useI18n();
   const [activeTab, setActiveTab] = useState<'synopsis' | 'episodes' | 'univers' | 'personnages' | 'intention' | 'concept'>('synopsis');
+
+  // Dynamic SEO Configuration for La Forêt Interdite
+  useSEO({
+    title:
+      language === 'en'
+        ? 'The Forbidden Forest — TV Series (8×52min) & Official Novel'
+        : 'La Forêt Interdite — Série Télévisée (8×52min) & Livre Officiel',
+    description:
+      language === 'en'
+        ? 'Official series bible and universe of The Forbidden Forest by Junior France Mavie Ngakosso. Supernatural and mystical thriller set in the Congo basin.'
+        : "Découvrez la bible officielle, les 8 épisodes et l'univers de La Forêt Interdite par Junior France Mavie Ngakosso. Thriller surnaturel et mystique ancré en République du Congo.",
+    keywords:
+      'La Forêt Interdite, Série La Forêt Interdite, Junior France Mavie Ngakosso, Congo, Ngoma, Meso Miviri, Thriller surnaturel africain, Série 8x52min',
+    canonicalPath: '/foret-interdite',
+    ogType: 'article',
+    ogImage: OFFICIAL_IMAGES.bookForet,
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'TVSeries',
+      name: 'La Forêt Interdite',
+      creator: {
+        '@type': 'Person',
+        name: 'Junior France Mavie Ngakosso',
+      },
+      numberOfEpisodes: 8,
+      inLanguage: ['fr', 'ln'],
+      genre: ['Thriller surnaturel', 'Mystique', 'Action', 'Drame'],
+      countryOfOrigin: {
+        '@type': 'Country',
+        name: 'République du Congo',
+      },
+      description:
+        'À Ngoma, après l’abattage d’une forêt sacrée, Kito, 17 ans, découvre qu’il est le dernier héritier d’un ancien pouvoir et doit réparer le lien brisé entre le monde des vivants et celui des esprits.',
+    },
+  });
+
+  useEffect(() => {
+    trackPageView('/foret-interdite', 'La Forêt Interdite — Série TV & Livre');
+    analyticsEvents.openForetDedicatedPage();
+  }, []);
 
   const characters = language === 'en' ? [
     {

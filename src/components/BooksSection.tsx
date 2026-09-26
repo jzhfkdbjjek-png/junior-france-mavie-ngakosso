@@ -6,6 +6,7 @@ import { ExternalLink, Film, Info, X, BookOpen, CheckCircle2 } from 'lucide-reac
 import { CinematicButton } from './CinematicButton';
 import { CinematicImage } from './CinematicImage';
 import { ExpandableText } from './ExpandableText';
+import { analyticsEvents } from '../utils/analytics';
 
 interface BooksSectionProps {
   onNavigateFilms?: () => void;
@@ -19,6 +20,15 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
   const [selectedBook, setSelectedBook] = useState<BookItem | null>(null);
 
   const booksData = getBooksData(language);
+
+  const handleOpenBookModal = (book: BookItem) => {
+    setSelectedBook(book);
+    analyticsEvents.viewWorkItem(book.title, 'livre');
+  };
+
+  const handleAmazonClick = (bookTitle: string) => {
+    analyticsEvents.clickAmazon(bookTitle);
+  };
 
   const handleAdaptationClick = (_book: BookItem) => {
     if (onNavigateFilms) {
@@ -207,6 +217,7 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                       href={book.amazonUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => handleAmazonClick(book.title)}
                       icon={<ExternalLink className="w-3.5 h-3.5" />}
                       iconPosition="right"
                       className="flex-1 min-w-[180px]"
@@ -232,7 +243,7 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                     <CinematicButton
                       variant="ghost"
                       size="md"
-                      onClick={() => setSelectedBook(book)}
+                      onClick={() => handleOpenBookModal(book)}
                       icon={<Info className="w-3.5 h-3.5" />}
                       iconPosition="left"
                       className="text-stone-400 hover:text-white"
