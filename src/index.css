@@ -871,8 +871,7 @@ html.light .glass-tool-btn:hover {
   .cinematic-btn::before,
   .cinematic-btn::after,
   .cinematic-btn-inner,
-  .cinematic-btn-icon-wrapper,
-  .sparkle-slow-spin {
+  .cinematic-btn-icon-wrapper {
     transition: none !important;
     animation: none !important;
   }
@@ -881,38 +880,6 @@ html.light .glass-tool-btn:hover {
 /* ==========================================================
    SENIOR DESIGNER MICRO-INTERACTIONS & EDITORIAL ACCENTS
    ========================================================== */
-@keyframes slowSparkleSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes subtleSparklePulse {
-  0%, 100% {
-    opacity: 0.65;
-    transform: scale(0.95);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-}
-
-.sparkle-slow-spin {
-  animation: slowSparkleSpin 24s linear infinite;
-  display: inline-block;
-  will-change: transform;
-}
-
-.sparkle-pulse {
-  animation: subtleSparklePulse 3.5s ease-in-out infinite;
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
 /* Interactive Card Touch & Focus Elevation */
 .card-senior-interactive {
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),

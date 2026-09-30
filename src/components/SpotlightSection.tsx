@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { OFFICIAL_IMAGES, getSeriesData } from '../data/portfolioData';
 import { SeriesItem } from '../types';
 import { useI18n } from '../i18n/I18nContext';
-import { Tv, ArrowUpRight, MapPin, X, ExternalLink, Sparkles, Film } from 'lucide-react';
+import { Tv, ArrowUpRight, MapPin, X, ExternalLink, Film } from 'lucide-react';
 import { CinematicButton } from './CinematicButton';
 import { CinematicImage } from './CinematicImage';
 import { ExpandableText } from './ExpandableText';
@@ -105,9 +105,8 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
         <div data-reveal="fade-down" className="mb-10 sm:mb-14">
           <div className="flex items-center gap-2.5 sm:gap-3 mb-3">
             <span className="h-px w-8 sm:w-10 bg-red-500"></span>
-            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-red-400 flex items-center gap-1.5">
-              <span className="sparkle-slow-spin text-red-400 text-[10px] select-none" aria-hidden="true">✦</span>
-              <span>{t('spotlight.badge')}</span>
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-red-400">
+              {t('spotlight.badge')}
             </span>
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -169,8 +168,7 @@ export const SpotlightSection: React.FC<SpotlightSectionProps> = ({
 
             {/* Fiche Titre & Contenu à droite */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5">
-              <div data-reveal="fade-up" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/60 border border-red-800/60 text-red-300 text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-red-400" />
+              <div data-reveal="fade-up" className="inline-flex items-center px-3 py-1 rounded-full bg-red-950/60 border border-red-800/60 text-red-300 text-xs font-semibold">
                 <span>{t('spotlight.prodBadge')}</span>
               </div>
 

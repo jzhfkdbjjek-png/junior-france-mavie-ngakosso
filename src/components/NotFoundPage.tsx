@@ -43,7 +43,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
       {/* Top Bar Minimalist */}
       <header className="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 sm:py-8 flex items-center justify-between">
         <div className="flex items-center gap-2 text-stone-400 text-xs tracking-[0.2em] uppercase font-mono">
-          <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+          <span className="w-2 h-2 rounded-full bg-brand-gold"></span>
           <span>Junior France Mavie Ngakosso</span>
         </div>
 

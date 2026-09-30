@@ -7,7 +7,6 @@ import {
   ArrowLeft,
   Tv,
   Film,
-  Sparkles,
   MapPin,
   Clock,
   Globe,
@@ -281,8 +280,7 @@ export const ForetInterditePage: React.FC<ForetInterditePageProps> = ({
 
             {/* Colonne Droite : Titre, Logline & Métadonnées */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/70 border border-red-800/60 text-red-300 text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-red-400" />
+              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-red-950/70 border border-red-800/60 text-red-300 text-xs font-semibold">
                 <span>RÉPUBLIQUE DU CONGO • CRÉATION AUDIOVISUELLE ORIGINALE</span>
               </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useI18n } from '../i18n/I18nContext';
-import { Newspaper, ArrowUpRight, Calendar, Sparkles } from 'lucide-react';
+import { Newspaper, ArrowUpRight, Calendar } from 'lucide-react';
 
 export const JournalSection: React.FC = () => {
   const { language } = useI18n();

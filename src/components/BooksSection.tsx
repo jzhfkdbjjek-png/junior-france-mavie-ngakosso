@@ -71,9 +71,8 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5">
               <span className="h-px w-6 sm:w-8 bg-brand-gold"></span>
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-brand-gold flex items-center gap-1.5">
-                <span className="sparkle-slow-spin text-brand-gold text-[10px] select-none" aria-hidden="true">✦</span>
-                <span>{t('books.badge')}</span>
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
+                {t('books.badge')}
               </span>
             </div>
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-cinzel font-bold text-white tracking-tight">

@@ -158,14 +158,6 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
       {/* Warm Ambient Spotlight behind the Book */}
       <div className="absolute w-[340px] sm:w-[620px] h-[340px] sm:h-[620px] rounded-full bg-gradient-to-tr from-[#e5a958]/15 via-[#c59b63]/10 to-transparent blur-3xl pointer-events-none transform -translate-y-4"></div>
 
-      {/* Floating cinematic subtle particles */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-brand-gold rounded-full blur-[0.5px] animate-pulse"></div>
-        <div className="absolute top-3/4 left-1/3 w-1.5 h-1.5 bg-brand-amber rounded-full blur-[0.8px] animate-pulse"></div>
-        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-brand-gold rounded-full blur-[0.5px] animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-1.5 h-1.5 bg-brand-amber rounded-full blur-[0.8px] animate-pulse"></div>
-      </div>
-
       {/* Cinematic Main Stage */}
       <div
         className="relative flex items-center justify-center transition-transform duration-300 ease-out"
@@ -265,15 +257,10 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
 
               {/* DIRECTLY PRINTED INSIDE THE BOOK PAGES: Auteur • Créateur • Scénariste */}
               <div className="pt-1 sm:pt-2">
-                <div className="relative py-2 sm:py-2.5 px-2.5 sm:px-3.5 rounded-lg bg-gradient-to-r from-amber-900/10 via-[#8c6738]/15 to-amber-900/10 border-y-2 border-[#8c6738]/50 shadow-xs text-center backdrop-blur-xs">
-                  {/* Small gold sparkle accents */}
-                  <div className="flex items-center justify-center gap-1.5 sm:gap-2">
-                    <span className="text-[#8c6738] text-[8px] sm:text-[10px] select-none" aria-hidden="true">✦</span>
-                    <p className="font-cinzel text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-[0.16em] sm:tracking-[0.22em] text-[#1c1206] drop-shadow-[0_1px_1px_rgba(255,255,255,0.85)] leading-snug">
-                      Auteur • Créateur • Scénariste
-                    </p>
-                    <span className="text-[#8c6738] text-[8px] sm:text-[10px] select-none" aria-hidden="true">✦</span>
-                  </div>
+                <div className="relative py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg bg-gradient-to-r from-amber-900/10 via-[#8c6738]/15 to-amber-900/10 border-y-2 border-[#8c6738]/50 shadow-xs text-center backdrop-blur-xs">
+                  <p className="font-cinzel text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-[0.16em] sm:tracking-[0.22em] text-[#1c1206] drop-shadow-[0_1px_1px_rgba(255,255,255,0.85)] leading-snug">
+                    Auteur • Créateur • Scénariste
+                  </p>
                 </div>
               </div>
 
@@ -480,8 +467,8 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
               </div>
 
               <div className="relative z-10 text-center space-y-2 py-4">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto rounded-full bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold font-cinzel text-xs sm:text-sm">
-                  ✦
+                <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto rounded-full bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold font-cinzel text-xs sm:text-sm font-bold tracking-wider">
+                  JN
                 </div>
                 <p className="font-cinzel text-xs sm:text-sm text-stone-200 uppercase tracking-widest font-bold">
                   JUNIOR FRANCE MAVIE NGAKOSSO
@@ -505,7 +492,7 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
       {/* Subtle Step Status Text at Bottom */}
       <div className="relative z-10 mt-8 sm:mt-10 text-center space-y-2">
         <div className="flex items-center justify-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-ping"></span>
+          <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/70"></span>
           <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.25em] uppercase text-stone-400 font-semibold">
             {time < 0.9
               ? (language === 'en' ? 'OPENING MANUSCRIPT' : 'OUVERTURE DU MANUSCRIT')

@@ -40,7 +40,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Badges */}
             <div className={`flex flex-wrap items-center gap-2 ${hasLoaded ? 'animate-hero-title' : 'opacity-0'}`}>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-200/80 dark:bg-white/5 border border-stone-300 dark:border-brand-gold/30 backdrop-blur-md shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-brand-amber animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-brand-amber"></span>
                 <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-stone-800 dark:text-[#f2ede4] font-bold">
                   {t('hero.studioBadge')}
                 </span>
@@ -56,8 +56,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 hasLoaded ? 'animate-hero-title' : 'opacity-0'
               }`}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="sparkle-slow-spin text-brand-gold text-xs select-none" aria-hidden="true">✦</span>
+              <div className="flex items-center mb-2">
                 <span className="block text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.25em] text-[#8c6738] dark:text-brand-amber">
                   {t('hero.roleSubtitle')}
                 </span>

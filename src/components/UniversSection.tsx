@@ -1,6 +1,6 @@
 import React from 'react';
 import { useI18n } from '../i18n/I18nContext';
-import { Globe, Compass, BookOpen, Film, Tv, Sparkles } from 'lucide-react';
+import { Globe, Compass, BookOpen, Film, Tv } from 'lucide-react';
 
 export const UniversSection: React.FC = () => {
   const { t, language } = useI18n();
@@ -55,10 +55,8 @@ export const UniversSection: React.FC = () => {
           data-reveal="fade-up"
           className="p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-[#171a19] via-[#1c201e] to-[#171a19] border border-brand-gold/30 shadow-xl text-center space-y-3"
         >
-          <div className="flex items-center justify-center gap-2 text-[10px] sm:text-xs uppercase font-bold tracking-widest text-brand-amber">
-            <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
+          <div className="flex items-center justify-center text-[10px] sm:text-xs uppercase font-bold tracking-widest text-brand-amber">
             <span>{isEn ? 'CORE NARRATIVE SPECTRUM' : 'UNIVERS CRÉATIF — PILIERS NARRATIFS'}</span>
-            <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
           </div>
 
           {/* Progressive reveal words (Mobile First, large readable cards) */}

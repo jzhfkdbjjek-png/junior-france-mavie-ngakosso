@@ -163,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) =
             {/* Entête du menu */}
             <div className="pb-3 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-brand-amber animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-brand-amber"></span>
                 <span className="font-cinzel text-xs sm:text-sm font-bold tracking-widest text-white uppercase">
                   {t('nav.menu')}
                 </span>
