@@ -11,6 +11,23 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id: string) {
+            if (id.includes('node_modules/jspdf')) {
+              return 'jspdf';
+            }
+            if (id.includes('node_modules/lucide-react')) {
+              return 'icons';
+            }
+            if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+              return 'reactVendor';
+            }
+          },
+        },
+      },
+    },
     server: {
       port: 3000,
       host: '0.0.0.0',

@@ -40,8 +40,8 @@ export const ForetInterditePage: React.FC<ForetInterditePageProps> = ({
   useSEO({
     title:
       language === 'en'
-        ? 'The Forbidden Forest — TV Series (8×52min) & Official Novel'
-        : 'La Forêt Interdite — Série Télévisée (8×52min) & Livre Officiel',
+        ? 'The Forbidden Forest — TV Series (8×52min)'
+        : 'La Forêt Interdite — Série Télévisée (8×52min)',
     description:
       language === 'en'
         ? 'Official series bible and universe of The Forbidden Forest by Junior France Mavie Ngakosso. Supernatural and mystical thriller set in the Congo basin.'

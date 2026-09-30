@@ -43,10 +43,10 @@ export default function App() {
         : 'Junior France Mavie Ngakosso — Écrivain • Auteur • Scénariste • Créateur',
     description:
       language === 'en'
-        ? 'Official portfolio and editorial press kit of Junior France Mavie Ngakosso. Discover published novels (The Forbidden Forest, The Muscle Coffin), feature films and TV series bibles.'
-        : 'Portfolio et dossier de presse officiel de Junior France Mavie Ngakosso — Écrivain, auteur, scénariste et créateur congolais. Romans, longs-métrages et créations de séries télévisées.',
+        ? 'Official portfolio and editorial press kit of Junior France Mavie Ngakosso. Discover published novels (The Muscle Coffin, The Demon\'s Pact), the TV series The Forbidden Forest, feature films and series bibles.'
+        : 'Portfolio et dossier de presse officiel de Junior France Mavie Ngakosso — Écrivain, auteur, scénariste et créateur congolais. Romans (Le Cercueil aux Muscles, Le Pacte du Démon), série TV La Forêt Interdite, longs-métrages et séries.',
     keywords:
-      'Junior France Mavie Ngakosso, Écrivain congolais, Scénariste Afrique, La Forêt Interdite, Le Cercueil aux Muscles, Le Livre 1560, Cinéma congolais, Séries télévisées congolaises, Auteur Brazzaville',
+      'Junior France Mavie Ngakosso, Écrivain congolais, Scénariste Afrique, Le Cercueil aux Muscles, Le Pacte du Démon, La Forêt Interdite, Cinéma congolais, Séries télévisées congolaises, Auteur Brazzaville',
     canonicalPath: '/',
     ogType: 'website',
   });

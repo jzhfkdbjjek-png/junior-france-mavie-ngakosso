@@ -42,6 +42,7 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
     portraitDataUrl,
     foretCoverDataUrl,
     cercueilCoverDataUrl,
+    pacteCoverDataUrl,
     livre1560CoverDataUrl,
     pacteDiablePosterDataUrl,
     curseMouthPosterDataUrl,
@@ -59,6 +60,7 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
     loadImageAsDataUrl(OFFICIAL_IMAGES.portrait),
     loadImageAsDataUrl(OFFICIAL_IMAGES.bookForet),
     loadImageAsDataUrl(OFFICIAL_IMAGES.bookCercueil),
+    loadImageAsDataUrl(OFFICIAL_IMAGES.bookPacte),
     loadImageAsDataUrl(OFFICIAL_IMAGES.bookLivre1560),
     loadImageAsDataUrl(OFFICIAL_IMAGES.posterPacteDiable),
     loadImageAsDataUrl(OFFICIAL_IMAGES.posterCurseMouth),
@@ -561,7 +563,7 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
      ========================================================================= */
   if (onProgress) onProgress('Page 4 : Œuvres Littéraires...');
   doc.addPage();
-  applyPageHeaderFooter(4, 9, 'Publications Officielles', 'Œuvres Littéraires');
+  applyPageHeaderFooter(4, 9, 'Publications Officielles', 'Œuvres Littéraires (Livres)');
 
   doc.setFont('times', 'bold');
   doc.setFontSize(20);
@@ -572,168 +574,110 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
   doc.setLineWidth(0.6);
   doc.line(margin, 36, margin + 25, 36);
 
+  // Intro Subtitle
+  doc.setFont('times', 'italic');
+  doc.setFontSize(8.5);
+  doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
+  doc.text('Romans officiels de Junior France Mavie NGAKOSSO édités et disponibles sur Amazon.', margin, 41);
+
   // Livre 1: LE CERCUEIL AUX MUSCLES
-  let b4Y = 40;
-  const bCoverW = 28;
-  const bCoverH = 42;
+  let b4Y = 47;
+  const bCoverW = 34;
+  const bCoverH = 51;
 
   // Book 1 Card
   doc.setFillColor(bgCardLight[0], bgCardLight[1], bgCardLight[2]);
-  doc.rect(margin, b4Y, contentWidth, 68, 'F');
+  doc.rect(margin, b4Y, contentWidth, 96, 'F');
   doc.setDrawColor(gold[0], gold[1], gold[2]);
   doc.setLineWidth(0.4);
-  doc.rect(margin, b4Y, contentWidth, 68);
+  doc.rect(margin, b4Y, contentWidth, 96);
 
   if (cercueilCoverDataUrl) {
     try {
-      doc.addImage(cercueilCoverDataUrl, 'JPEG', margin + 4, b4Y + 4, bCoverW, bCoverH);
+      doc.addImage(cercueilCoverDataUrl, 'JPEG', margin + 6, b4Y + 6, bCoverW, bCoverH);
       doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
-      doc.rect(margin + 4, b4Y + 4, bCoverW, bCoverH);
+      doc.rect(margin + 6, b4Y + 6, bCoverW, bCoverH);
     } catch {
       // ignore
     }
   }
 
-  const b1TextX = margin + bCoverW + 9;
-  const b1TextW = contentWidth - bCoverW - 13;
+  const b1TextX = margin + bCoverW + 12;
+  const b1TextW = contentWidth - bCoverW - 18;
 
   doc.setFont('times', 'bold');
-  doc.setFontSize(11);
+  doc.setFontSize(12);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  doc.text('LE CERCUEIL AUX MUSCLES', b1TextX, b4Y + 9);
+  doc.text('LE CERCUEIL AUX MUSCLES', b1TextX, b4Y + 11);
 
   doc.setFont('times', 'italic');
-  doc.setFontSize(7.5);
+  doc.setFontSize(8);
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('Livre / œuvre littéraire  •  Auteur : Junior France Mavie NGAKOSSO  •  Disponible sur Amazon', b1TextX, b4Y + 15);
-  doc.text('Univers : Drame psychologique / introspectif  •  Projet d’adaptation long-métrage cinéma', b1TextX, b4Y + 20);
+  doc.text('Livre / roman officiel  •  Auteur : Junior France Mavie NGAKOSSO  •  Disponible sur Amazon', b1TextX, b4Y + 18);
+  doc.text('Genre : Drame psychologique / introspectif  •  Passerelle : Adaptation film long-métrage', b1TextX, b4Y + 24);
 
   doc.setFont('times', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.8);
   doc.setTextColor(textBody[0], textBody[1], textBody[2]);
   const b1Desc =
     "Le livre raconte le parcours d'un jeune homme confronté au décès de son père et qui transforme progressivement son corps en une sorte d'armure pour tenter de cacher sa souffrance. L'œuvre explore le deuil, la masculinité, la douleur, la famille, le rapport au corps et la reconstruction personnelle.";
   const b1Lines = doc.splitTextToSize(b1Desc, b1TextW);
-  doc.text(b1Lines, b1TextX, b4Y + 27, { lineHeightFactor: 1.35 });
+  doc.text(b1Lines, b1TextX, b4Y + 32, { lineHeightFactor: 1.35 });
 
   doc.setFont('times', 'italic');
-  doc.setFontSize(7.2);
+  doc.setFontSize(7.5);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-  doc.text('« J’ai forgé du muscle là où mon cœur saignait, persuadé qu’une armure de fonte empêcherait mes larmes de couler. »', b1TextX, b4Y + 61);
+  doc.text('« J’ai forgé du muscle là où mon cœur saignait, persuadé qu’une armure de fonte empêcherait mes larmes de couler. »', b1TextX, b4Y + 58);
 
-  // Livre 2: LA FORÊT INTERDITE
-  b4Y = 112;
+  // Livre 2: LE PACTE DU DÉMON
+  b4Y = 152;
   doc.setFillColor(bgCardLight[0], bgCardLight[1], bgCardLight[2]);
-  doc.rect(margin, b4Y, contentWidth, 72, 'F');
-  doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
-  doc.rect(margin, b4Y, contentWidth, 72);
+  doc.rect(margin, b4Y, contentWidth, 96, 'F');
+  doc.setDrawColor(gold[0], gold[1], gold[2]);
+  doc.setLineWidth(0.4);
+  doc.rect(margin, b4Y, contentWidth, 96);
 
-  if (foretCoverDataUrl) {
+  const pacteImg = pacteCoverDataUrl || pacteDiablePosterDataUrl;
+  if (pacteImg) {
     try {
-      doc.addImage(foretCoverDataUrl, 'JPEG', margin + 4, b4Y + 4, bCoverW, bCoverH);
+      doc.addImage(pacteImg, 'JPEG', margin + 6, b4Y + 6, bCoverW, bCoverH);
       doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
-      doc.rect(margin + 4, b4Y + 4, bCoverW, bCoverH);
+      doc.rect(margin + 6, b4Y + 6, bCoverW, bCoverH);
     } catch {
       // ignore
     }
   }
 
   doc.setFont('times', 'bold');
-  doc.setFontSize(11);
+  doc.setFontSize(12);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  doc.text('LA FORÊT INTERDITE', b1TextX, b4Y + 9);
+  doc.text('LE PACTE DU DÉMON', b1TextX, b4Y + 11);
 
   doc.setFont('times', 'italic');
-  doc.setFontSize(7.5);
+  doc.setFontSize(8);
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('Livre  •  Auteur : Junior France Mavie NGAKOSSO  •  Disponible sur Amazon', b1TextX, b4Y + 15);
-  doc.text('Univers : Fantastique • Mystique • Surnaturel • Congo', b1TextX, b4Y + 20);
+  doc.text('Livre / roman officiel  •  Auteur : Junior France Mavie NGAKOSSO  •  Disponible sur Amazon', b1TextX, b4Y + 18);
+  doc.text('Genre : Thriller mystique • Fiction surnaturelle  •  Format : Roman broché / numérique', b1TextX, b4Y + 24);
 
   doc.setFont('times', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.8);
   doc.setTextColor(textBody[0], textBody[1], textBody[2]);
   const b2Desc =
-    "Au cœur de la forêt équatoriale congolaise, la profanation d'un sanctuaire ancestral libère les forces de l'invisible, réveillant un pacte séculaire entre les hommes et les esprits. Une plongée au cœur de la République du Congo où des forces ancestrales menacent l'équilibre fragile entre les vivants et les esprits.";
+    "Une plongée littéraire captivante dans les méandres de l'ambition et de l'interdit, où un accord mystique scellé dans l'ombre réclame un prix impitoyable à ceux qui ont osé défier les lois de l'invisible. L'œuvre explore la vulnérabilité humaine face aux tentations et la lutte pour racheter son âme.";
   const b2Lines = doc.splitTextToSize(b2Desc, b1TextW);
-  doc.text(b2Lines, b1TextX, b4Y + 27, { lineHeightFactor: 1.35 });
-
-  // Special Dual Mention
-  doc.setFillColor(bgCard[0], bgCard[1], bgCard[2]);
-  doc.rect(b1TextX, b4Y + 46, b1TextW, 20, 'F');
-  doc.setDrawColor(gold[0], gold[1], gold[2]);
-  doc.setLineWidth(0.3);
-  doc.rect(b1TextX, b4Y + 46, b1TextW, 20);
-
-  doc.setFont('times', 'bold');
-  doc.setFontSize(7.5);
-  doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('✦ DOUBLE FORMAT : LIVRE ROMAN & PROJET DE SÉRIE TÉLÉVISÉE', b1TextX + 4, b4Y + 53);
-
-  doc.setFont('times', 'normal');
-  doc.setFontSize(7);
-  doc.setTextColor(textBody[0], textBody[1], textBody[2]);
-  doc.text('L’œuvre existe sous forme de livre sur Amazon et de série TV majeure (8 épisodes de 52 minutes).', b1TextX + 4, b4Y + 60);
-
-  // Livre 3: LE LIVRE – 1560
-  b4Y = 188;
-  doc.setFillColor(bgCardLight[0], bgCardLight[1], bgCardLight[2]);
-  doc.rect(margin, b4Y, contentWidth, 80, 'F');
-  doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
-  doc.rect(margin, b4Y, contentWidth, 80);
-
-  if (livre1560CoverDataUrl) {
-    try {
-      doc.addImage(livre1560CoverDataUrl, 'JPEG', margin + 4, b4Y + 4, bCoverW, bCoverH);
-      doc.setDrawColor(borderCol[0], borderCol[1], borderCol[2]);
-      doc.rect(margin + 4, b4Y + 4, bCoverW, bCoverH);
-    } catch {
-      // ignore
-    }
-  }
-
-  doc.setFont('times', 'bold');
-  doc.setFontSize(11);
-  doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  doc.text('LE LIVRE – 1560', b1TextX, b4Y + 9);
+  doc.text(b2Lines, b1TextX, b4Y + 32, { lineHeightFactor: 1.35 });
 
   doc.setFont('times', 'italic');
   doc.setFontSize(7.5);
-  doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('Livre / œuvre littéraire  •  Auteur : Junior France Mavie NGAKOSSO', b1TextX, b4Y + 15);
-  doc.text('Univers : Thriller surnaturel • Mystère • Fantastique • Mystique', b1TextX, b4Y + 20);
-
-  doc.setFont('times', 'bold');
-  doc.setFontSize(7.2);
-  doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('LOGLINE :', b1TextX, b4Y + 27);
-
-  doc.setFont('times', 'normal');
-  doc.setFontSize(7.2);
-  doc.setTextColor(textBody[0], textBody[1], textBody[2]);
-  const b3Log =
-    "« À Brazzaville, deux jumeaux nés d'une tragédie découvrent qu'un grimoire mystique daté de 1560 les immunise contre les esprits qui contrôlent secrètement la ville. Devenus des cibles à abattre, ils doivent maîtriser les secrets du livre pour survivre, venger leur mère et briser l'emprise des entités sur la capitale. »";
-  const b3LogLines = doc.splitTextToSize(b3Log, b1TextW);
-  doc.text(b3LogLines, b1TextX, b4Y + 32, { lineHeightFactor: 1.3 });
-
-  doc.setFont('times', 'bold');
-  doc.setFontSize(7.2);
-  doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('PITCH ÉDITORIAL :', b1TextX, b4Y + 50);
-
-  doc.setFont('times', 'normal');
-  doc.setFontSize(7);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-  const b3Pitch =
-    "Brazzaville, métropole moderne. Une femme meurt en donnant naissance à des jumeaux en laissant un livre relié de cuir daté de 1560. Ce grimoire de chasse recense les « Anomalies », esprits possédant les vivants depuis des siècles. Les jumeaux deviennent les nouveaux Gardiens du Livre.";
-  const b3PitchLines = doc.splitTextToSize(b3Pitch, b1TextW);
-  doc.text(b3PitchLines, b1TextX, b4Y + 55, { lineHeightFactor: 1.3 });
+  doc.text('« L\'ombre n\'accorde jamais de grâce sans réclamer l\'usure de votre âme. Ce que vous croyiez être une conquête devient votre plus cruelle prison. »', b1TextX, b4Y + 58);
 
   /* =========================================================================
-     PAGE 5 — LA FORÊT INTERDITE (PAGE SPÉCIALE ŒUVRE PHARE)
+     PAGE 5 — LA FORÊT INTERDITE (PAGE SPÉCIALE SÉRIE TV PRESTIGE)
      ========================================================================= */
   if (onProgress) onProgress('Page 5 : La Forêt Interdite...');
   doc.addPage();
-  applyPageHeaderFooter(5, 9, 'Œuvre Phare', 'La Forêt Interdite — Livre & Série TV');
+  applyPageHeaderFooter(5, 9, 'Série TV Prestige', 'La Forêt Interdite — 8 × 52 minutes');
 
   doc.setFont('times', 'bold');
   doc.setFontSize(20);
@@ -815,11 +759,11 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
   doc.text('Bible littéraire complète • Arcs des 8 épisodes • Scénario du pilote disponible.', p5TextX + 6, p5PosterY + 90);
   doc.text('Recherche de coproduction & préachats plateformes internationales.', p5TextX + 6, p5PosterY + 95);
 
-  // Dual Format Graphical Split at Bottom
+  // Series Specifications & Universes Split at Bottom
   const splitY = p5PosterY + p5PosterH + 8;
   const splitW = (contentWidth - 6) / 2;
 
-  // Format 1 : Livre
+  // Box 1 : Arches Narratives & Format 8x52min
   doc.setFillColor(bgCard[0], bgCard[1], bgCard[2]);
   doc.rect(margin, splitY, splitW, 72, 'F');
   doc.setDrawColor(gold[0], gold[1], gold[2]);
@@ -829,28 +773,28 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
   doc.setFont('times', 'bold');
   doc.setFontSize(10.5);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  doc.text('📚 FORMAT 1 : LIVRE OFFICIEL', margin + 6, splitY + 10);
+  doc.text('🎬 CONCEPT & ARCHE NARRATIVE', margin + 6, splitY + 10);
 
   doc.setFont('times', 'italic');
   doc.setFontSize(7.5);
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('Édition Roman Disponible sur Amazon', margin + 6, splitY + 16);
+  doc.text('Format Prestige : 8 Épisodes de 52 Minutes', margin + 6, splitY + 16);
 
   doc.setFont('times', 'normal');
   doc.setFontSize(7.3);
   doc.setTextColor(textBody[0], textBody[1], textBody[2]);
   const lFDesc =
-    "Une œuvre littéraire immersive qui explore la mythologie du Bisengo, l'écologie sacrée et l'affrontement entre la cupidité moderne et les gardiens de la forêt équatoriale congolaise.";
+    "Une création sérielle majeure qui explore la mythologie du Bisengo, le sanctuaire de Ngoma et l'affrontement entre la cupidité moderne et les gardiens ancestraux de la forêt équatoriale congolaise.";
   const lFLines = doc.splitTextToSize(lFDesc, splitW - 12);
   doc.text(lFLines, margin + 6, splitY + 24, { lineHeightFactor: 1.35 });
 
   doc.setFont('times', 'bold');
   doc.setFontSize(7.2);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-  doc.text('• Distribution internationale physique & numérique', margin + 6, splitY + 54);
-  doc.text('• Base littéraire certifiée pour développement audiovisuel', margin + 6, splitY + 62);
+  doc.text('• Personnages principaux : Kito, Samba, Mama Kito, Maléko', margin + 6, splitY + 54);
+  doc.text('• Univers : Meso Miviri, Tisseurs sacrés, Ba-Mvumbi & Nganga', margin + 6, splitY + 62);
 
-  // Format 2 : Série TV
+  // Box 2 : Production & Coproduction Internationale
   doc.setFillColor(bgCard[0], bgCard[1], bgCard[2]);
   doc.rect(margin + splitW + 6, splitY, splitW, 72, 'F');
   doc.setDrawColor(gold[0], gold[1], gold[2]);
@@ -860,18 +804,18 @@ export async function generatePressKitPdf(onProgress?: (step: string) => void): 
   doc.setFont('times', 'bold');
   doc.setFontSize(10.5);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  doc.text('🎬 FORMAT 2 : SÉRIE TÉLÉVISÉE', margin + splitW + 12, splitY + 10);
+  doc.text('📺 PRODUCTION & DIFFUSION', margin + splitW + 12, splitY + 10);
 
   doc.setFont('times', 'italic');
   doc.setFontSize(7.5);
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('8 Épisodes de 52 Minutes — Prestige TV', margin + splitW + 12, splitY + 16);
+  doc.text('Coproduction & VOD • Diffuseurs Internationaux', margin + splitW + 12, splitY + 16);
 
   doc.setFont('times', 'normal');
   doc.setFontSize(7.3);
   doc.setTextColor(textBody[0], textBody[1], textBody[2]);
   const sFDesc =
-    "Une série de prestige combinant l'esthétique du grand thriller d'investigation et l'horreur mystique surnaturelle, portée par une mise en scène cinématographique et des personnages à forte résonance humaine.";
+    "Une série de prestige combinant l'esthétique du grand thriller d'investigation et le fantastique mystique africain, portée par une mise en scène cinématographique et des personnages à forte résonance humaine.";
   const sFLines = doc.splitTextToSize(sFDesc, splitW - 12);
   doc.text(sFLines, margin + splitW + 12, splitY + 24, { lineHeightFactor: 1.35 });
 

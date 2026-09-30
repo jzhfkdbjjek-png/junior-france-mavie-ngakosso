@@ -71,14 +71,19 @@ export const OFFICIAL_IMAGES = {
   posterChezLePsy,
 };
 
+/**
+ * 1. SECTION LIVRES (STRICTEMENT DEUX LIVRES DISPONIBLES SUR AMAZON)
+ * - LE CERCUEIL AUX MUSCLES
+ * - LE PACTE DU DÉMON
+ */
 export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
   {
     id: 'cercueil-aux-muscles',
     title: 'LE CERCUEIL AUX MUSCLES',
-    type: lang === 'en' ? 'Book / Literary Work' : 'Livre / œuvre littéraire',
+    type: lang === 'en' ? 'Book' : 'Livre',
     author: 'Junior France Mavie NGAKOSSO',
     category: lang === 'en' ? 'Psychological Drama / Introspective' : 'Drame psychologique / introspectif',
-    badge: lang === 'en' ? 'Official Novel' : 'Roman Officiel',
+    badge: lang === 'en' ? 'LIVRE' : 'LIVRE',
     subBadge: lang === 'en' ? 'Available on Amazon' : 'Disponible sur Amazon',
     image: OFFICIAL_IMAGES.bookCercueil,
     universe: lang === 'en' ? 'Psychological drama / introspective' : 'Drame psychologique / introspectif',
@@ -100,71 +105,32 @@ export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
     adaptationTargetId: 'film-cercueil',
   },
   {
-    id: 'foret-interdite',
-    title: 'LA FORÊT INTERDITE',
-    type: lang === 'en' ? 'Book / Literary Work' : 'Livre / œuvre littéraire',
+    id: 'pacte-du-demon',
+    title: 'LE PACTE DU DÉMON',
+    type: lang === 'en' ? 'Book' : 'Livre',
     author: 'Junior France Mavie NGAKOSSO',
-    category: lang === 'en' ? 'Fantasy • Mystical • Supernatural • Congo' : 'Fantastique • Mystique • Surnaturel • Congo',
-    badge: lang === 'en' ? 'Official Novel' : 'Roman Officiel',
+    category: lang === 'en' ? 'Mystical Thriller / Supernatural Fiction' : 'Thriller mystique / Fiction surnaturelle',
+    badge: lang === 'en' ? 'LIVRE' : 'LIVRE',
     subBadge: lang === 'en' ? 'Available on Amazon' : 'Disponible sur Amazon',
-    image: OFFICIAL_IMAGES.bookForet,
-    imageSm: posterForetInterditeSm,
-    universe: lang === 'en' ? 'Fantasy • Mystical • Supernatural • Congo' : 'Fantastique • Mystique • Surnaturel • Congo',
+    image: OFFICIAL_IMAGES.bookPacte,
+    imageSm: posterPacteDiableSm,
+    universe: lang === 'en' ? 'Mystical Thriller • Occult Contract' : 'Thriller mystique • Pacte occulte',
     description:
       lang === 'en'
-        ? "Deep in the equatorial rainforest, the breach of a sacred sanctuary unleashes ancient spirit entities upon a village, awakening an ancestral legacy."
-        : "Au cœur de la forêt équatoriale congolaise, la profanation d'un sanctuaire ancestral libère les forces de l'invisible, réveillant un pacte séculaire entre les hommes et les esprits.",
+        ? "A gripping literary journey into the dark alleys of ambition and forbidden choices, where an occult contract sealed in the shadows demands an excruciating price from those who dared defy the unseen."
+        : "Une plongée littéraire captivante dans les méandres de l'ambition et de l'interdit, où un accord mystique scellé dans l'ombre réclame un prix impitoyable à ceux qui ont osé défier les lois de l'invisible.",
     summary:
       lang === 'en'
-        ? "When the sacred forest shielding the village of Ngoma is felled for commercial gain, the ancient Bisengo veil fractures. The spirits of the departed and corrupted occultists cross into the realm of the living. A young bearer of the Meso Miviri must navigate betrayal and ancestral rituals to mend the rift before the full moon."
-        : "Lorsque la forêt sacrée protégeant le village de Ngoma est détruite, le voile ancestral du Bisengo se déchire, libérant les entités de l'invisible parmi les vivants. Porteur du Meso Miviri, un jeune homme traqué comme sorcier doit affronter les rancœurs et restaurer le pacte millénaire avant le zénith de la pleine lune.",
+        ? "Through a tense, gripping literary narrative, “Le Pacte du Démon” explores human vulnerability confronted with extreme temptation. Seeking an escape from hardship and despair, three ambitious young men enter a dark covenant promising wealth and influence. But as the supernatural debt comes due, their apparent triumph turns into an existential trial, forcing a desperate fight to break the contract and reclaim their souls."
+        : "À travers une narration littéraire immersive et sous haute tension, « Le Pacte du Démon » explore la vulnérabilité humaine face aux tentations absolues. Voulant fuir la précarité et l'impuissance, trois jeunes hommes concluent un pacte obscur leur promettant fortune et rayonnement. Mais à mesure que l'emprise surnaturelle se referme, la réussite se mue en calvaire psychologique et familial, les contraignant à une lutte désespérée pour racheter leur liberté et leur âme.",
     extract:
       lang === 'en'
-        ? "“When the trees fall, the veil tears. What was bound in the silence of the roots now walks among the living.”"
-        : "« Lorsque les arbres tombent, le voile se déchire. Ce qui reposait dans le silence des racines marche désormais parmi les vivants. »",
+        ? "“The shadows never grant favors without demanding the full measure of your soul. When you sign with your own will, what you thought was power becomes your inescapable cage.”"
+        : "« L'ombre n'accorde jamais de grâce sans réclamer l'usure de votre âme. Lorsque vous scellez le contrat de votre plein gré, ce que vous croyiez être une conquête devient votre plus cruelle prison. »",
     amazonUrl: 'https://a.co/d/01ZNkXtg',
-    adaptationNote: lang === 'en' ? '● Screen Link: Discover Television Series' : '● Passerelle : Découvrir la Série Télévisée',
-    adaptationType: 'series',
-    adaptationTargetId: 'serie-foret-interdite',
-  },
-  {
-    id: 'livre-1560',
-    title: 'LE LIVRE – 1560',
-    type: lang === 'en' ? 'Book / Literary Work' : 'Livre / œuvre littéraire',
-    author: 'Junior France Mavie NGAKOSSO',
-    category:
-      lang === 'en'
-        ? 'Supernatural Thriller • Mystery • Fantasy • Mystical'
-        : 'Thriller surnaturel • Mystère • Fantastique • Mystique',
-    badge: lang === 'en' ? 'Official Novel' : 'Roman Officiel',
-    subBadge: lang === 'en' ? 'New Release' : 'Nouveauté',
-    image: posterLivre1560,
-    imageSm: posterLivre1560Sm,
-    universe:
-      lang === 'en'
-        ? 'Supernatural Thriller • Mystical Universe'
-        : 'Thriller surnaturel • Univers mystique',
-    logline:
-      lang === 'en'
-        ? "In Brazzaville, two twins born of a tragedy discover that a mystical grimoire dated 1560 immunizes them against the spirits secretly controlling the city. Targeted for execution, they must master the secrets of the book to survive, avenge their mother, and break the entities' grip on the capital."
-        : "À Brazzaville, deux jumeaux nés d'une tragédie découvrent qu'un grimoire mystique daté de 1560 les immunise contre les esprits qui contrôlent secrètement la ville. Devenus des cibles à abattre, ils doivent maîtriser les secrets du livre pour survivre, venger leur mère et briser l'emprise des entités sur la capitale.",
-    description:
-      lang === 'en'
-        ? "In Brazzaville, two twins born of a tragedy discover that a mystical grimoire dated 1560 immunizes them against the spirits secretly controlling the city. Targeted for execution, they must master the secrets of the book to survive, avenge their mother, and break the entities' grip on the capital."
-        : "À Brazzaville, deux jumeaux nés d'une tragédie découvrent qu'un grimoire mystique daté de 1560 les immunise contre les esprits qui contrôlent secrètement la ville. Devenus des cibles à abattre, ils doivent maîtriser les secrets du livre pour survivre, venger leur mère et briser l'emprise des entités sur la capitale.",
-    pitch:
-      lang === 'en'
-        ? "Brazzaville. A modern metropolis that buried its beliefs.\n\nA woman dies giving birth to twins. On the bedside table: a leather-bound book, dated 1560, that wasn't there 5 minutes before.\n\nThis book isn't a book. It is a hunting grimoire. It catalogues 'Anomalies'—spirits that have possessed the living for centuries to maintain covert control over the city.\n\nIts hallmark: those chosen by the book become invisible to spirits. Untouchable. The twins are the first in 400 years.\n\nWhen the entities discover their existence, the hunt begins. They want the book—not to read it, but to burn it, because as long as it exists, their true origin and final plan remain exposed.\n\nGrowing up, the twins develop two opposing and complementary gifts. They realize their mother's death was no accident: she was the Keeper of the Book. Now, the mantle is theirs."
-        : "Brazzaville. Une ville moderne qui a enterré ses croyances.\n\nUne femme meurt en donnant naissance à des jumeaux. Sur la table à côté d'elle : un livre relié de cuir, daté de 1560, qui n'était pas là 5 minutes avant.\n\nCe livre n'est pas un livre. C'est un grimoire de chasse. Il recense les « Anomalies », ces esprits qui possèdent les vivants depuis des siècles pour garder le contrôle sur la ville.\n\nSa particularité : ceux qu'il choisit deviennent invisibles aux yeux des esprits. Intouchables. Les jumeaux sont les premiers depuis 400 ans.\n\nQuand les entités découvrent leur existence, la chasse commence. Elles veulent le livre. Pas pour le lire. Pour le brûler. Car tant qu'il existe, leur véritable origine et leur plan final restent exposés.\n\nEn grandissant, les jumeaux développent deux dons opposés et complémentaires. Ils comprennent une chose : la mort de leur mère n'était pas un accident. Elle était la Gardienne du Livre.\n\nMaintenant, c'est à eux de le devenir.",
-    summary:
-      lang === 'en'
-        ? "Brazzaville. A modern metropolis that buried its beliefs.\n\nA woman dies giving birth to twins. On the bedside table: a leather-bound book, dated 1560, that wasn't there 5 minutes before.\n\nThis book isn't a book. It is a hunting grimoire. It catalogues 'Anomalies'—spirits that have possessed the living for centuries to maintain covert control over the city.\n\nIts hallmark: those chosen by the book become invisible to spirits. Untouchable. The twins are the first in 400 years.\n\nWhen the entities discover their existence, the hunt begins. They want the book—not to read it, but to burn it, because as long as it exists, their true origin and final plan remain exposed.\n\nGrowing up, the twins develop two opposing and complementary gifts. They realize their mother's death was no accident: she was the Keeper of the Book. Now, the mantle is theirs."
-        : "Brazzaville. Une ville moderne qui a enterré ses croyances.\n\nUne femme meurt en donnant naissance à des jumeaux. Sur la table à côté d'elle : un livre relié de cuir, daté de 1560, qui n'était pas là 5 minutes avant.\n\nCe livre n'est pas un livre. C'est un grimoire de chasse. Il recense les « Anomalies », ces esprits qui possèdent les vivants depuis des siècles pour garder le contrôle sur la ville.\n\nSa particularité : ceux qu'il choisit deviennent invisibles aux yeux des esprits. Intouchables. Les jumeaux sont les premiers depuis 400 ans.\n\nQuand les entités découvrent leur existence, la chasse commence. Elles veulent le livre. Pas pour le lire. Pour le brûler. Car tant qu'il existe, leur véritable origine et leur plan final restent exposés.\n\nEn grandissant, les jumeaux développent deux dons opposés et complémentaires. Ils comprennent une chose : la mort de leur mère n'était pas un accident. Elle était la Gardienne du Livre.\n\nMaintenant, c'est à eux de le devenir.",
-    extract:
-      lang === 'en'
-        ? "“This book is not a manuscript. It is a hunting grimoire. Those it chooses become invisible to the eyes of the spirits. Untouchable.”"
-        : "« Ce livre n'est pas un livre. C'est un grimoire de chasse. Sa particularité : ceux qu'il choisit deviennent invisibles aux yeux des esprits. Intouchables. »",
-    amazonUrl: 'https://a.co/d/01ZNkXtg',
+    adaptationNote: lang === 'en' ? '● Screen Link: Discover Feature Film' : '● Passerelle : Découvrir le Film',
+    adaptationType: 'film',
+    adaptationTargetId: 'film-pacte-avec-le-diable',
   },
 ];
 
@@ -190,6 +156,8 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
       lang === 'en'
         ? "In the bustling neighborhoods of Brazzaville, desperate ambition pushes three friends into a forbidden ritual promising instant riches. Material success quickly gives way to paranoia and grief, forcing them to confront their deepest demons to buy back their freedom."
         : "Dans les quartiers populaires de Brazzaville, l'ambition dévorante pousse trois amis à s'engager dans un rituel mystique promettant fortune immédiate et influence. Très vite, les gains matériels se paient au prix fort : paranoïa, perte d'êtres chers et désintégration morale. Pris dans un étau surnaturel et social, ils devront affronter leurs propres démons pour racheter leur liberté.",
+    relatedBookId: 'pacte-du-demon',
+    relatedBookTitle: lang === 'en' ? 'LE PACTE DU DÉMON (Book)' : 'LE PACTE DU DÉMON (Livre)',
   },
   {
     id: 'film-curse-mouth',
@@ -321,6 +289,15 @@ export const getFilmsData = (lang: Language = 'fr'): FilmItem[] => [
   },
 ];
 
+/**
+ * 2. SECTION SÉRIES / PROJETS AUDIOVISUELS
+ * - LA FORÊT INTERDITE (SÉRIE TV 8×52 MIN — PROJET AUDIOVISUEL SANS AUCUN LIEN AMAZON)
+ * - L'HÉRITAGE DES OMBRES
+ * - ROYAUME 242
+ * - LES SIX
+ * - LE SAC
+ * - CHEZ LE PSY
+ */
 export const getSeriesData = (lang: Language = 'fr'): SeriesItem[] => [
   {
     id: 'serie-foret-interdite',

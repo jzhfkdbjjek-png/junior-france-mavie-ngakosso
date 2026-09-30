@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useI18n } from '../i18n/I18nContext';
 import { OFFICIAL_IMAGES } from '../data/portfolioData';
-import { CinematicButton } from './CinematicButton';
 
 interface CinematicBookLoaderProps {
   onComplete: () => void;
@@ -57,7 +56,7 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
    * PHASE TIMINGS (in seconds):
    * 0.0 - 0.9s : Book closed in center
    * 0.9 - 1.8s : Cover smoothly opens (0deg -> -180deg)
-   * 1.8 - 4.4s : Pen appears and writes "JUNIOR FRANCE MAVIE NGAKOSSO" with high legibility
+   * 1.8 - 4.4s : Calligraphy reveal & "Auteur • Créateur • Scénariste" printed inside book pages
    * 4.4 - 5.0s : Pen lifts up and gently fades away
    * 5.0 - 5.8s : Cover closes smoothly (-180deg -> 0deg)
    * 5.8 - 6.4s : Short contemplation pause on closed gold embossed book
@@ -107,18 +106,18 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
 
   // Pen coordinates across two lines on the page
   let penX = 14;
-  let penY = 36;
+  let penY = 32;
   let penRotation = -28;
 
   if (writingProgress <= 0.5) {
     const localP = writingProgress / 0.5;
     penX = 14 + localP * 72;
-    penY = 36 + Math.sin(localP * 24) * 1.5;
+    penY = 32 + Math.sin(localP * 24) * 1.5;
     penRotation = -28 + Math.sin(localP * 26) * 3;
   } else {
     const localP = (writingProgress - 0.5) / 0.5;
     penX = 12 + localP * 76;
-    penY = 54 + Math.sin(localP * 24) * 1.5;
+    penY = 48 + Math.sin(localP * 24) * 1.5;
     penRotation = -28 + Math.sin(localP * 26) * 3;
   }
 
@@ -213,7 +212,7 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
           {/* 2. INNER RIGHT MANUSCRIPT PAGE (Visible when opened)          */}
           {/* ============================================================ */}
           <div
-            className="absolute inset-0 right-2 bottom-1.5 left-1 top-1 bg-gradient-to-br from-[#fefdfa] via-[#fbf7ee] to-[#f4ece0] rounded-r-xl rounded-l-sm shadow-md overflow-hidden p-5 sm:p-7 flex flex-col justify-between border-l border-amber-900/20"
+            className="absolute inset-0 right-2 bottom-1.5 left-1 top-1 bg-gradient-to-br from-[#fefdfa] via-[#fbf7ee] to-[#f4ece0] rounded-r-xl rounded-l-sm shadow-md overflow-hidden p-4 xs:p-5 sm:p-7 flex flex-col justify-between border-l border-amber-900/20"
             style={{
               transform: 'translateZ(-2px)',
             }}
@@ -222,59 +221,71 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
             <div className="absolute inset-0 bg-radial from-transparent to-amber-950/10 pointer-events-none"></div>
 
             {/* Left margin line */}
-            <div className="absolute left-7 sm:left-9 top-0 bottom-0 w-px bg-red-800/20 pointer-events-none"></div>
+            <div className="absolute left-6 sm:left-9 top-0 bottom-0 w-px bg-red-800/20 pointer-events-none"></div>
 
             {/* Ruled lines */}
-            <div className="absolute inset-x-0 top-12 sm:top-16 bottom-10 flex flex-col justify-between px-6 sm:px-8 pointer-events-none">
+            <div className="absolute inset-x-0 top-12 sm:top-16 bottom-10 flex flex-col justify-between px-5 sm:px-8 pointer-events-none opacity-60">
               {Array.from({ length: 9 }).map((_, i) => (
                 <div key={i} className="w-full h-px bg-amber-900/15"></div>
               ))}
             </div>
 
             {/* Header of Manuscript */}
-            <div className="relative z-10 flex items-center justify-between text-[9px] sm:text-[10px] uppercase font-cinzel font-bold tracking-[0.2em] text-stone-700 border-b border-amber-900/20 pb-2">
+            <div className="relative z-10 flex items-center justify-between text-[8.5px] sm:text-[10px] uppercase font-cinzel font-bold tracking-[0.2em] text-stone-700 border-b border-amber-900/20 pb-2">
               <span>{language === 'en' ? 'ORIGINAL MANUSCRIPT' : 'MANUSCRIT ORIGINAL'}</span>
               <span>FOLIO I</span>
             </div>
 
-            {/* WRITTEN CONTENT: JUNIOR FRANCE MAVIE NGAKOSSO (Ultra High Legibility, Bold Professional Calligraphy) */}
-            <div className="relative z-10 flex-1 flex flex-col justify-center space-y-3 sm:space-y-4 pl-3 sm:pl-5 pt-2">
-              {/* Line 1: JUNIOR FRANCE */}
-              <div className="relative min-h-[46px] sm:min-h-[56px] flex items-center">
-                <span className="font-manuscript-pen text-3xl xs:text-4xl sm:text-[2.6rem] text-[#050706] font-bold tracking-wide select-none drop-shadow-sm leading-none">
-                  {fullLine1.slice(0, line1Chars)}
-                </span>
-                {/* Wet ink shimmer cursor */}
-                {writingProgress > 0 && writingProgress <= 0.5 && (
-                  <span className="inline-block w-2 h-8 sm:h-10 bg-[#050706] ml-1 animate-pulse rounded-full opacity-90"></span>
-                )}
-              </div>
-
-              {/* Line 2: MAVIE NGAKOSSO */}
-              <div className="relative min-h-[46px] sm:min-h-[56px] flex items-center">
-                <span className="font-manuscript-pen text-3xl xs:text-4xl sm:text-[2.6rem] text-[#050706] font-bold tracking-wide select-none drop-shadow-sm leading-none">
-                  {fullLine2.slice(0, line2Chars)}
-                </span>
-                {/* Wet ink shimmer cursor */}
-                {writingProgress > 0.5 && writingProgress < 1.0 && (
-                  <span className="inline-block w-2 h-8 sm:h-10 bg-[#050706] ml-1 animate-pulse rounded-full opacity-90"></span>
-                )}
-              </div>
-
-              {/* Sub-annotation line */}
-              {writingProgress >= 0.85 && (
-                <div className="pt-2 sm:pt-3 flex items-center gap-2 opacity-95 animate-fadeIn">
-                  <span className="h-0.5 w-8 sm:w-12 bg-[#8c6738]"></span>
-                  <span className="font-cinzel text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-[#2b1d0d] font-bold">
-                    {language === 'en' ? 'Novelist & Screenwriter' : 'Écrivain & Auteur'}
+            {/* WRITTEN CONTENT DIRECTLY ON MANUSCRIPT PAGE */}
+            <div className="relative z-10 flex-1 flex flex-col justify-center space-y-2.5 sm:space-y-3.5 pl-2 sm:pl-4 py-2">
+              {/* Author Full Name Calligraphy */}
+              <div className="space-y-1">
+                {/* Line 1: JUNIOR FRANCE */}
+                <div className="relative min-h-[38px] xs:min-h-[44px] sm:min-h-[50px] flex items-center">
+                  <span className="font-manuscript-pen text-2xl xs:text-3xl sm:text-[2.4rem] text-[#050706] font-bold tracking-wide select-none drop-shadow-xs leading-none">
+                    {fullLine1.slice(0, line1Chars)}
                   </span>
+                  {/* Wet ink shimmer cursor */}
+                  {writingProgress > 0 && writingProgress <= 0.5 && (
+                    <span className="inline-block w-1.5 h-6 sm:h-8 bg-[#050706] ml-1 animate-pulse rounded-full opacity-90"></span>
+                  )}
                 </div>
-              )}
+
+                {/* Line 2: MAVIE NGAKOSSO */}
+                <div className="relative min-h-[38px] xs:min-h-[44px] sm:min-h-[50px] flex items-center">
+                  <span className="font-manuscript-pen text-2xl xs:text-3xl sm:text-[2.4rem] text-[#050706] font-bold tracking-wide select-none drop-shadow-xs leading-none">
+                    {fullLine2.slice(0, line2Chars)}
+                  </span>
+                  {/* Wet ink shimmer cursor */}
+                  {writingProgress > 0.5 && writingProgress < 1.0 && (
+                    <span className="inline-block w-1.5 h-6 sm:h-8 bg-[#050706] ml-1 animate-pulse rounded-full opacity-90"></span>
+                  )}
+                </div>
+              </div>
+
+              {/* DIRECTLY PRINTED INSIDE THE BOOK PAGES: Auteur • Créateur • Scénariste */}
+              <div className="pt-1 sm:pt-2">
+                <div className="relative py-2 sm:py-2.5 px-2.5 sm:px-3.5 rounded-lg bg-gradient-to-r from-amber-900/10 via-[#8c6738]/15 to-amber-900/10 border-y-2 border-[#8c6738]/50 shadow-xs text-center backdrop-blur-xs">
+                  {/* Small gold sparkle accents */}
+                  <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                    <span className="text-[#8c6738] text-[8px] sm:text-[10px] select-none" aria-hidden="true">✦</span>
+                    <p className="font-cinzel text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-[0.16em] sm:tracking-[0.22em] text-[#1c1206] drop-shadow-[0_1px_1px_rgba(255,255,255,0.85)] leading-snug">
+                      Auteur • Créateur • Scénariste
+                    </p>
+                    <span className="text-[#8c6738] text-[8px] sm:text-[10px] select-none" aria-hidden="true">✦</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sub-quote on parchment */}
+              <p className="font-serif italic text-[9.5px] xs:text-[10.5px] sm:text-xs text-stone-700 leading-relaxed pt-1 text-center select-none">
+                « Des histoires profondément humaines, des univers forts. »
+              </p>
             </div>
 
             {/* Page Footer */}
-            <div className="relative z-10 flex items-center justify-between text-[8.5px] sm:text-[9.5px] font-mono font-bold text-stone-700 pt-2 border-t border-amber-900/15">
-              <span>{language === 'en' ? 'BOOK I • ARCHIVES' : 'LIVRE I • ARCHIVES'}</span>
+            <div className="relative z-10 flex items-center justify-between text-[8px] sm:text-[9.5px] font-mono font-bold text-stone-700 pt-2 border-t border-amber-900/15">
+              <span>{language === 'en' ? 'CONGO • BRAZZAVILLE' : 'CONGO • BRAZZAVILLE'}</span>
               <span>2026</span>
             </div>
 
@@ -456,7 +467,7 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
             {/* 4B. INSIDE LEFT COVER (Visible when book is opened)         */}
             {/* ------------------------------------------------------------ */}
             <div
-              className="absolute inset-0 rounded-l-2xl rounded-r-md bg-gradient-to-bl from-[#181a19] via-[#101211] to-[#0a0c0b] border border-stone-800 p-5 sm:p-7 flex flex-col justify-between backface-hidden shadow-2xl overflow-hidden"
+              className="absolute inset-0 rounded-l-2xl rounded-r-md bg-gradient-to-bl from-[#181a19] via-[#101211] to-[#0a0c0b] border border-stone-800 p-4 xs:p-5 sm:p-7 flex flex-col justify-between backface-hidden shadow-2xl overflow-hidden"
               style={{
                 transform: 'rotateY(180deg)',
               }}
@@ -469,13 +480,17 @@ export const CinematicBookLoader: React.FC<CinematicBookLoaderProps> = ({ onComp
               </div>
 
               <div className="relative z-10 text-center space-y-2 py-4">
-                <p className="font-cinzel text-xs sm:text-sm text-stone-300 uppercase tracking-widest font-bold">
-                  {language === 'en' ? 'ARTISTIC UNIVERSE' : 'UNIVERS ARTISTIQUE'}
+                <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto rounded-full bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold font-cinzel text-xs sm:text-sm">
+                  ✦
+                </div>
+                <p className="font-cinzel text-xs sm:text-sm text-stone-200 uppercase tracking-widest font-bold">
+                  JUNIOR FRANCE MAVIE NGAKOSSO
                 </p>
-                <p className="font-serif italic text-[10px] sm:text-xs text-brand-amber/80 max-w-[180px] mx-auto">
-                  {language === 'en'
-                    ? '« Where words weave myths and stories come to life. »'
-                    : '« Là où les mots forgent des mythes et les récits prennent vie. »'}
+                <p className="font-cinzel text-[10px] sm:text-xs text-brand-amber font-bold tracking-[0.2em] uppercase">
+                  Auteur • Créateur • Scénariste
+                </p>
+                <p className="font-serif italic text-[9.5px] sm:text-xs text-stone-400 max-w-[200px] mx-auto pt-1">
+                  « Des histoires à écrire. Des mondes à créer. »
                 </p>
               </div>
 
