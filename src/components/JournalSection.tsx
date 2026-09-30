@@ -1,6 +1,7 @@
 import React from 'react';
 import { useI18n } from '../i18n/I18nContext';
 import { Newspaper, ArrowUpRight, Calendar } from 'lucide-react';
+import { analyticsEvents } from '../utils/analytics';
 
 export const JournalSection: React.FC = () => {
   const { language } = useI18n();
@@ -102,6 +103,11 @@ export const JournalSection: React.FC = () => {
                   href={item.targetHref}
                   target={item.isExternal ? '_blank' : '_self'}
                   rel={item.isExternal ? 'noopener noreferrer' : undefined}
+                  onClick={() => {
+                    if (item.targetHref.includes('amazon') || item.targetHref.includes('a.co')) {
+                      analyticsEvents.clickAmazon(item.title);
+                    }
+                  }}
                   className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-gold group-hover:text-white transition-colors cursor-pointer"
                 >
                   <span>{item.readMore}</span>

@@ -7,12 +7,15 @@ export interface SEOProps {
   canonicalPath?: string;
   ogType?: 'website' | 'article' | 'profile' | 'book';
   ogImage?: string;
+  noindex?: boolean;
   structuredData?: Record<string, any>;
 }
 
+export const SITE_DOMAIN = 'https://juniorfrancemavie-ngakosso.vercel.app';
+
 const DEFAULT_TITLE = 'Junior France Mavie Ngakosso — Écrivain • Auteur • Scénariste • Créateur';
 const DEFAULT_DESCRIPTION =
-  'Portfolio et dossier artistique officiel de Junior France Mavie Ngakosso — Écrivain, scénariste et créateur congolais. Découvrez ses romans (Le Cercueil aux Muscles, La Forêt Interdite), ses projets cinématographiques et ses séries télévisées.';
+  'Portfolio officiel de Junior France Mavie Ngakosso — Écrivain, créateur et scénariste congolais. Romans (Le Cercueil aux Muscles, Le Pacte du Démon), série TV La Forêt Interdite et cinéma.';
 const DEFAULT_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuCMA7LeAzMfMDJRE5BssNK18gc9qFlys4HuOJJ7J7U5DvThpmWrvE32AEP1afslKrSm-aJ1LE0sIwi3pDbkNmleieIJKpSOnSntRNznhSCEL7QJ7Mb19PxNa9ezuLUUSPR3HQzNGUP5NqYwi5ojY_8_3rP5kJ5Mb5g2Yv0Jmj02NWqZka4Y5B8uuzt2prXcNys40Uj7rMTZcAfbzTN0DyxQUIqb5kPnQg_H5I1LHWk6aro3Nq1IzqWx';
 
@@ -23,6 +26,7 @@ export function useSEO({
   canonicalPath = '',
   ogType = 'website',
   ogImage = DEFAULT_IMAGE,
+  noindex = false,
   structuredData,
 }: SEOProps = {}) {
   useEffect(() => {
@@ -39,33 +43,50 @@ export function useSEO({
       updateMeta('keywords', keywords);
     }
 
-    // 4. Update Canonical Link
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://ngakosso.com';
-    const canonicalUrl = `${origin}${canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`}`;
+    // 4. Update Meta Robots (Strictly avoid accidental noindex on public pages)
+    if (noindex) {
+      updateMeta('robots', 'noindex, nofollow');
+    } else {
+      updateMeta('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    }
+
+    // 5. Update Canonical Link
+    const origin = typeof window !== 'undefined' && window.location.origin.includes('vercel.app')
+      ? window.location.origin
+      : SITE_DOMAIN;
+    const cleanPath = canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`;
+    const canonicalUrl = `${origin}${cleanPath === '/' ? '' : cleanPath}`;
+    
     let linkCanonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
     if (!linkCanonical) {
       linkCanonical = document.createElement('link');
       linkCanonical.setAttribute('rel', 'canonical');
       document.head.appendChild(linkCanonical);
     }
-    linkCanonical.setAttribute('href', canonicalUrl);
+    linkCanonical.setAttribute('href', canonicalUrl || `${SITE_DOMAIN}/`);
 
-    // 5. Update OpenGraph Tags
+    // 6. Update OpenGraph Tags
     updateMetaProperty('og:title', finalTitle);
     updateMetaProperty('og:description', finalDesc);
     updateMetaProperty('og:type', ogType);
-    updateMetaProperty('og:url', canonicalUrl);
+    updateMetaProperty('og:url', canonicalUrl || `${SITE_DOMAIN}/`);
     updateMetaProperty('og:image', ogImage);
     updateMetaProperty('og:site_name', 'Junior France Mavie Ngakosso');
     updateMetaProperty('og:locale', 'fr_FR');
 
-    // 6. Update Twitter Cards
+    // 7. Update Twitter Cards
     updateMeta('twitter:card', 'summary_large_image');
     updateMeta('twitter:title', finalTitle);
     updateMeta('twitter:description', finalDesc);
     updateMeta('twitter:image', ogImage);
 
-    // 7. Inject / Update Schema.org JSON-LD structured data
+    // 8. Google Search Console Verification Meta Tag (support env var if defined)
+    const verificationCode = (import.meta.env.VITE_GOOGLE_SITE_VERIFICATION as string | undefined)?.trim();
+    if (verificationCode) {
+      updateMeta('google-site-verification', verificationCode);
+    }
+
+    // 9. Inject / Update Schema.org JSON-LD structured data
     if (structuredData) {
       let script = document.getElementById('page-schema-structured-data') as HTMLScriptElement;
       if (!script) {
@@ -84,7 +105,7 @@ export function useSEO({
         script.parentNode.removeChild(script);
       }
     };
-  }, [title, description, keywords, canonicalPath, ogType, ogImage, structuredData]);
+  }, [title, description, keywords, canonicalPath, ogType, ogImage, noindex, structuredData]);
 }
 
 function updateMeta(name: string, content: string): void {

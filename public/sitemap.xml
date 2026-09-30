@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Page Principale / Accueil & Portfolio -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Page Principale / Accueil & Portfolio Officiel -->
   <url>
-    <loc>https://ngakosso.com/</loc>
-    <lastmod>2026-09-26</lastmod>
+    <loc>https://juniorfrancemavie-ngakosso.vercel.app/</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Page Dédiée : La Forêt Interdite (Livre & Série Prestige) -->
+  <!-- Page Univers Dédiée : La Forêt Interdite (Série TV 8×52min & Bible de Production) -->
   <url>
-    <loc>https://ngakosso.com/foret-interdite</loc>
-    <lastmod>2026-09-26</lastmod>
+    <loc>https://juniorfrancemavie-ngakosso.vercel.app/foret-interdite</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

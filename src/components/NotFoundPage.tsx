@@ -22,6 +22,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
     title: language === 'en' ? 'Page Not Found (404)' : 'Page Non Trouvée (404)',
     description: language === 'en' ? 'The requested page does not exist or has been moved.' : "La page demandée n'existe pas ou a été déplacée.",
     canonicalPath: '/404',
+    noindex: true,
   });
 
   useEffect(() => {

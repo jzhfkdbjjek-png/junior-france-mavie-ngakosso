@@ -1,6 +1,7 @@
 # Robots.txt — Junior France Mavie Ngakosso
+# Portfolio officiel : https://juniorfrancemavie-ngakosso.vercel.app/
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://ngakosso.com/sitemap.xml
+Sitemap: https://juniorfrancemavie-ngakosso.vercel.app/sitemap.xml
