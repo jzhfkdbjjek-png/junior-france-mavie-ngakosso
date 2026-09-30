@@ -72,6 +72,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSection }) => {
           </button>
           <button
             type="button"
+            onClick={() => onNavigateSection('mediatheque')}
+            className="min-h-[36px] py-1.5 px-2 hover:text-brand-amber active:scale-95 transition-all cursor-pointer"
+          >
+            {t('nav.gallery') || 'Galerie'}
+          </button>
+          <button
+            type="button"
+            onClick={() => onNavigateSection('espace-pro')}
+            className="min-h-[36px] py-1.5 px-2 hover:text-brand-amber active:scale-95 transition-all cursor-pointer"
+          >
+            {t('nav.proHub') || 'Espace Pro'}
+          </button>
+          <button
+            type="button"
             onClick={() => onNavigateSection('contact')}
             className="min-h-[36px] py-1.5 px-2 hover:text-brand-amber active:scale-95 transition-all cursor-pointer"
           >

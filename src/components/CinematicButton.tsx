@@ -31,6 +31,7 @@ export interface CinematicButtonProps {
   'aria-label'?: string;
   'aria-expanded'?: boolean;
   title?: string;
+  'data-cursor'?: string;
 }
 
 export const CinematicButton: React.FC<CinematicButtonProps> = ({
@@ -52,6 +53,7 @@ export const CinematicButton: React.FC<CinematicButtonProps> = ({
   'aria-label': ariaLabel,
   'aria-expanded': ariaExpanded,
   title,
+  'data-cursor': dataCursor,
 }) => {
   // Variant-specific class mapping
   const variantClasses: Record<ButtonVariant, string> = {
@@ -159,6 +161,7 @@ export const CinematicButton: React.FC<CinematicButtonProps> = ({
           aria-label={ariaLabel}
           aria-expanded={ariaExpanded}
           title={title}
+          data-cursor={dataCursor}
           className={combinedClasses}
         >
           {content}
@@ -177,6 +180,7 @@ export const CinematicButton: React.FC<CinematicButtonProps> = ({
         aria-label={ariaLabel}
         aria-expanded={ariaExpanded}
         title={title}
+        data-cursor={dataCursor}
         className={combinedClasses}
       >
         {content}

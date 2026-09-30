@@ -278,7 +278,7 @@ export const CatalogueSection: React.FC<CatalogueSectionProps> = ({
       id="catalogue"
       className="py-16 sm:py-20 lg:py-24 bg-[#121413] relative border-t border-white/5"
     >
-      {/* Anchor point for `#films` link */}
+      {/* Anchor point for #films link */}
       <div id="films" className="absolute -top-16 left-0 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">

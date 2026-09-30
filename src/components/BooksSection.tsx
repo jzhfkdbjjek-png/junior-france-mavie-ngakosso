@@ -221,6 +221,7 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                       icon={<ExternalLink className="w-3.5 h-3.5" />}
                       iconPosition="right"
                       className="flex-1 min-w-[180px]"
+                      data-cursor="ACHETER"
                     >
                       {t('books.buyAmazon')}
                     </CinematicButton>
@@ -234,6 +235,7 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                         icon={<Film className="w-3.5 h-3.5 text-brand-amber shrink-0" />}
                         iconPosition="left"
                         className="flex-1 min-w-[200px]"
+                        data-cursor="DÉCOUVRIR"
                       >
                         {book.adaptationNote}
                       </CinematicButton>
@@ -247,6 +249,7 @@ export const BooksSection: React.FC<BooksSectionProps> = ({
                       icon={<Info className="w-3.5 h-3.5" />}
                       iconPosition="left"
                       className="text-stone-400 hover:text-white"
+                      data-cursor="LIRE"
                     >
                       {t('books.readSynopsis')}
                     </CinematicButton>

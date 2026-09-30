@@ -12,7 +12,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { t } = useI18n();
+  const { t, language } = useI18n();
 
   // Scroll listener for subtle header elevation
   useEffect(() => {
@@ -41,6 +41,8 @@ export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView }) =
     { id: 'films', label: t('nav.films'), href: '#films' },
     { id: 'series', label: t('nav.series'), href: '#series' },
     { id: 'univers', label: t('nav.universe'), href: '#univers' },
+    { id: 'mediatheque', label: t('nav.gallery') || (language === 'en' ? 'Gallery' : 'Galerie'), href: '#mediatheque' },
+    { id: 'espace-pro', label: t('nav.proHub') || (language === 'en' ? 'Pro Hub' : 'Espace Pro'), href: '#espace-pro' },
     { id: 'contact', label: t('nav.contact'), href: '#contact' },
   ];
 

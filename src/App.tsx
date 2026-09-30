@@ -5,9 +5,13 @@ import { BooksSection } from './components/BooksSection';
 import { SpotlightSection } from './components/SpotlightSection';
 import { CatalogueSection } from './components/CatalogueSection';
 import { UniversSection } from './components/UniversSection';
+import { MediathequeSection } from './components/MediathequeSection';
+import { JournalSection } from './components/JournalSection';
+import { EspaceProSection } from './components/EspaceProSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CinematicBookLoader } from './components/CinematicBookLoader';
+import { CustomCursor } from './components/CustomCursor';
 import { NotFoundPage } from './components/NotFoundPage';
 import { ForetInterditePage } from './components/ForetInterditePage';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
@@ -172,6 +176,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0b0d0c] text-[#f2ede4] font-sans selection:bg-[#c59b63] selection:text-black">
+      {/* Desktop-Only High-End Interactive Cursor (Disabled automatically on touch/mobile) */}
+      <CustomCursor />
+
       {/* Cinematic 3D Book Loader Sequence */}
       {isLoading && (
         <CinematicBookLoader onComplete={() => setIsLoading(false)} />
@@ -185,7 +192,7 @@ export default function App() {
 
       {/* Main Container */}
       <main className="w-full overflow-hidden">
-        {/* Hero Section with Official Portrait & Floating Editorial Cards */}
+        {/* Section 1 — Hero Section with Official Portrait (Mobile First) */}
         <HeroSection
           hasLoaded={!isLoading}
           onExploreWorks={() => handleNavigateSection('livres')}
@@ -193,13 +200,13 @@ export default function App() {
           onNavigateSection={handleNavigateSection}
         />
 
-        {/* Section 2 — Publications Officielles (Mes Livres & Adaptations) */}
+        {/* Section 2 — Publications Officielles (Mes Livres & Adaptations sur Amazon) */}
         <BooksSection
           onNavigateFilms={() => handleNavigateSection('films')}
           onContactClick={() => handleNavigateSection('contact')}
         />
 
-        {/* Section 3 — Événement Audiovisuel Phare : LA FORÊT INTERDITE */}
+        {/* Section 3 — Événement Audiovisuel Phare : LA FORÊT INTERDITE (Série TV 8×52min) */}
         <SpotlightSection
           onContactClick={() => handleNavigateSection('contact')}
           onOpenDedicatedPage={handleOpenForetPage}
@@ -212,10 +219,19 @@ export default function App() {
           onContactClick={() => handleNavigateSection('contact')}
         />
 
-        {/* Section 5 — Mon Univers */}
+        {/* Section 5 — Mon Univers Créatif (7 Piliers Narratifs) */}
         <UniversSection />
 
-        {/* Section 6 — Contact & Collaboration */}
+        {/* Section 6 — Médiathèque & Photogrammes */}
+        <MediathequeSection />
+
+        {/* Section 7 — Actualités & Journal de Création */}
+        <JournalSection />
+
+        {/* Section 8 — Espace Professionnel (Bio, Biblio, Filmo, Projets, Collab) */}
+        <EspaceProSection />
+
+        {/* Section 9 — Contact & Collaboration (Mobile Ergonomic Form) */}
         <ContactSection />
       </main>
 

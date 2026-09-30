@@ -210,10 +210,11 @@ export const ContactSection: React.FC = () => {
                       id="contact-name-input"
                       type="text"
                       required
+                      autoComplete="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder={t('contact.form.namePlaceholder')}
-                      className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white text-xs sm:text-sm focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/30 transition-all outline-none"
+                      className="w-full px-4 py-3.5 bg-black/60 border border-white/10 rounded-xl text-white text-xs sm:text-sm focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/30 transition-all outline-none"
                     />
                   </div>
                   <div>
@@ -226,10 +227,11 @@ export const ContactSection: React.FC = () => {
                     <input
                       id="contact-company-input"
                       type="text"
+                      autoComplete="organization"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       placeholder={t('contact.form.companyPlaceholder')}
-                      className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white text-xs sm:text-sm focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/30 transition-all outline-none"
+                      className="w-full px-4 py-3.5 bg-black/60 border border-white/10 rounded-xl text-white text-xs sm:text-sm focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/30 transition-all outline-none"
                     />
                   </div>
                 </div>
@@ -245,11 +247,13 @@ export const ContactSection: React.FC = () => {
                     <input
                       id="contact-email-input"
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder={t('contact.form.emailPlaceholder')}
-                      className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white text-xs sm:text-sm focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/30 transition-all outline-none"
+                      className="w-full px-4 py-3.5 bg-black/60 border border-white/10 rounded-xl text-white text-xs sm:text-sm focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/30 transition-all outline-none"
                     />
                   </div>
                   <div>
