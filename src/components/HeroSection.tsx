@@ -62,10 +62,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   {t('hero.roleSubtitle')}
                 </span>
               </div>
-              <span className="font-cinzel text-xl sm:text-3xl md:text-4xl lg:text-[38px] font-semibold tracking-[0.06em] text-stone-800 dark:text-stone-300 uppercase leading-snug break-words">
+              <span className="font-cinzel text-lg sm:text-3xl md:text-4xl lg:text-[38px] font-semibold tracking-[0.06em] text-stone-800 dark:text-stone-300 uppercase leading-snug break-words">
                 JUNIOR FRANCE MAVIE
               </span>
-              <span className="author-brand-ngakosso text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[92px] mt-1 sm:mt-1.5 break-words select-none">
+              <span className="author-brand-ngakosso text-[clamp(32px,10.5vw,92px)] mt-1 sm:mt-1.5 break-words select-none leading-none">
                 NGAKOSSO
               </span>
             </h1>

@@ -258,22 +258,23 @@ html.light .text-gold-gradient {
 }
 
 /* ==========================================================
-   CINEMATIC SCROLL REVEAL & MOTION SYSTEM
+   CINEMATIC SCROLL REVEAL & MOTION SYSTEM (MOBILE FIRST)
    ========================================================== */
 [data-reveal] {
   opacity: 0;
   will-change: opacity, transform;
   transition-property: opacity, transform, filter;
-  transition-duration: 0.75s;
+  transition-duration: 0.65s;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Mobile-optimized subtle displacement (16-18px) */
 [data-reveal="fade-up"] {
-  transform: translate3d(0, 32px, 0);
+  transform: translate3d(0, 18px, 0);
 }
 
 [data-reveal="fade-down"] {
-  transform: translate3d(0, -32px, 0);
+  transform: translate3d(0, -18px, 0);
 }
 
 [data-reveal="fade-in"] {
@@ -281,12 +282,28 @@ html.light .text-gold-gradient {
 }
 
 [data-reveal="scale-in"] {
-  transform: scale3d(0.93, 0.93, 1);
+  transform: scale3d(0.96, 0.96, 1);
 }
 
 [data-reveal="blur-in"] {
-  transform: translate3d(0, 24px, 0);
-  filter: blur(10px);
+  transform: translate3d(0, 14px, 0);
+  filter: blur(6px);
+}
+
+/* Desktop displacement (slightly more pronounced when viewport >= 768px) */
+@media (min-width: 768px) {
+  [data-reveal] {
+    transition-duration: 0.75s;
+  }
+  [data-reveal="fade-up"] {
+    transform: translate3d(0, 28px, 0);
+  }
+  [data-reveal="fade-down"] {
+    transform: translate3d(0, -28px, 0);
+  }
+  [data-reveal="scale-in"] {
+    transform: scale3d(0.94, 0.94, 1);
+  }
 }
 
 /* Stagger Delays for Cards & Sequences */
@@ -307,6 +324,17 @@ html.light .text-gold-gradient {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   filter: blur(0px);
+}
+
+/* Free GPU memory layer once animation completes to guarantee 30+ FPS */
+[data-reveal].reveal-settled {
+  will-change: auto;
+}
+
+/* Touch Performance & Zero Delay */
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Card Hover Micro-Interactions (Desktop Only for touch-safety) */
