@@ -5,7 +5,6 @@ import { BooksSection } from './components/BooksSection';
 import { SpotlightSection } from './components/SpotlightSection';
 import { CatalogueSection } from './components/CatalogueSection';
 import { UniversSection } from './components/UniversSection';
-import { PressKitSection } from './components/PressKitSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CinematicBookLoader } from './components/CinematicBookLoader';
@@ -43,8 +42,8 @@ export default function App() {
         : 'Junior France Mavie Ngakosso — Écrivain • Auteur • Scénariste • Créateur',
     description:
       language === 'en'
-        ? 'Official portfolio and editorial press kit of Junior France Mavie Ngakosso. Discover published novels (The Muscle Coffin, The Demon\'s Pact), the TV series The Forbidden Forest, feature films and series bibles.'
-        : 'Portfolio et dossier de presse officiel de Junior France Mavie Ngakosso — Écrivain, auteur, scénariste et créateur congolais. Romans (Le Cercueil aux Muscles, Le Pacte du Démon), série TV La Forêt Interdite, longs-métrages et séries.',
+        ? 'Official portfolio of Junior France Mavie Ngakosso. Discover published novels (The Muscle Coffin, The Demon\'s Pact), the TV series The Forbidden Forest, feature films and series bibles.'
+        : 'Portfolio officiel de Junior France Mavie Ngakosso — Écrivain, auteur, scénariste et créateur congolais. Romans (Le Cercueil aux Muscles, Le Pacte du Démon), série TV La Forêt Interdite, longs-métrages et séries.',
     keywords:
       'Junior France Mavie Ngakosso, Écrivain congolais, Scénariste Afrique, Le Cercueil aux Muscles, Le Pacte du Démon, La Forêt Interdite, Cinéma congolais, Séries télévisées congolaises, Auteur Brazzaville',
     canonicalPath: '/',
@@ -216,10 +215,7 @@ export default function App() {
         {/* Section 5 — Mon Univers */}
         <UniversSection />
 
-        {/* Section 7 — Presse & Médias : Press Kit Professionnel A4 */}
-        <PressKitSection />
-
-        {/* Section 8 — Contact & Collaboration */}
+        {/* Section 6 — Contact & Collaboration */}
         <ContactSection />
       </main>
 
