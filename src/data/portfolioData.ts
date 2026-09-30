@@ -127,7 +127,7 @@ export const getBooksData = (lang: Language = 'fr'): BookItem[] => [
       lang === 'en'
         ? "“The shadows never grant favors without demanding the full measure of your soul. When you sign with your own will, what you thought was power becomes your inescapable cage.”"
         : "« L'ombre n'accorde jamais de grâce sans réclamer l'usure de votre âme. Lorsque vous scellez le contrat de votre plein gré, ce que vous croyiez être une conquête devient votre plus cruelle prison. »",
-    amazonUrl: 'https://a.co/d/01ZNkXtg',
+    amazonUrl: 'https://a.co/d/08g7FiVA',
     adaptationNote: lang === 'en' ? '● Screen Link: Discover Feature Film' : '● Passerelle : Découvrir le Film',
     adaptationType: 'film',
     adaptationTargetId: 'film-pacte-avec-le-diable',
