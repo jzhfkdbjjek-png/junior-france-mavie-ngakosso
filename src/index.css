@@ -898,6 +898,49 @@ html.light .glass-tool-btn:hover {
   }
 }
 
+/* ==========================================================
+   CINEMATIC MARQUEE SCROLLING BANNER
+   ========================================================== */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-scroll {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-scroll 42s linear infinite;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@media (max-width: 768px) {
+  .animate-marquee-scroll {
+    animation-duration: 36s;
+  }
+}
+
+/* Pause on hover for comfortable desktop interaction */
+@media (hover: hover) and (pointer: fine) {
+  .marquee-container:hover .animate-marquee-scroll {
+    animation-play-state: paused;
+  }
+}
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-scroll {
+    animation: none !important;
+    transform: none !important;
+    overflow-x: auto;
+  }
+}
+
 
 
 

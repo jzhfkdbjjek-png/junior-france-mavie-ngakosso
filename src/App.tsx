@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
+import { CinematicMarquee } from './components/CinematicMarquee';
 import { BooksSection } from './components/BooksSection';
 import { SpotlightSection } from './components/SpotlightSection';
 import { CatalogueSection } from './components/CatalogueSection';
@@ -199,6 +200,9 @@ export default function App() {
           onContactClick={() => handleNavigateSection('contact')}
           onNavigateSection={handleNavigateSection}
         />
+
+        {/* Transition Défilante Cinématographique & Littéraire */}
+        <CinematicMarquee />
 
         {/* Section 2 — Publications Officielles (Mes Livres & Adaptations sur Amazon) */}
         <BooksSection
